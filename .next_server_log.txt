@@ -1,0 +1,105 @@
+
+> react-example@0.0.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.53.190.29:3000
+✓ Ready in 1229ms
+It looks like you're trying to use TypeScript but do not have the required package(s) installed.
+Installing dependencies
+
+If you are not trying to use TypeScript, please remove the tsconfig.json file from your package root (and any TypeScript files in your app and pages directories).
+
+
+Installing devDependencies (npm):
+- @types/react
+
+
+added 2 packages, and audited 207 packages in 3s
+
+44 packages are looking for funding
+  run `npm fund` for details
+
+3 vulnerabilities (2 high, 1 critical)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- strict was set to false
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- esModuleInterop was set to true (requirement for SWC / babel)
+  	- resolveJsonModule was set to true (to match webpack resolution)
+
+
+○ Compiling / ...
+⨯ ReferenceError: window is not defined
+    at <unknown> (src/app/page.tsx:982:47)
+    at Array.map (<anonymous>)
+    at App (src/app/page.tsx:971:19)
+  980 | ...             onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
+  981 | ...             animate={{ 
+> 982 | ...               flex: activeMember === i ? (window.innerWidth > 768 ? 4 : 1) : (window....
+      |                                               ^
+  983 | ...             }}
+  984 | ...             className={`relative overflow-hidden rounded-[2.5rem] cursor-none group t...
+  985 | ...           > {
+  digest: '3583659326'
+}
+ GET / 500 in 10.6s (next.js: 9.9s, application-code: 768ms)
+[browser] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. (<anonymous>)
+✓ Compiled in 218ms
+ GET /sw.js 404 in 860ms (next.js: 733ms, application-code: 127ms)
+✓ Compiled in 1303ms
+✓ Compiled in 222ms
+⨯ ReferenceError: window is not defined
+    at eval (src/app/page.tsx:968:47)
+    at Array.map (<anonymous>)
+    at App (src/app/page.tsx:957:19)
+  966 | ...             onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
+  967 | ...             animate={{ 
+> 968 | ...               flex: activeMember === i ? (window.innerWidth > 768 ? 4 : 1) : (window....
+      |                                               ^
+  969 | ...             }}
+  970 | ...             className={`relative overflow-hidden rounded-[2.5rem] cursor-none group t...
+  971 | ...           > {
+  digest: '2474746739'
+}
+ GET / 500 in 537ms (next.js: 67ms, application-code: 470ms)
+ GET /sw.js 404 in 104ms (next.js: 21ms, application-code: 83ms)
+[browser] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. (<anonymous>)
+ GET /sw.js 404 in 261ms (next.js: 62ms, application-code: 199ms)
+ GET /sw.js 404 in 167ms (next.js: 16ms, application-code: 151ms)
+ GET /sw.js 404 in 114ms (next.js: 6ms, application-code: 108ms)
+ GET /sw.js 404 in 104ms (next.js: 5ms, application-code: 99ms)
+ GET /sw.js 404 in 124ms (next.js: 5ms, application-code: 119ms)
+ GET /sw.js 404 in 131ms (next.js: 5ms, application-code: 126ms)
+ GET /sw.js 404 in 139ms (next.js: 29ms, application-code: 110ms)
+ GET /sw.js 404 in 105ms (next.js: 6ms, application-code: 98ms)
+ GET /sw.js 404 in 107ms (next.js: 5ms, application-code: 102ms)
+ GET /sw.js 404 in 137ms (next.js: 12ms, application-code: 124ms)
+ GET /sw.js 404 in 106ms (next.js: 13ms, application-code: 93ms)
+ GET /sw.js 404 in 109ms (next.js: 11ms, application-code: 98ms)
+ GET /sw.js 404 in 131ms (next.js: 12ms, application-code: 120ms)
+ GET /sw.js 404 in 112ms (next.js: 11ms, application-code: 101ms)
+ GET /sw.js 404 in 106ms (next.js: 12ms, application-code: 94ms)
+ GET /sw.js 404 in 88ms (next.js: 11ms, application-code: 77ms)
+ GET /sw.js 404 in 112ms (next.js: 10ms, application-code: 102ms)
+ GET /sw.js 404 in 99ms (next.js: 13ms, application-code: 86ms)
+ GET /sw.js 404 in 114ms (next.js: 12ms, application-code: 103ms)
+ GET /sw.js 404 in 96ms (next.js: 11ms, application-code: 85ms)
+ GET /sw.js 404 in 124ms (next.js: 13ms, application-code: 111ms)
+ GET /sw.js 404 in 107ms (next.js: 13ms, application-code: 95ms)
+ GET /sw.js 404 in 113ms (next.js: 10ms, application-code: 103ms)
