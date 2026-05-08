@@ -1078,7 +1078,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-sans font-bold tracking-tight text-[10vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
+                className="font-sans font-bold tracking-tight text-[11vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
               >
                 The Anatomy of <br /><span className="font-serif italic font-light text-aura-accent">Transformation</span>
               </motion.h2>
@@ -1200,7 +1200,7 @@ export default function App() {
               <div className="w-12 h-[1px] bg-aura-accent/30" />
               Visual Proof
             </div>
-            <h2 className="font-sans font-bold tracking-tight text-[10vw] lg:text-[7vw] leading-[1.05] mb-12">
+            <h2 className="font-sans font-bold tracking-tight text-[11vw] lg:text-[7vw] leading-[1.05] mb-12">
               Curated <br /> <span className="font-serif italic font-light text-aura-accent">Outcomes</span>
             </h2>
           </div>
@@ -1241,7 +1241,7 @@ export default function App() {
             transition={{ duration: 1.5 }}
             className="mt-48 w-full bg-aura-white border border-aura-black/5 shadow-aura-medium p-24 md:p-32 rounded-[5rem] flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-20"
           >
-            <div>
+            <div className="px-6 md:px-0">
               <h3 className="font-sans font-bold tracking-tight text-4xl md:text-5xl mb-6 text-aura-black">Ready to redefine <br /> your smile?</h3>
               <p className="font-sans text-base text-aura-black/60 max-w-sm">Join the 500+ patients who chose premium boutique dental care.</p>
             </div>
