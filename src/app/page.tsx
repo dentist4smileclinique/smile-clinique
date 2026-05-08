@@ -85,7 +85,7 @@ function Magnetic({ children, className }: { children: ReactNode, className?: st
 function TestimonialCard({ theme, quote, author, location, img }: { theme: 'light' | 'lime' | 'image', quote?: string, author: string, location: string, img?: string }) {
   return (
     <div
-      className={`relative w-[320px] md:w-[450px] h-[480px] md:h-[650px] p-10 md:p-14 shadow-aura-deep flex flex-col justify-between overflow-hidden shrink-0 rounded-[2rem] md:rounded-[3rem] ${theme === 'lime' ? 'bg-[#D9FF00] text-black' :
+      className={`relative w-[88vw] md:w-[450px] h-[520px] md:h-[650px] p-10 md:p-14 shadow-aura-deep flex flex-col justify-between overflow-hidden shrink-0 rounded-[2.5rem] md:rounded-[3rem] ${theme === 'lime' ? 'bg-[#D9FF00] text-black' :
           theme === 'image' ? 'bg-black text-white' : 'bg-white text-black'
         }`}
     >
@@ -306,19 +306,19 @@ const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWi
     [index + 1, index - (totalCards - 1), index - (totalCards - 1)]
   );
 
-  const xFactor = isMobile ? 320 : 500;
-  const yFactor = isMobile ? 30 : 50;
+  const xFactor = isMobile ? 180 : 500; // Much tighter swing on mobile to keep cards centered
+  const yFactor = isMobile ? 40 : 50;
 
   const x = useTransform(dist, d => d * xFactor);
   const y = useTransform(dist, d => Math.abs(d) * yFactor + Math.pow(d, 2) * yFactor);
-  const rotate = useTransform(dist, d => d * (isMobile ? 10 : 15));
+  const rotate = useTransform(dist, d => d * (isMobile ? 8 : 15));
   const zIndex = useTransform(dist, d => 100 - Math.abs(Math.round(d)));
-  const scale = useTransform(dist, d => (isMobile ? 0.7 : 1) - Math.abs(d) * 0.05);
+  const scale = useTransform(dist, d => (isMobile ? 0.9 : 1) - Math.abs(d) * 0.05); // Larger cards on mobile
 
   return (
     <motion.div
-      style={isMobile ? { zIndex } : { x, y, rotate, zIndex, scale }}
-      className={`absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-none origin-bottom px-4 ${isMobile ? 'w-full flex justify-center' : ''}`}
+      style={{ x, y, rotate, zIndex, scale }}
+      className="absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-none origin-bottom px-4"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -346,20 +346,18 @@ export default function App() {
 
   // Smooth Scroll Initialization (Lenis) — desktop only for better mobile perf
   useEffect(() => {
-    // Detect mobile/touch device
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     setIsMobile(isTouch);
     
-    if (isTouch) return; // Skip Lenis on mobile — native scroll is faster and smoother
-
+    // Performance-tuned Lenis for both mobile and desktop
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8, // Snappier duration
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.2, // Faster wheel response
+      touchMultiplier: 1.8, // Balanced touch responsiveness
       infinite: false,
     });
 
@@ -1384,9 +1382,9 @@ export default function App() {
         </div>
       </section>
 
-      {/* 9. Patient Stories (Carousel) */}
-      <section id="testimonials" ref={arcContainerRef} className={`relative z-[100] ${isMobile ? 'py-20 h-auto' : 'h-[400vh]'} bg-aura-beige -mt-16 rounded-t-[4rem] md:rounded-t-[6rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]`}>
-        <div className={`${isMobile ? 'relative h-auto' : 'sticky top-0 h-[100vh]'} w-full flex items-center justify-center overflow-hidden pt-16`}>
+      {/* 9. Patient Stories (Cyclical Arc Carousel) */}
+      <section id="testimonials" ref={arcContainerRef} className="relative z-[100] h-[400vh] bg-aura-beige -mt-16 rounded-t-[4rem] md:rounded-t-[6rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
+        <div className="sticky top-0 h-[100vh] w-full flex items-center justify-center overflow-hidden pt-16">
 
           {/* Background Large Text */}
           <div
@@ -1399,24 +1397,23 @@ export default function App() {
           </div>
 
           {/* Cards Container */}
-          <div className={`relative w-full ${isMobile ? 'flex overflow-x-auto snap-x snap-mandatory px-6 gap-6 no-scrollbar pb-12 h-auto' : 'h-[600px] perspective-[1000px]'} max-w-[1600px] mx-auto z-10 mt-12 md:mt-24`}>
+          <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24">
             {[
               { theme: 'light' as const, quote: "Visited Dr. Nidhi at Smile Clinique in Malabar Hill. Fabulous experience. All precautions taken care off. Superb skill!", author: "Nancy Mehta", location: "Google Review • 5 Stars" },
               { theme: 'image' as const, author: "Nancy Mehta", location: "Google Review • 5 Stars", img: "/nancy2.png" },
               { theme: 'lime' as const, quote: "Good doctors, well equipped, honest advice, good work. Aur kya chahiye! Perfect clinical skill and finesse.", author: "Himanshu Dhoria", location: "Mumbai Resident" },
               { theme: 'image' as const, author: "Himanshu Dhoria", location: "Google Review • 5 Stars", img: "/himanshu2.png" }
             ].map((card, i, arr) => (
-              <div key={i} className={`${isMobile ? 'snap-center shrink-0 w-[85vw] flex items-center justify-center' : ''}`}>
-                <ArcCard
-                  index={i}
-                  totalCards={arr.length}
-                  progress={arcProgress}
-                  card={card}
-                  onHover={() => { setIsHovering(true); setCursorText("Story"); }}
-                  onLeave={() => { setIsHovering(false); setCursorText(""); }}
-                  windowWidth={windowWidth}
-                />
-              </div>
+              <ArcCard
+                key={i}
+                index={i}
+                totalCards={arr.length}
+                progress={arcProgress}
+                card={card}
+                onHover={() => { setIsHovering(true); setCursorText("Story"); }}
+                onLeave={() => { setIsHovering(false); setCursorText(""); }}
+                windowWidth={windowWidth}
+              />
             ))}
           </div>
         </div>
