@@ -909,58 +909,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. Disciplines of Perfection (Bento Box) */}
-      <section id="treatments" className="relative z-40 py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
-        {/* Mint Light Overlay from Left */}
-        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-aura-mint-light/60 blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none z-0" />
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          {/* Section Header */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-10">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="font-display text-[9px] uppercase tracking-[0.7em] mb-8 text-aura-accent flex items-center gap-6"
-              >
-                004 <div className="w-12 h-[1px] bg-aura-accent/30" /> Clinical Focus
-              </motion.div>
-              <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="font-sans font-bold tracking-tight text-[7vw] lg:text-[4.5vw] leading-[1.05] text-aura-black"
-              >
-                Disciplines of <br /> <span className="font-serif italic font-light text-aura-accent">Perfection</span>
-              </motion.h2>
-            </div>
-          </div>
-
-          {/* Bento Box Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[800px]">
-
-            {/* Left Main Card (Implants) */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.1 }}
-              onMouseEnter={() => { setIsHovering(true); setCursorText("Explore"); }}
-              onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="md:col-span-8 bg-black text-white rounded-[3rem] p-12 md:p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
-            >
-              {/* Image Background */}
-              <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                <Image
-                  src="/full-mouth-rehab.png"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover"
-                  alt="Full mouth dental rehabilitation treatment showing comprehensive dental reconstruction"
-                  loading="lazy"
-                />
       {/* 5. The Masterpiece (Services Bento) */}
       <section id="services" className="relative z-[40] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="max-w-[1400px] mx-auto">
@@ -1213,7 +1161,7 @@ export default function App() {
           {isMobile ? (
             <div className="flex flex-col gap-6">
               {[
-                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
+                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030", tags: ["Analysis", "3D Scan"] },
                 { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
                 { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
               ].map((phase, i) => (
@@ -1244,7 +1192,7 @@ export default function App() {
           ) : (
             <div className="flex h-[80vh] gap-4">
               {[
-                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
+                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
                 { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
                 { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
               ].map((phase, i) => (
@@ -1281,7 +1229,6 @@ export default function App() {
           )}
         </div>
       </section>
-
       {/* 7. The Absolute Authority (Team) */}
       <section id="team" className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="absolute inset-0 opacity-[0.02] aura-grain pointer-events-none" />
@@ -1308,10 +1255,10 @@ export default function App() {
               </motion.h2>
             </div>
             <div className="flex gap-4 mb-2">
-              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : team.length - 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 3))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 rotate-180 transition-transform group-hover:-translate-x-1" />
               </button>
-              <button onClick={() => setActiveMember(prev => (prev < team.length - 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev < 3 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -1662,7 +1609,7 @@ export default function App() {
           </div>
         </div>
       </footer>
-      </main>
+    </main>
 
       {/* Floating WhatsApp Button */}
       <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] flex flex-col items-end gap-3 pointer-events-auto">
