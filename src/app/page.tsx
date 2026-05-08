@@ -349,15 +349,17 @@ export default function App() {
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     setIsMobile(isTouch);
     
-    // Performance-tuned Lenis for both mobile and desktop
+    if (isTouch) return; // Native scroll is faster on mobile
+
+    // Performance-tuned Lenis for desktop
     const lenis = new Lenis({
-      duration: 0.8, // Snappier duration
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.2, // Faster wheel response
-      touchMultiplier: 1.8, // Balanced touch responsiveness
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.5,
       infinite: false,
     });
 
@@ -553,7 +555,6 @@ export default function App() {
             </div>
           </motion.div>
         </div>
-      </section>
 
         {/* Floating Interactive Cards at Bottom */}
         <div className="absolute bottom-6 md:bottom-16 left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-3 pointer-events-none md:overflow-visible">
@@ -948,7 +949,7 @@ export default function App() {
               transition={{ duration: 1, delay: 0.1 }}
               onMouseEnter={() => { setIsHovering(true); setCursorText("Explore"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="md:col-span-8 bg-black text-white rounded-[3rem] p-12 md:p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
+              className="md:col-span-8 bg-black text-white rounded-[3rem] p-12 md:p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
             >
               {/* Image Background */}
               <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
