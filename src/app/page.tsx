@@ -509,14 +509,11 @@ export default function App() {
 
       <main id="main-content" role="main">
       {/* 1. The Hero - Single Image Background Seamless Blend Match */}
-      <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fcfcfc] overflow-hidden pt-32 px-6 md:px-24 flex items-center pb-40 md:pb-0">
+      <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fcfcfc] overflow-hidden flex flex-col md:flex-row items-center">
         
-        {/* Ambient Pink Hues - Luxurious soft gradients */}
-        <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-gradient-to-bl from-[#E0607E]/[0.25] to-transparent rounded-full blur-[100px] pointer-events-none z-[1]" />
-        <div className="absolute bottom-[-10%] right-[30%] w-[50vw] h-[50vw] bg-[#E0607E]/[0.15] rounded-full blur-[100px] pointer-events-none z-[1]" />
-
-        {/* Left-Bound Image Layer acting as Background */}
-        <div className="absolute inset-y-0 left-0 w-[80%] md:w-[45%] z-0 overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)', maskImage: 'linear-gradient(to right, black 60%, transparent 100%)' }}>
+        {/* Visual Layer - Image */}
+        <div className="relative w-full md:absolute md:inset-y-0 md:left-0 md:w-[45%] h-[65vh] md:h-full z-0 overflow-hidden" 
+             style={windowWidth > 768 ? { WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)', maskImage: 'linear-gradient(to right, black 60%, transparent 100%)' } : {}}>
           <motion.div
             initial={{ scale: 1.05, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -526,39 +523,37 @@ export default function App() {
             <Image
               src="/hero.png"
               fill
-              sizes="(max-width: 768px) 100vw, 45vw"
+              sizes="100vw"
               className="object-cover object-[70%_20%] md:object-[75%_20%]"
               alt="Beautiful smile showcasing premium dental care at Smile Clinique Mumbai"
               priority
             />
+            {/* Mobile Bottom Fade */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#fcfcfc] via-transparent to-transparent md:hidden z-10" />
           </motion.div>
         </div>
 
-        {/* Soft ambient glow behind text to ensure legibility over dark image areas */}
-        <div className="absolute top-1/2 left-[35%] -translate-y-1/2 w-[30vw] h-[30vw] bg-[#fcfcfc] rounded-full blur-[100px] z-[5] pointer-events-none opacity-90" />
-
-        {/* Typography layer */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-[15vh] md:mt-0 pr-0 md:pr-[2%]">
+        {/* Typography Layer */}
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.4 }}
-            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%] px-6"
+            transition={{ duration: 1.2, delay: 0.6 }}
+            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
-            <div className="bg-white/10 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-6 md:p-0 rounded-[2rem] md:rounded-none border border-white/20 md:border-none flex flex-col items-center md:items-end">
-              <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
-                <span className="font-chancery text-[11vw] md:text-[5.5vw] text-[#1a2456] leading-[1.1] tracking-[0.01em]">Smile Clinique</span>
-                <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.1] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
-              </h1>
-              <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
-              <div className="w-full flex justify-center md:justify-end mt-4 md:mt-8">
-                <p className="font-sans text-sm md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right">
-                  Mumbai&apos;s Trusted Dental Care Centre.
-                </p>
-              </div>
+            <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
+              <span className="font-chancery text-[12vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
+              <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
+            </h1>
+            <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
+            <div className="w-full flex justify-center md:justify-end mt-6 md:mt-10">
+              <p className="font-sans text-sm md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none">
+                Mumbai&apos;s Trusted <br className="md:hidden" /> Dental Care Centre.
+              </p>
             </div>
           </motion.div>
         </div>
+      </section>
 
         {/* Floating Interactive Cards at Bottom */}
         <div className="absolute bottom-6 md:bottom-16 left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-3 pointer-events-none md:overflow-visible">
