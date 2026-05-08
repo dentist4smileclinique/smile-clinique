@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback, ReactNode } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { ArrowUpRight, Plus, Star, ArrowRight, BookOpen, Menu, X, ArrowDown, ScanLine, Sparkles, Gem, Activity, Smile, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import Lenis from 'lenis';
 
 function TypewriterText({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) {
@@ -32,16 +33,22 @@ function RevealImage({ src, alt, className, imageClassName }: { src: string, alt
       transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
       className={`relative overflow-hidden ${className}`}
     >
-      <motion.img
+      <motion.div
         initial={{ scale: 1.2 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-        src={src}
-        alt={alt}
-        className={`w-full h-full object-cover ${imageClassName || ''}`}
-        referrerPolicy="no-referrer"
-      />
+        className="w-full h-full relative"
+      >
+        <Image
+          src={src}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`object-cover ${imageClassName || ''}`}
+          alt={alt}
+          loading="lazy"
+        />
+      </motion.div>
     </motion.div>
   );
 }
@@ -84,7 +91,7 @@ function TestimonialCard({ theme, quote, author, location, img }: { theme: 'ligh
     >
       {theme === 'image' && img && (
         <div className="absolute inset-0 z-0">
-          <img src={img} className="w-full h-full object-cover opacity-80" alt={author} />
+          <Image src={img} fill sizes="(max-width: 768px) 320px, 450px" className="object-cover opacity-80" alt={`Patient testimonial from ${author}`} loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
       )}
@@ -164,6 +171,77 @@ const faqSchema = {
   }))
 };
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "name": "Smile Clinique Dental Care Centre",
+  "alternateName": "Smile Clinique",
+  "description": "Premium cosmetic and comprehensive dental care by Dr. Nidhi Mehta in Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, invisible aligners, and full mouth rehabilitation.",
+  "url": "https://smileclinique.com",
+  "telephone": "+91-9820627550",
+  "image": "https://smileclinique.com/hero.png",
+  "priceRange": "₹₹₹",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "G 3, Akashdeep Building, Dongersi Road",
+    "addressLocality": "Malabar Hill",
+    "addressRegion": "Mumbai",
+    "postalCode": "400006",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 18.9553,
+    "longitude": 72.8007
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "13:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "16:00",
+      "closes": "19:00"
+    }
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Dr. Nidhi Mehta",
+    "jobTitle": "BDS, Comprehensive Dentist & Founder"
+  },
+  "medicalSpecialty": [
+    "Cosmetic Dentistry",
+    "Dental Implants",
+    "Orthodontics",
+    "Prosthodontics",
+    "Full Mouth Rehabilitation"
+  ],
+  "sameAs": [],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "500",
+    "bestRating": "5"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://smileclinique.com"
+    }
+  ]
+};
+
 function FAQItem({ question, answer, isOpen, onClick, onHover, onLeave }: { question: string, answer: string, isOpen: boolean, onClick: () => void, onHover: () => void, onLeave: () => void }) {
   return (
     <div 
@@ -203,10 +281,13 @@ function FAQItem({ question, answer, isOpen, onClick, onHover, onLeave }: { ques
   );
 }
 
-const Grain = () => (
-  <div className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] animate-grain"
-    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' }} />
-);
+const Grain = ({ disabled }: { disabled?: boolean }) => {
+  if (disabled) return null;
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] animate-grain"
+      style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' }} />
+  );
+};
 
 const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWidth }: {
   index: number,
@@ -260,8 +341,15 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const arcContainerRef = useRef<HTMLDivElement>(null);
 
-  // Smooth Scroll Initialization (Lenis)
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Smooth Scroll Initialization (Lenis) — desktop only for better mobile perf
   useEffect(() => {
+    const mobile = window.innerWidth < 768 || 'ontouchstart' in window;
+    setIsMobile(mobile);
+    if (mobile) return; // Skip Lenis on mobile — native scroll is faster
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -334,14 +422,17 @@ export default function App() {
 
 
   const team = [
-    { name: "Diagnostic Blueprint", role: "Phase 01", img: "/diagnostic-xray.png", bio: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and AI analysis.", category: "Analysis" },
-    { name: "Aesthetic Simulation", role: "Phase 02", img: "https://images.unsplash.com/photo-1611689225620-3e70248bc0f0?q=80&w=2000", bio: "Virtual rendering and tangible mockups of your potential, allowing you to preview the final result before we begin.", category: "Design" },
-    { name: "Artisanal Fabrication", role: "Phase 03", img: "https://images.unsplash.com/photo-1579684428482-f109a797a162?q=80&w=2000", bio: "Hand-finished ceramics meticulously layered and glazed by our master ceramists in the innovation lab.", category: "Creation" },
-    { name: "Harmonic Integration", role: "Phase 04", img: "https://images.unsplash.com/photo-1613946069412-38f7f1ff0b65?q=80&w=2000", bio: "Flawless structural placement for enduring, natural brilliance that becomes completely indistinguishable from nature.", category: "Delivery" },
+    { name: "Diagnostic Blueprint", role: "Phase 01", img: "/methodology_1.png", bio: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and AI analysis.", category: "Analysis" },
+    { name: "Aesthetic Simulation", role: "Phase 02", img: "/methodology_2.png", bio: "Virtual rendering and tangible mockups of your potential, allowing you to preview the final result before we begin.", category: "Design" },
+    { name: "Artisanal Fabrication", role: "Phase 03", img: "/methodology_3.png", bio: "Hand-finished ceramics meticulously layered and glazed by our master ceramists in the innovation lab.", category: "Creation" },
+    { name: "Harmonic Integration", role: "Phase 04", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000", bio: "Flawless structural placement for enduring, natural brilliance that becomes completely indistinguishable from nature.", category: "Delivery" },
   ];
   return (
-    <div ref={containerRef} className="min-h-screen bg-aura-beige font-sans text-aura-black aura-grain relative cursor-none selection:bg-aura-black selection:text-aura-beige">
-      <Grain />
+    <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
+      {/* Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <Grain disabled={isMobile} />
       {/* Custom Cursor */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference hidden md:flex items-center justify-center overflow-hidden rounded-full border border-aura-beige/20"
@@ -421,7 +512,7 @@ export default function App() {
               transition={{ delay: 1 }}
               className="absolute bottom-12 font-display text-[8px] uppercase tracking-[0.2em] text-aura-beige"
             >
-              Malabar Hill • Mumbai
+              Mumbai
             </motion.div>
           </motion.div>
         )}
@@ -431,68 +522,89 @@ export default function App() {
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-multiply" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' }}></div>
 
       {/* Navigation - Exact Screenshot Match */}
-      <nav className="fixed top-8 left-0 right-0 z-50 px-6 md:px-24 flex justify-between items-center pointer-events-none">
+      <nav aria-label="Main navigation" className="fixed top-8 left-0 right-0 z-50 px-6 md:px-24 flex justify-between items-center pointer-events-none">
         {/* Logo */}
         <div className="pointer-events-auto flex flex-col pt-2">
-          <span className="font-serif text-[22px] tracking-tight text-[#2d3748] leading-[0.8]">Smile Clinique</span>
-          <span className="font-sans text-[8px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-1 pl-1">by Dr. Nidhi Mehta</span>
+          <span className="font-chancery text-[28px] tracking-normal text-[#2d3748] leading-[0.8]">Smile Clinique</span>
+          <span className="font-sans text-[8px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-2 pl-1">by Dr. Nidhi Mehta</span>
         </div>
 
         {/* Center Nav Pill */}
         <div className="hidden md:flex items-center gap-8 bg-white/70 backdrop-blur-md px-6 py-2 rounded-full border border-black/[0.03] font-sans text-[12px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-          {['Treatments', 'Our Clinic', 'Contacts'].map((item) => (
+          {[
+            { label: 'Treatments', href: '#treatments' },
+            { label: 'Our Clinic', href: 'https://maps.app.goo.gl/9R6wR89u792Y7X7Z7' },
+            { label: 'Testimonials', href: '#testimonials' }
+          ].map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "")}`}
-              onMouseEnter={() => { setIsHovering(true); setCursorText("Go"); }}
+              key={item.label}
+              href={item.href}
+              target={item.label === 'Our Clinic' ? '_blank' : undefined}
+              rel={item.label === 'Our Clinic' ? 'noopener noreferrer' : undefined}
+              onMouseEnter={() => { setIsHovering(true); setCursorText(item.label === 'Our Clinic' ? "Visit" : "Go"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
               className="hover:text-[#2d3748] transition-colors duration-300 cursor-none"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>
 
-        {/* Action Button */}
         <div className="pointer-events-auto">
           <Magnetic>
-            <a href="#contact" onMouseEnter={() => { setIsHovering(true); setCursorText("Book"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300 cursor-none shadow-aura-soft">
-              Book Online
+            <a href="tel:+919820627550" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300 cursor-none shadow-aura-soft">
+              Book Now
             </a>
           </Magnetic>
         </div>
       </nav>
 
+      <main id="main-content" role="main">
       {/* 1. The Hero - Single Image Background Seamless Blend Match */}
       <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fcfcfc] overflow-hidden pt-32 px-6 md:px-24 flex items-center pb-40 md:pb-0">
+        
+        {/* Ambient Pink Hues - Luxurious soft gradients */}
+        <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-gradient-to-bl from-[#E0607E]/[0.25] to-transparent rounded-full blur-[100px] pointer-events-none z-[1]" />
+        <div className="absolute bottom-[-10%] right-[30%] w-[50vw] h-[50vw] bg-[#E0607E]/[0.15] rounded-full blur-[100px] pointer-events-none z-[1]" />
 
         {/* Left-Bound Image Layer acting as Background */}
-        <div className="absolute inset-y-0 left-0 w-[45%] z-0 overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, black 80%, transparent 100%)', maskImage: 'linear-gradient(to right, black 80%, transparent 100%)' }}>
-          <motion.img
+        <div className="absolute inset-y-0 left-0 w-[80%] md:w-[45%] z-0 overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)', maskImage: 'linear-gradient(to right, black 60%, transparent 100%)' }}>
+          <motion.div
             initial={{ scale: 1.05, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            src="/hero.png"
-            className="w-full h-full object-cover object-[75%_20%]"
-            alt="Hero Smile"
-          />
+            className="w-full h-full relative"
+          >
+            <Image
+              src="/hero.png"
+              fill
+              sizes="(max-width: 768px) 80vw, 45vw"
+              className="object-cover object-[75%_20%]"
+              alt="Beautiful smile showcasing premium dental care at Smile Clinique Mumbai"
+              priority
+            />
+          </motion.div>
         </div>
 
+        {/* Soft ambient glow behind text to ensure legibility over dark image areas */}
+        <div className="absolute top-1/2 left-[35%] -translate-y-1/2 w-[30vw] h-[30vw] bg-[#fcfcfc] rounded-full blur-[100px] z-[5] pointer-events-none opacity-90" />
+
         {/* Right-Aligned Typography layer */}
-        <div className="relative z-10 w-full flex justify-end items-center pointer-events-none mt-12 pr-[2%]">
+        <div className="relative z-10 w-full flex justify-end items-center pointer-events-none mt-[10vh] md:mt-0 pr-[4%] md:pr-[2%]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.4 }}
-            className="flex flex-col items-end w-[55%] lg:w-[55%]"
+            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
-            <h1 className="font-sans text-[11vw] font-normal tracking-[-0.07em] text-[#1a202c] leading-[0.8] mix-blend-multiply whitespace-nowrap drop-shadow-[0_10px_20px_rgba(255,255,255,0.2)] flex flex-col items-end">
-              <span><span className="pr-3">Smile</span>Clinique</span>
-              <span className="font-serif italic font-light text-[3vw] text-[#1a202c]/60 tracking-normal mt-4 drop-shadow-none">by Dr. Nidhi Mehta</span>
+            <h1 className="flex flex-col items-center text-center">
+              <span className="font-chancery text-[13vw] md:text-[5.5vw] text-[#1a2456] leading-[1.15] tracking-[0.01em]">Smile Clinique</span>
+              <span className="font-chancery text-[10vw] md:text-[4.2vw] text-[#1a2456] leading-[1.15] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
             </h1>
-            <div className="w-full flex justify-end mt-4">
-              <p className="font-sans text-xl md:text-2xl mt-8 md:mt-12 text-[#1a202c]/70 font-light tracking-wide max-w-none whitespace-nowrap">
-                Malabar Hill's Trusted Dental Care Centre.
+            <span className="font-chancery text-[5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-4 md:mt-5">by Dr. Nidhi Mehta</span>
+            <div className="w-full flex justify-center md:justify-end mt-6 md:mt-8">
+              <p className="font-sans text-base md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right">
+                Mumbai&apos;s Trusted Dental Care Centre.
               </p>
             </div>
           </motion.div>
@@ -509,11 +621,13 @@ export default function App() {
           >
             <div className="flex justify-between items-start gap-3">
               <div className="flex gap-3 items-start flex-1">
-                <div className="w-14 h-10 rounded-[2px] overflow-hidden shrink-0 mt-0.5">
-                  <img
+                <div className="w-14 h-10 rounded-[2px] overflow-hidden shrink-0 mt-0.5 relative">
+                  <Image
                     src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070"
-                    className="w-full h-full object-cover"
-                    alt="Preventive"
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                    alt="Preventive dental care check-up"
                   />
                 </div>
                 <h4 className="font-sans font-medium text-[#2d3748] text-[15px] pt-1 leading-tight tracking-tight">Preventive Care</h4>
@@ -540,8 +654,8 @@ export default function App() {
                 className="bg-white p-2.5 pr-4 rounded-[6px] border border-black/5 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.08)] flex items-center justify-between min-w-[220px] snap-start shrink-0 hover:bg-[#f8f9fa] transition-colors duration-300 pointer-events-auto h-[60px]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-[42px] h-[36px] rounded-[4px] overflow-hidden shrink-0">
-                    <img src={card.img} className="w-full h-full object-cover" alt={card.title} />
+                  <div className="w-[42px] h-[36px] rounded-[4px] overflow-hidden shrink-0 relative">
+                    <Image src={card.img} fill sizes="42px" className="object-cover" alt={card.title} />
                   </div>
                   <span className="font-sans font-medium text-[13px] text-[#2d3748] leading-tight tracking-tight">{card.title}</span>
                 </div>
@@ -734,10 +848,13 @@ export default function App() {
                 {/* Pills/Badges */}
                 <div className="flex flex-wrap gap-4">
                   <div className="px-6 py-3 rounded-full border border-aura-black/10 font-display text-[10px] uppercase tracking-[0.2em] text-aura-black bg-white/50 backdrop-blur-sm shadow-sm">
-                    Mumbai University
+                    Maharashtra University of Health Sciences
                   </div>
                   <div className="px-6 py-3 rounded-full border border-aura-black/10 font-display text-[10px] uppercase tracking-[0.2em] text-aura-black bg-white/50 backdrop-blur-sm shadow-sm">
-                    15+ Years Exp.
+                    Dental Council of India
+                  </div>
+                  <div className="px-6 py-3 rounded-full border border-aura-black/10 font-display text-[10px] uppercase tracking-[0.2em] text-aura-black bg-white/50 backdrop-blur-sm shadow-sm">
+                    {new Date().getFullYear() - 2009}+ Years Exp.
                   </div>
                 </div>
               </motion.div>
@@ -755,12 +872,18 @@ export default function App() {
               onMouseEnter={() => { setIsHovering(true); setCursorText("Founder"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
             >
-              <motion.img
-                src="/drnidhi.JPG"
-                className="absolute inset-0 w-full h-[110%] object-cover transition-transform duration-[3s] group-hover:scale-105 group-hover:translate-y-0 -translate-y-[5%]"
-                alt="Dr. Nidhi Mehta"
-                referrerPolicy="no-referrer"
-              />
+              <motion.div
+                className="absolute inset-0 h-[110%] transition-transform duration-[3s] group-hover:scale-105 group-hover:translate-y-0 -translate-y-[5%]"
+              >
+                <Image
+                  src="/drnidhi.JPG"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  alt="Dr. Nidhi Mehta – BDS, Comprehensive Dentist and Founder of Smile Clinique, Malabar Hill, Mumbai"
+                  loading="lazy"
+                />
+              </motion.div>
 
               {/* Reference-inspired shape accent (Top Right) */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-aura-gold opacity-80 z-20" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }} />
@@ -788,6 +911,8 @@ export default function App() {
             loop
             muted
             playsInline
+            preload="none"
+            poster="/diagnostic-xray.png"
             className="absolute inset-0 w-full h-full object-cover opacity-80"
           />
           {/* Vignette & Gradients */}
@@ -881,11 +1006,16 @@ export default function App() {
               className="md:col-span-8 bg-black text-white rounded-[3rem] p-12 md:p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
             >
               {/* Image Background */}
-              <img
-                src="/full-mouth-rehab.png"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[3s]"
-                alt="Full Mouth Rehab Background"
-              />
+              <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
+                <Image
+                  src="/full-mouth-rehab.png"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                  className="object-cover"
+                  alt="Full mouth dental rehabilitation treatment showing comprehensive dental reconstruction"
+                  loading="lazy"
+                />
+              </div>
               {/* Dark Overlay for Readability */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20 pointer-events-none" />
 
@@ -895,7 +1025,7 @@ export default function App() {
                 </div>
 
                 <h3 className="font-sans font-bold text-5xl md:text-7xl leading-none text-white mb-6 md:mb-10 tracking-tight">
-                  Full Mouth <br /> Rehab
+                  Full Mouth <br /> Rehabilitation
                 </h3>
 
                 <p className="font-sans text-base md:text-xl text-white/80 max-w-md md:leading-relaxed">
@@ -931,7 +1061,9 @@ export default function App() {
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
                 className="flex-1 rounded-[3rem] overflow-hidden relative group cursor-none shadow-aura-soft"
               >
-                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2069&auto=format&fit=crop" className="absolute inset-0 w-full h-[110%] object-cover group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]" alt="Root Canal Treatment" />
+                <div className="absolute inset-0 h-[110%] group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]">
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2069&auto=format&fit=crop" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" alt="Cosmetic smile design and dental aesthetics treatment" loading="lazy" />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/20 to-transparent" />
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
@@ -950,22 +1082,27 @@ export default function App() {
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
                 className="flex-1 rounded-[3rem] bg-[#1a1b26] p-8 md:p-10 relative overflow-hidden group cursor-none shadow-aura-soft flex flex-col justify-between"
               >
+                <div className="absolute inset-0 h-[110%] group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]">
+                  <Image src="/clinical_implant.png" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-50 mix-blend-screen" alt="Dental Implants" loading="lazy" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/50 to-transparent z-0 pointer-events-none" />
+
                 {/* Decorative Icon Top Left */}
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-10">
+                <div className="relative z-10 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-10 bg-black/20 backdrop-blur-sm">
                   <div className="w-4 h-4 border border-aura-gold rounded-sm rotate-45" />
                 </div>
 
                 {/* Arrow Top Right */}
-                <div className="absolute top-10 right-10 text-white/40 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300">
+                <div className="absolute top-10 right-10 z-10 text-white/40 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300">
                   <ArrowUpRight className="w-6 h-6" />
                 </div>
 
-                <div>
-                  <h4 className="font-sans font-bold text-3xl md:text-4xl text-white mb-3 tracking-tight">Surgical Extraction</h4>
-                  <p className="font-sans text-white/50 text-sm leading-relaxed max-w-[80%]">Atraumatic surgical protocols engineered for rapid, complication-free recovery.</p>
+                <div className="relative z-10">
+                  <h4 className="font-sans font-bold text-3xl md:text-4xl text-white mb-3 tracking-tight">Implants</h4>
+                  <p className="font-sans text-white/70 text-sm leading-relaxed max-w-[80%] drop-shadow-sm">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement with precision-guided placement.</p>
                 </div>
 
-                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-aura-accent opacity-20 blur-[60px] rounded-full pointer-events-none group-hover:opacity-40 transition-opacity duration-700" />
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-aura-accent opacity-20 blur-[60px] rounded-full pointer-events-none group-hover:opacity-40 transition-opacity duration-700 z-0" />
               </motion.div>
 
             </div>
@@ -1039,17 +1176,17 @@ export default function App() {
                 className={`relative overflow-hidden rounded-[2.5rem] cursor-none group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'}`}
               >
                 {/* Background Image with Liquid Zoom */}
-                <motion.img
-                  src={member.img}
-                  alt={member.name}
+                <motion.div
                   animate={{
                     filter: activeMember === i ? 'grayscale(0%) brightness(100%) blur(0px)' : 'grayscale(100%) brightness(60%) blur(2px)',
                     scale: activeMember === i ? 1.05 : 1.2,
                     x: activeMember === i ? 0 : (i % 2 === 0 ? 20 : -20)
                   }}
                   transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={`${member.name} – ${member.role} dental treatment workflow`} loading="lazy" />
+                </motion.div>
 
                 {/* Vertical Text for collapsed state */}
                 <AnimatePresence>
@@ -1139,7 +1276,7 @@ export default function App() {
                 onMouseEnter={() => { setIsHovering(true); setCursorText("View"); }}
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
               >
-                <img src={caseItem.src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 duration-[3s]" alt={caseItem.title} />
+                <Image src={caseItem.src} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 duration-[3s]" alt={`${caseItem.title} – ${caseItem.category} dental treatment result at Smile Clinique`} loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-aura-black/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
                 <div className="absolute bottom-10 left-10 p-4">
@@ -1162,20 +1299,21 @@ export default function App() {
               <h3 className="font-sans font-bold tracking-tight text-4xl md:text-5xl mb-6 text-aura-black">Ready to redefine <br /> your smile?</h3>
               <p className="font-sans text-base text-aura-black/60 max-w-sm">Join the 500+ patients who chose premium boutique dental care.</p>
             </div>
-            <button className="group relative w-64 h-64 rounded-full bg-aura-black flex items-center justify-center pointer-events-auto cursor-none overflow-hidden" onMouseEnter={() => { setIsHovering(true); setCursorText("Book"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
+            <a href="tel:+919820627550" className="group relative w-64 h-64 rounded-full bg-aura-black flex items-center justify-center pointer-events-auto cursor-none overflow-hidden" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
               <div className="absolute inset-0 bg-aura-accent scale-0 group-hover:scale-100 transition-transform duration-700 rounded-full" />
               <span className="relative z-10 font-display text-[10px] uppercase tracking-[0.5em] text-aura-white transition-colors duration-500">Book Now</span>
-            </button>
+            </a>
           </motion.div>
         </div>
       </section>
 
-      {/* Awards & Recognition */}
+      {/* All Treatments Ticker */}
       <section className="py-24 md:py-32 border-t border-aura-black/5 overflow-hidden relative bg-aura-beige">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-20 text-center">
           <h2 className="font-sans font-bold tracking-tight text-4xl md:text-5xl text-aura-black">
-            <span className="font-serif italic font-light opacity-50">Trusted by</span> <TypewriterText text="Mumbai's Elite" delay={0.2} />
+            <span className="font-serif italic font-light opacity-50">Every</span> <TypewriterText text="Treatment We Offer" delay={0.2} />
           </h2>
+          <p className="font-sans text-base text-aura-black/50 mt-6 max-w-2xl mx-auto">Comprehensive dental care under one roof — from preventive checkups to complex full-mouth rehabilitations.</p>
         </div>
 
         <div className="relative">
@@ -1183,114 +1321,63 @@ export default function App() {
           <div className="absolute top-0 left-0 w-48 h-full bg-gradient-to-r from-aura-beige to-transparent z-10" />
           <div className="absolute top-0 right-0 w-48 h-full bg-gradient-to-l from-aura-beige to-transparent z-10" />
 
+          {/* Row 1 — scrolls left */}
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-            className="flex gap-24 items-center opacity-30 grayscale hover:grayscale-0 transition-all duration-700 w-max"
+            transition={{ repeat: Infinity, ease: "linear", duration: 50 }}
+            className="flex gap-6 items-center w-max mb-6"
           >
             {[...Array(2)].map((_, i) => (
               <React.Fragment key={i}>
-                <div className="flex items-center gap-6 font-serif text-3xl whitespace-nowrap text-aura-black"><Star className="w-8 h-8 text-aura-gold" /> Indian Dental Association</div>
-                <div className="flex items-center gap-6 font-serif text-3xl whitespace-nowrap text-aura-black"><Star className="w-8 h-8 text-aura-gold" /> Excellence in Cosmetic Dentistry</div>
-                <div className="flex items-center gap-6 font-serif text-3xl whitespace-nowrap text-aura-black"><Star className="w-8 h-8 text-aura-gold" /> Premium Healthcare Standard</div>
-                <div className="flex items-center gap-6 font-serif text-3xl whitespace-nowrap text-aura-black"><Star className="w-8 h-8 text-aura-gold" /> Design in Healthcare</div>
+                {['Root Canal Treatment', 'Dental Implants', 'Invisible Aligners', 'Smile Design', 'Full Mouth Rehabilitation', 'Teeth Whitening', 'Dental Crowns & Bridges', 'Orthodontic Braces', 'Porcelain Veneers', 'Gum Treatments'].map((treatment) => (
+                  <div key={`${treatment}-${i}`} className="flex items-center gap-3 px-8 py-4 rounded-full border border-aura-black/8 bg-white/60 backdrop-blur-sm shadow-sm hover:bg-white hover:shadow-aura-soft hover:border-aura-accent/20 transition-all duration-500 group shrink-0">
+                    <span className="w-2 h-2 rounded-full bg-aura-accent/40 group-hover:bg-aura-accent transition-colors duration-300" />
+                    <span className="font-sans text-sm font-medium text-aura-black/70 whitespace-nowrap group-hover:text-aura-black transition-colors duration-300">{treatment}</span>
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </motion.div>
+
+          {/* Row 2 — scrolls right */}
+          <motion.div
+            animate={{ x: ["-50%", "0%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 55 }}
+            className="flex gap-6 items-center w-max mb-6"
+          >
+            {[...Array(2)].map((_, i) => (
+              <React.Fragment key={i}>
+                {['Tooth Extraction', 'Wisdom Tooth Surgery', 'Dental Fillings', 'Pediatric Dentistry', 'Dentures', 'TMJ / Jaw Pain Treatment', 'Teeth Cleaning & Scaling', 'Bone Grafting', 'Sinus Lift', 'Oral Cancer Screening'].map((treatment) => (
+                  <div key={`${treatment}-${i}`} className="flex items-center gap-3 px-8 py-4 rounded-full border border-aura-black/8 bg-white/60 backdrop-blur-sm shadow-sm hover:bg-white hover:shadow-aura-soft hover:border-aura-accent/20 transition-all duration-500 group shrink-0">
+                    <span className="w-2 h-2 rounded-full bg-aura-gold/40 group-hover:bg-aura-gold transition-colors duration-300" />
+                    <span className="font-sans text-sm font-medium text-aura-black/70 whitespace-nowrap group-hover:text-aura-black transition-colors duration-300">{treatment}</span>
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </motion.div>
+
+          {/* Row 3 — scrolls left (slower) */}
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 60 }}
+            className="flex gap-6 items-center w-max"
+          >
+            {[...Array(2)].map((_, i) => (
+              <React.Fragment key={i}>
+                {['Night Guards & Mouth Guards', 'Cosmetic Contouring', 'Laser Dentistry', 'Fluoride Therapy', 'Composite Bonding', 'Digital Smile Makeover', 'Ceramic Onlays & Inlays', 'Periodontal Surgery', 'Preventive Care', 'Emergency Dental Care'].map((treatment) => (
+                  <div key={`${treatment}-${i}`} className="flex items-center gap-3 px-8 py-4 rounded-full border border-aura-black/8 bg-white/60 backdrop-blur-sm shadow-sm hover:bg-white hover:shadow-aura-soft hover:border-aura-accent/20 transition-all duration-500 group shrink-0">
+                    <span className="w-2 h-2 rounded-full bg-aura-mint/60 group-hover:bg-aura-accent transition-colors duration-300" />
+                    <span className="font-sans text-sm font-medium text-aura-black/70 whitespace-nowrap group-hover:text-aura-black transition-colors duration-300">{treatment}</span>
+                  </div>
+                ))}
               </React.Fragment>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* 10. The Journal (Thought Leadership) */}
-      <section id="journal" className="relative z-[90] py-24 md:py-48 px-6 md:px-12 overflow-hidden bg-white rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
-        {/* Ambient Light */}
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-aura-mint-light/50 rounded-full blur-[150px] pointer-events-none -translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-aura-gold/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
 
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
-            <div>
-              <div className="font-display text-[10px] uppercase tracking-[0.4em] mb-8 flex items-center gap-4 text-aura-black/40">
-                <BookOpen className="w-4 h-4 text-aura-gold" /> Insights <BookOpen className="w-4 h-4 text-aura-gold" />
-              </div>
-              <h2 className="relative z-10 font-sans font-bold tracking-tight text-4xl md:text-7xl leading-none text-aura-black">
-                <TypewriterText text="The" delay={0.2} /> <span className="font-serif italic font-light text-aura-gold">Journal</span>
-              </h2>
-            </div>
-            <Magnetic>
-              <button
-                onMouseEnter={() => { setIsHovering(true); setCursorText("Read"); }}
-                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                className="px-8 py-4 rounded-full border border-aura-black/10 text-aura-black font-display text-[10px] uppercase tracking-[0.3em] hover:bg-aura-black hover:text-aura-beige transition-all duration-700 cursor-none shadow-aura-soft"
-              >
-                Read All
-              </button>
-            </Magnetic>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Featured Article (Overlapping Layout) */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              onMouseEnter={() => { setIsHovering(true); setCursorText("Featured"); }}
-              onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="lg:col-span-7 relative group cursor-none"
-            >
-              <RevealImage
-                src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070&auto=format&fit=crop"
-                alt="Journal Featured"
-                className="w-full h-[50vh] md:h-[70vh] rounded-[3rem] overflow-hidden shadow-aura-deep"
-              />
-
-              {/* Overlapping Glass Card */}
-              <div className="absolute bottom-10 left-6 right-6 md:left-10 md:-right-10 aura-glass p-10 md:p-14 rounded-[3rem] shadow-aura-deep border border-white/30 transition-transform duration-700 group-hover:-translate-y-6">
-                <div className="flex items-center gap-4 font-display text-[9px] uppercase tracking-[0.3em] text-aura-gold mb-6">
-                  <span>Aesthetics</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-aura-black/10" />
-                  <span>5 Min Read</span>
-                </div>
-                <h3 className="font-sans font-bold tracking-tight text-3xl md:text-5xl text-aura-black mb-6 leading-tight">The Psychology of a Perfect Smile: Beyond the Surface</h3>
-                <p className="font-sans text-base text-aura-black/60 mb-10 line-clamp-2 leading-relaxed">Discover how subtle changes in dental aesthetics can profoundly impact self-perception, confidence, and social interactions in our latest deep dive.</p>
-                <div className="flex items-center gap-3 text-aura-black font-display text-[10px] uppercase tracking-[0.3em] group-hover:text-aura-gold transition-colors duration-300">
-                  <span>Read Article</span>
-                  <ArrowRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-3" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Side Articles */}
-            <div className="lg:col-span-5 flex flex-col justify-between gap-12 lg:pl-12 mt-20 lg:mt-0">
-              {[
-                { img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=400&auto=format&fit=crop", category: "Technology", title: "Why 3D Scanning is the Future of Non-Invasive Dentistry" },
-                { img: "https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=2070&auto=format&fit=crop", category: "Wellness", title: "Holistic Approaches to Oral Health and Longevity" },
-                { img: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=2070&auto=format&fit=crop", category: "Materials", title: "The Evolution of Biocompatible Ceramic Veneers" },
-                { img: "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070", category: "Prevention", title: "Early Detection: How AI identifies decay before it starts" }
-              ].map((article, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
-                  onMouseEnter={() => { setIsHovering(true); setCursorText("Read"); }}
-                  onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                  className="flex gap-8 items-center group cursor-none pb-8 border-b border-aura-black/5 last:border-0"
-                >
-                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-[2rem] overflow-hidden shrink-0 shadow-aura-soft">
-                    <RevealImage src={article.img} alt={article.title} className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-[1.5s]" />
-                  </div>
-                  <div>
-                    <div className="font-display text-[9px] uppercase tracking-[0.3em] text-aura-accent mb-3">{article.category}</div>
-                    <h4 className="font-sans font-bold tracking-tight text-2xl md:text-3xl text-aura-black leading-tight group-hover:text-aura-accent transition-colors duration-500">{article.title}</h4>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 11. FAQ Section */}
       <section id="faq" className="relative z-[95] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden">
@@ -1363,9 +1450,9 @@ export default function App() {
           <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24">
             {[
               { theme: 'light' as const, quote: "Visited Dr. Nidhi at Smile Clinique in Malabar Hill. Fabulous experience. All precautions taken care off. Superb skill!", author: "Nancy Mehta", location: "Google Review • 5 Stars" },
-              { theme: 'image' as const, author: "Himanshu Dhoria", location: "Google Review • 5 Stars", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000" },
+              { theme: 'image' as const, author: "Nancy Mehta", location: "Google Review • 5 Stars", img: "/nancy2.png" },
               { theme: 'lime' as const, quote: "Good doctors, well equipped, honest advice, good work. Aur kya chahiye! Perfect clinical skill and finesse.", author: "Himanshu Dhoria", location: "Mumbai Resident" },
-              { theme: 'image' as const, author: "Sunila P.", location: "Google Review • 5 Stars", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2000" }
+              { theme: 'image' as const, author: "Himanshu Dhoria", location: "Google Review • 5 Stars", img: "/himanshu2.png" }
             ].map((card, i, arr) => (
               <ArcCard
                 key={i}
@@ -1420,18 +1507,19 @@ export default function App() {
           </motion.h2>
 
           <Magnetic>
-            <motion.button
+            <motion.a
+              href="tel:+919820627550"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              onMouseEnter={() => { setIsHovering(true); setCursorText("Book"); }}
+              onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
               className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-aura-white text-aura-black flex items-center justify-center group overflow-hidden cursor-none shadow-aura-deep"
             >
               <div className="absolute inset-0 bg-aura-black translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               <span className="relative z-10 font-display text-xs md:text-sm uppercase tracking-[0.4em] font-medium group-hover:scale-110 group-hover:text-aura-white transition-all duration-700">Book Now</span>
-            </motion.button>
+            </motion.a>
           </Magnetic>
         </div>
 
@@ -1441,13 +1529,13 @@ export default function App() {
               <span className="font-serif text-3xl normal-case tracking-normal text-aura-white leading-none">Smile Clinique</span>
               <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-aura-white/50 mt-1">by Dr. Nidhi Mehta</span>
             </div>
-            <span className="text-aura-white/90 text-xs text-left border border-white/10 p-4 rounded-xl bg-black/20 backdrop-blur-md shadow-sm ml-6">G 3, Akashdeep Building, Dongersi Road,<br />Malabar Hill, Mumbai - 400006<br />Mon–Sat: 9 AM–1 PM | 4 PM–7 PM<br />Tel: 022-35780947</span>
+            <span className="text-aura-white/90 text-xs text-left border border-white/10 p-4 rounded-xl bg-black/20 backdrop-blur-md shadow-sm ml-6">G 3, Akashdeep Building, Dongersi Road,<br />Malabar Hill, Mumbai - 400006<br />Mon–Sat: 9 AM–1 PM | 4 PM–7 PM<br />Tel: +91 98206 27550</span>
           </div>
           <div className="flex gap-10 items-center">
-            {['Practo', 'Justdial', 'Contact'].map((item) => (
+            {['Testimonials'].map((item) => (
               <a
                 key={item}
-                href={item === "Contact" ? "#contact" : "#"}
+                href="#testimonials"
                 onMouseEnter={() => { setIsHovering(true); setCursorText("Visit"); }}
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
                 className="hover:text-aura-white transition-colors duration-300 font-display"
@@ -1458,6 +1546,59 @@ export default function App() {
           </div>
         </div>
       </footer>
+      </main>
+
+      {/* Floating WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] flex flex-col items-end gap-3 pointer-events-auto">
+        {/* Tooltip Message */}
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden md:block"
+        >
+          <a
+            href="https://wa.me/919820627550?text=Hi%20Smile%20Clinique%2C%20I%27d%20like%20to%20book%20an%20appointment%20for%20a%20consultation.%20Please%20let%20me%20know%20the%20available%20slots."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group cursor-pointer"
+          >
+            <div className="bg-white rounded-2xl rounded-br-sm shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-5 py-3.5 max-w-[240px] border border-black/5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.16)] transition-shadow duration-300">
+              <p className="font-sans text-[13px] text-[#1a202c] leading-relaxed">
+                👋 Hi! Need a dental appointment?{' '}
+                <span className="text-[#25D366] font-semibold group-hover:underline">
+                  Chat with us
+                </span>
+              </p>
+            </div>
+          </a>
+        </motion.div>
+
+        {/* WhatsApp Button */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 2.5, duration: 0.5, type: "spring", stiffness: 260, damping: 20 }}
+          className="relative group"
+        >
+          {/* Pulse Ring Animation */}
+          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-[whatsapp-ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-0" />
+          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-[whatsapp-ping_2s_cubic-bezier(0,0,0.2,1)_infinite_0.5s] opacity-0" />
+
+          <a
+            href="https://wa.me/919820627550?text=Hi%20Smile%20Clinique%2C%20I%27d%20like%20to%20book%20an%20appointment%20for%20a%20consultation.%20Please%20let%20me%20know%20the%20available%20slots."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Book appointment via WhatsApp"
+            className="relative flex items-center justify-center w-[60px] h-[60px] md:w-[64px] md:h-[64px] rounded-full bg-[#25D366] text-white shadow-[0_6px_24px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_32px_rgba(37,211,102,0.55)] hover:scale-110 active:scale-95 transition-all duration-300 ease-out cursor-pointer z-10"
+          >
+            {/* WhatsApp SVG Icon */}
+            <svg viewBox="0 0 32 32" className="w-8 h-8 fill-white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.004 3.2C9.002 3.2 3.3 8.9 3.3 15.9c0 2.24.59 4.43 1.71 6.35L3.2 28.8l6.82-1.79a12.65 12.65 0 006 1.53h.01c7 0 12.7-5.7 12.7-12.7 0-3.39-1.32-6.58-3.72-8.98A12.63 12.63 0 0016.004 3.2zm0 23.2h-.01a10.52 10.52 0 01-5.36-1.47l-.38-.23-3.98 1.04 1.06-3.88-.25-.4A10.48 10.48 0 015.5 15.9c0-5.8 4.72-10.5 10.52-10.5 2.81 0 5.44 1.09 7.43 3.08a10.43 10.43 0 013.07 7.42c0 5.8-4.72 10.5-10.52 10.5zm5.76-7.87c-.32-.16-1.87-.92-2.16-1.03-.29-.1-.5-.16-.71.16-.21.32-.82 1.03-1.01 1.24-.18.21-.37.24-.69.08-.32-.16-1.34-.49-2.55-1.57-.94-.84-1.58-1.88-1.76-2.2-.18-.32-.02-.49.14-.65.14-.14.32-.37.47-.56.16-.18.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.53-.71-.54l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.46.21 2.01.13.61-.09 1.87-.77 2.14-1.51.26-.74.26-1.38.18-1.51-.08-.14-.29-.21-.61-.37z"/>
+            </svg>
+          </a>
+        </motion.div>
+      </div>
     </div>
   );
 }
