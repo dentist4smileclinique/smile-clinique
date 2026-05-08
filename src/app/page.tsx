@@ -972,19 +972,19 @@ export default function App() {
                   <Star className="w-3 h-3 text-aura-gold" /> Signature
                 </div>
 
-                <h3 className="font-sans font-bold text-5xl md:text-7xl leading-none text-white mb-6 md:mb-10 tracking-tight">
+                <h3 className="font-sans font-bold text-4xl md:text-7xl leading-none text-white mb-6 md:mb-10 tracking-tight">
                   Full Mouth <br /> Rehabilitation
                 </h3>
 
-                <p className="font-sans text-base md:text-xl text-white/80 max-w-md md:leading-relaxed">
+                <p className="font-sans text-sm md:text-xl text-white/80 max-w-md md:leading-relaxed">
                   Comprehensive functional and aesthetic rebuild of your entire dental architecture for peak performance and absolute confidence.
                 </p>
               </div>
 
               {/* Bottom Nav Pills */}
-              <div className="relative z-10 flex flex-wrap gap-4 mt-20">
+              <div className="relative z-10 flex flex-wrap gap-2 md:gap-4 mt-12 md:mt-20">
                 {['Reconstruction', 'Bite Correction', 'Aesthetics'].map((tag) => (
-                  <div key={tag} className="px-8 py-4 rounded-full bg-white/10 backdrop-blur-md font-display text-[10px] uppercase tracking-[0.2em] text-white font-medium shadow-aura-soft border border-white/20 hover:bg-white hover:text-black transition-colors duration-300">
+                  <div key={tag} className="px-4 py-2 md:px-8 md:py-4 rounded-full bg-white/10 backdrop-blur-md font-display text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-white font-medium shadow-aura-soft border border-white/20 hover:bg-white hover:text-black transition-colors duration-300">
                     {tag}
                   </div>
                 ))}
@@ -1012,7 +1012,7 @@ export default function App() {
                 <div className="absolute inset-0 h-[110%] group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]">
                   <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2069&auto=format&fit=crop" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" alt="Cosmetic smile design and dental aesthetics treatment" loading="lazy" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/60 md:via-aura-black/20 to-aura-black/20 md:to-transparent" />
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
                   <h4 className="font-sans font-bold text-3xl md:text-4xl text-white mb-3 tracking-tight">Smile Design</h4>
@@ -1080,7 +1080,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-sans font-bold tracking-tight text-[7vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
+                className="font-sans font-bold tracking-tight text-[10vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
               >
                 The Anatomy of <br /><span className="font-serif italic font-light text-aura-accent">Transformation</span>
               </motion.h2>
@@ -1389,7 +1389,7 @@ export default function App() {
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 px-10"
             style={{ backgroundImage: 'radial-gradient(circle at center, rgba(217, 255, 0, 0.2) 0%, transparent 50%)' }}
           >
-            <h2 className="font-display font-bold text-[18vw] leading-[0.85] uppercase tracking-tighter text-aura-black/5 text-center mix-blend-multiply">
+            <h2 className="font-display font-bold text-[14vw] md:text-[18vw] leading-[0.85] uppercase tracking-tighter text-aura-black/5 text-center mix-blend-multiply">
               WELLNESS<br />STORIES<br />SHARE
             </h2>
           </div>
