@@ -989,79 +989,86 @@ export default function App() {
               </div>
 
               {/* Action Button (Bottom Right Desktop) */}
-              <div className="absolute bottom-10 right-10 w-24 h-24 bg-aura-accent rounded-full hidden md:flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500 shadow-xl">
-                <ArrowUpRight className="w-8 h-8" />
+                <div className="flex flex-wrap gap-3">
+                  {['Reconstruction', 'Bite Correction', 'Aesthetics'].map(tag => (
+                    <span key={tag} className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-widest text-white/80">{tag}</span>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
-            {/* Right Column Stack */}
-            <div className="md:col-span-4 flex flex-col gap-6 h-full">
-
-              {/* Top Right Card (Root Canal - Image BG) */}
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                onMouseEnter={() => { setIsHovering(true); setCursorText("View"); }}
-                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                className="flex-1 rounded-[3rem] overflow-hidden relative group cursor-none shadow-aura-soft"
-              >
-                <div className="absolute inset-0 h-[110%] group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]">
-                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2069&auto=format&fit=crop" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" alt="Cosmetic smile design and dental aesthetics treatment" loading="lazy" />
+            {/* Card 2: Smile Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="md:col-span-4 bg-aura-beige rounded-[3rem] p-10 md:p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
+            >
+              <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
+                <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-20" alt="Smile Design" />
+                <div className="absolute inset-0 bg-gradient-to-br from-aura-gold/10 to-transparent" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
+                <p className="font-sans text-sm text-aura-black/60 leading-relaxed">Architecting the perfect aesthetic frame for your face using minimally invasive porcelain and digital modeling.</p>
+              </div>
+              <div className="relative z-10 mt-8">
+                <div className="w-12 h-12 rounded-full bg-aura-black text-white flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
+                  <ArrowUpRight className="w-6 h-6 text-white" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/60 md:via-aura-black/20 to-aura-black/20 md:to-transparent" />
+              </div>
+            </motion.div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
-                  <h4 className="font-sans font-bold text-3xl md:text-4xl text-white mb-3 tracking-tight">Smile Design</h4>
-                  <p className="font-sans text-white/70 text-sm leading-relaxed">Architecting the perfect aesthetic frame for your face using minimally invasive porcelain and digital modeling.</p>
+            {/* Card 3: Implants */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="md:col-span-4 bg-aura-black text-white rounded-[3rem] p-10 md:p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
+            >
+              <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
+                <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-40" alt="Dental Implants" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+              </div>
+              <div className="relative z-10">
+                <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center mb-6">
+                  <div className="w-3 h-3 rotate-45 border border-aura-accent/50" />
                 </div>
-              </motion.div>
+                <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-white">Implants</h3>
+                <p className="font-sans text-sm text-white/50 leading-relaxed">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement.</p>
+              </div>
+              <div className="relative z-10 flex justify-end mt-8">
+                <ArrowUpRight className="w-6 h-6 text-white/30 group-hover:text-white transition-colors duration-500" />
+              </div>
+            </motion.div>
 
-              {/* Bottom Right Card (Wisdom Teeth - Dark BG) */}
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.3 }}
-                onMouseEnter={() => { setIsHovering(true); setCursorText("View"); }}
-                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                className="flex-1 rounded-[3rem] bg-[#1a1b26] p-8 md:p-10 relative overflow-hidden group cursor-none shadow-aura-soft flex flex-col justify-between"
-              >
-                <div className="absolute inset-0 h-[110%] group-hover:scale-105 transition-transform duration-[3s] -translate-y-[5%]">
-                  <Image src="/clinical_implant.png" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-50 mix-blend-screen" alt="Dental Implants" loading="lazy" />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/50 to-transparent z-0 pointer-events-none" />
-
-                {/* Decorative Icon Top Left */}
-                <div className="relative z-10 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-10 bg-black/20 backdrop-blur-sm">
-                  <div className="w-4 h-4 border border-aura-gold rounded-sm rotate-45" />
-                </div>
-
-                {/* Arrow Top Right */}
-                <div className="absolute top-10 right-10 z-10 text-white/40 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300">
-                  <ArrowUpRight className="w-6 h-6" />
-                </div>
-
-                <div className="relative z-10">
-                  <h4 className="font-sans font-bold text-3xl md:text-4xl text-white mb-3 tracking-tight">Implants</h4>
-                  <p className="font-sans text-white/70 text-sm leading-relaxed max-w-[80%] drop-shadow-sm">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement with precision-guided placement.</p>
-                </div>
-
-                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-aura-accent opacity-20 blur-[60px] rounded-full pointer-events-none group-hover:opacity-40 transition-opacity duration-700 z-0" />
-              </motion.div>
-
-            </div>
+            {/* Card 4: Orthodontics */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="md:col-span-8 bg-white rounded-[3rem] p-10 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
+            >
+              <div className="relative z-10 flex-1">
+                <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-6 block">Precision</span>
+                <h3 className="font-sans font-bold text-[8vw] md:text-5xl leading-none tracking-tight mb-6 text-aura-black">Orthodontics &<br />Clear Aligners</h3>
+                <p className="font-sans text-base text-aura-black/60 max-w-sm leading-relaxed mb-8">Modern invisible solutions to align your teeth with comfort and clinical precision.</p>
+                <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
+              </div>
+              <div className="relative w-full md:w-1/3 aspect-square md:aspect-auto md:h-full rounded-[2rem] overflow-hidden">
+                <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover" alt="Orthodontics" />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* 7. The Absolute Authority (Team) */}
-      <section id="team" className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
-        <div className="absolute inset-0 opacity-[0.02] aura-grain pointer-events-none" />
-
+      {/* 6. The Precision Protocol (Workflow) */}
+      <section id="workflow" className="relative z-[50] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="max-w-[1400px] mx-auto">
-          {/* Header Section */}
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
             <div className="max-w-2xl text-left">
               <motion.div
@@ -1071,7 +1078,7 @@ export default function App() {
                 transition={{ duration: 0.8 }}
                 className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent mb-8"
               >
-                Our Workflow
+                The Protocol
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
@@ -1082,29 +1089,83 @@ export default function App() {
               >
                 The Anatomy of <br /><span className="font-serif italic font-light text-aura-accent">Transformation</span>
               </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
+            </div>
+          </div>
+
+          <div className={`flex ${isMobile ? 'flex-col gap-6' : 'h-[80vh] gap-4'}`}>
+            {[
+              { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
+              { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
+              { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
+            ].map((phase, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="font-sans text-lg text-[#2d3748]/60 mt-10 leading-relaxed max-w-xl italic border-l-2 border-aura-accent/20 pl-8"
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                className={`${isMobile ? 'w-full min-h-[450px]' : 'flex-1'} relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform`}
               >
-                "A meticulously engineered protocol ensuring absolute precision from the first scan to the final placement."
-              </motion.p>
-            </div>
+                <Image src={phase.img} fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={phase.title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
+                  <div className="flex justify-between items-start">
+                    <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
+                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
+                      <ArrowUpRight className="w-5 h-5 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-3xl md:text-5xl text-white mb-4 leading-none">{phase.title}</h3>
+                    <p className="font-sans text-sm md:text-base text-white/60 mb-6 leading-relaxed">{phase.desc}</p>
+                    <div className="flex gap-3">
+                      {phase.tags.map(tag => (
+                        <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Nav Arrows (Visual matching) */}
+      {/* 7. The Absolute Authority (Team) */}
+      <section id="team" className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
+        <div className="absolute inset-0 opacity-[0.02] aura-grain pointer-events-none" />
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
+            <div className="max-w-2xl text-left">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent mb-8"
+              >
+                Our Experts
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-sans font-bold tracking-tight text-[11vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
+              >
+                The Absolute <br /><span className="font-serif italic font-light text-aura-accent">Authority</span>
+              </motion.h2>
+            </div>
             <div className="flex gap-4 mb-2">
-              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : team.length - 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft" onMouseEnter={() => { setIsHovering(true); setCursorText("Prev"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
+              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : team.length - 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 rotate-180 transition-transform group-hover:-translate-x-1" />
               </button>
-              <button onClick={() => setActiveMember(prev => (prev < team.length - 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft" onMouseEnter={() => { setIsHovering(true); setCursorText("Next"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
+              <button onClick={() => setActiveMember(prev => (prev < team.length - 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </div>
 
-          {/* Accordion Container */}
           <div className="flex flex-col md:flex-row gap-4 h-[600px] md:h-[700px] w-full">
             {team.map((member, i) => (
               <motion.div
@@ -1114,73 +1175,31 @@ export default function App() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
                 onClick={() => setActiveMember(i)}
-                onMouseEnter={() => { if (windowWidth > 768) setActiveMember(i); setIsHovering(true); setCursorText(member.category); }}
-                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
                 animate={{
                   flex: activeMember === i ? (windowWidth > 768 ? 4 : 1) : (windowWidth > 768 ? 0.8 : 0.2),
                 }}
                 className={`relative overflow-hidden rounded-[2.5rem] cursor-none group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'}`}
               >
-                {/* Background Image with Liquid Zoom */}
                 <motion.div
                   animate={{
-                    filter: activeMember === i ? 'grayscale(0%) brightness(100%) blur(0px)' : 'grayscale(100%) brightness(60%) blur(2px)',
-                    scale: activeMember === i ? 1.05 : 1.2,
-                    x: activeMember === i ? 0 : (i % 2 === 0 ? 20 : -20)
+                    filter: activeMember === i ? 'grayscale(0%) brightness(100%)' : 'grayscale(100%) brightness(60%)',
+                    scale: activeMember === i ? 1.05 : 1.1,
                   }}
-                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 1.5 }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={`${member.name} – ${member.role} dental treatment workflow`} loading="lazy" />
+                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={member.name} loading="lazy" />
                 </motion.div>
-
-                {/* Vertical Text for collapsed state */}
-                <AnimatePresence>
-                  {activeMember !== i && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 0.4, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                    >
-                      <span className="font-serif text-[2.8rem] text-white whitespace-nowrap rotate-90 tracking-tighter mix-blend-overlay">
-                        {member.name.split(' ').pop()}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Expanded Info Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none will-change-transform">
+                <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none">
                   <motion.div
-                    animate={{
-                      opacity: activeMember === i ? 1 : 0,
-                      y: activeMember === i ? 0 : 40
-                    }}
-                    transition={{ duration: 0.8, delay: activeMember === i ? 0.3 : 0, ease: [0.16, 1, 0.3, 1] }}
+                    animate={{ opacity: activeMember === i ? 1 : 0, y: activeMember === i ? 0 : 40 }}
+                    transition={{ duration: 0.8, delay: activeMember === i ? 0.3 : 0 }}
                   >
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="w-12 h-[1px] bg-aura-accent/50" />
-                      <p className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">
-                        {member.role}
-                      </p>
-                    </div>
-                    <h3 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-[0.9] tracking-tight">
-                      {member.name}
-                    </h3>
-                    <p className="font-sans text-base md:text-lg text-white/70 max-w-md leading-relaxed line-clamp-2 md:line-clamp-none mb-8">
-                      {member.bio}
-                    </p>
-                    <div className="flex gap-4">
-                      <span className="px-4 py-1 rounded-full border border-white/20 text-[9px] uppercase tracking-widest text-white/50">{member.category}</span>
-                      <span className="px-4 py-1 rounded-full border border-white/20 text-[9px] uppercase tracking-widest text-white/50">Premium Care</span>
-                    </div>
+                    <p className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-4">{member.role}</p>
+                    <h3 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-[0.9] tracking-tight">{member.name}</h3>
+                    <p className="font-sans text-base md:text-lg text-white/70 max-w-md leading-relaxed line-clamp-2 md:line-clamp-none mb-8">{member.bio}</p>
                   </motion.div>
                 </div>
-
-                {/* Stripe-style hover border effect */}
-                <div className={`absolute inset-0 border-[3px] transition-opacity duration-1000 ${activeMember === i ? 'border-aura-accent/30 opacity-100' : 'border-transparent opacity-0'} rounded-[2.5rem] pointer-events-none`} />
-                <div className="absolute inset-0 opacity-[0.05] aura-grain pointer-events-none" />
               </motion.div>
             ))}
           </div>
