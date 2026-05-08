@@ -177,9 +177,9 @@ const localBusinessSchema = {
   "name": "Smile Clinique Dental Care Centre",
   "alternateName": "Smile Clinique",
   "description": "Premium cosmetic and comprehensive dental care by Dr. Nidhi Mehta in Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, invisible aligners, and full mouth rehabilitation.",
-  "url": "https://smileclinique.com",
+  "url": "https://smilecliniquedental.com",
   "telephone": "+91-9820627550",
-  "image": "https://smileclinique.com/hero.png",
+  "image": "https://smilecliniquedental.com/hero.png",
   "priceRange": "₹₹₹",
   "address": {
     "@type": "PostalAddress",
@@ -237,7 +237,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://smileclinique.com"
+      "item": "https://smilecliniquedental.com"
     }
   ]
 };
@@ -328,8 +328,8 @@ const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWi
 }
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -464,59 +464,7 @@ export default function App() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Cinematic Preloader */}
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            exit={{
-              clipPath: "inset(0 0 100% 0)",
-              transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] }
-            }}
-            className="fixed inset-0 z-[10000] bg-aura-black flex flex-col items-center justify-center overflow-hidden"
-          >
-            <div className="absolute inset-0 opacity-[0.05] aura-grain" />
 
-            <div className="relative overflow-hidden px-10">
-              <motion.div
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-[15vw] md:text-[10vw] text-aura-beige uppercase tracking-tight leading-none flex flex-col items-center"
-              >
-                <span>Smile Clinique</span>
-                <span className="font-sans text-[3vw] md:text-[1.5vw] normal-case mt-4 text-aura-gold/80 tracking-widest pl-2">by Dr. Nidhi Mehta</span>
-              </motion.div>
-
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-aura-gold origin-left"
-              />
-            </div>
-
-            <div className="mt-12 overflow-hidden">
-              <motion.div
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display text-[9px] uppercase tracking-[0.6em] text-aura-gold-light"
-              >
-                Advanced Cosmetic Dentistry
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
-              transition={{ delay: 1 }}
-              className="absolute bottom-12 font-display text-[8px] uppercase tracking-[0.2em] text-aura-beige"
-            >
-              Mumbai
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Film Grain Layer */}
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-multiply" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' }}></div>

@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://smileclinique.com'),
+  metadataBase: new URL('https://smilecliniquedental.com'),
   title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta, Mumbai',
   description:
     'Experience painless, world-class dental treatments at Smile Clinique, Malabar Hill, Mumbai. Dr. Nidhi Mehta specializes in Cosmetic Dentistry, Full Mouth Rehabilitation, Veneers, Implants, Orthodontics, and Invisible Aligners. Book your appointment today.',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta',
     description:
       'Premium cosmetic and comprehensive dental care at Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, and full mouth rehabilitation.',
-    url: 'https://smileclinique.com',
+    url: 'https://smilecliniquedental.com',
     siteName: 'Smile Clinique',
     locale: 'en_IN',
     type: 'website',
