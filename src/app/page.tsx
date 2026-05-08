@@ -906,12 +906,12 @@ export default function App() {
         <div className="relative w-full h-[80vh] md:h-[100vh] flex items-center justify-center cursor-none group" onMouseEnter={() => { setIsHovering(true); setCursorText("Watch"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
           {/* Background Video */}
           <video
-            src="/scan.mp4"
+            src="https://assets.smilecliniquedental.com/scan.mp4"
             autoPlay
             loop
             muted
             playsInline
-            preload="none"
+            preload="auto"
             poster="/diagnostic-xray.png"
             className="absolute inset-0 w-full h-full object-cover opacity-80"
           />
