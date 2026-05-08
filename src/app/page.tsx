@@ -760,7 +760,7 @@ export default function App() {
                 The Visionary
               </motion.div>
               <motion.h2
-                initial={{ opacity: 0, y: 30 }}
+                initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
@@ -859,7 +859,7 @@ export default function App() {
             playsInline
             preload="auto"
             poster="/diagnostic-xray.png"
-            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            className="absolute inset-0 w-full h-full object-cover opacity-80 will-change-transform"
           />
           {/* Vignette & Gradients */}
           <div className="absolute inset-0 bg-gradient-to-t from-aura-black via-aura-black/20 to-aura-black/60 pointer-events-none" />
@@ -1151,7 +1151,7 @@ export default function App() {
                 </AnimatePresence>
 
                 {/* Expanded Info Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none">
+                <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none will-change-transform">
                   <motion.div
                     animate={{
                       opacity: activeMember === i ? 1 : 0,
@@ -1393,7 +1393,7 @@ export default function App() {
           </div>
 
           {/* Cards Container */}
-          <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24">
+          <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24 will-change-transform">
             {[
               { theme: 'light' as const, quote: "Visited Dr. Nidhi at Smile Clinique in Malabar Hill. Fabulous experience. All precautions taken care off. Superb skill!", author: "Nancy Mehta", location: "Google Review • 5 Stars" },
               { theme: 'image' as const, author: "Nancy Mehta", location: "Google Review • 5 Stars", img: "/nancy2.png" },
