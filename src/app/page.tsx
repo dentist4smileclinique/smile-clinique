@@ -987,14 +987,6 @@ export default function App() {
                   </div>
                 ))}
               </div>
-
-              {/* Action Button (Bottom Right Desktop) */}
-                <div className="flex flex-wrap gap-3">
-                  {['Reconstruction', 'Bite Correction', 'Aesthetics'].map(tag => (
-                    <span key={tag} className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-widest text-white/80">{tag}</span>
-                  ))}
-                </div>
-              </div>
             </motion.div>
 
             {/* Card 2: Smile Design */}
