@@ -526,8 +526,8 @@ export default function App() {
             <Image
               src="/hero.png"
               fill
-              sizes="(max-width: 768px) 80vw, 45vw"
-              className="object-cover object-[75%_20%]"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              className="object-cover object-[70%_20%] md:object-[75%_20%]"
               alt="Beautiful smile showcasing premium dental care at Smile Clinique Mumbai"
               priority
             />
@@ -546,10 +546,10 @@ export default function App() {
             className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
             <h1 className="flex flex-col items-center text-center">
-              <span className="font-chancery text-[13vw] md:text-[5.5vw] text-[#1a2456] leading-[1.15] tracking-[0.01em]">Smile Clinique</span>
-              <span className="font-chancery text-[10vw] md:text-[4.2vw] text-[#1a2456] leading-[1.15] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
+              <span className="font-chancery text-[11vw] md:text-[5.5vw] text-[#1a2456] leading-[1.1] tracking-[0.01em]">Smile Clinique</span>
+              <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.1] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
             </h1>
-            <span className="font-chancery text-[5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-4 md:mt-5">by Dr. Nidhi Mehta</span>
+            <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
             <div className="w-full flex justify-center md:justify-end mt-6 md:mt-8">
               <p className="font-sans text-base md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right">
                 Mumbai&apos;s Trusted Dental Care Centre.
@@ -728,10 +728,10 @@ export default function App() {
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-5xl relative z-30"
             >
-              <h2 className="font-sans font-bold text-[7vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm">
+              <h2 className="font-sans font-bold text-[8.5vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm">
                 We treat the human smile not as <br className="hidden md:block" />
                 a mere feature, but as the absolute <br className="hidden md:block" />
-                <span className="relative inline-block my-2 md:my-0">
+                <span className="relative inline-block my-1 md:my-0">
                   <span className="relative z-10 italic font-serif font-light text-transparent bg-clip-text bg-gradient-to-r from-aura-gold-dark via-aura-accent to-aura-gold pr-2">signature of vitality.</span>
                   <div className="absolute top-[60%] left-[-2%] w-[104%] h-[40%] bg-aura-mint-light/80 -rotate-1 -z-10 rounded-full blur-[2px]" />
                 </span> <br className="hidden md:block" />
@@ -766,9 +766,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="font-sans font-bold tracking-tight text-[8vw] lg:text-[5vw] leading-[1.05] text-aura-black mb-12"
+                className="font-sans font-bold tracking-tight text-[11vw] lg:text-[5vw] leading-[1.05] text-aura-black mb-8 md:mb-12"
               >
-                The Architect of <br /> <span className="font-serif italic font-light text-aura-gold">Aesthetics.</span>
+                The Architect of <br className="md:hidden" /> <span className="font-serif italic font-light text-aura-gold">Aesthetics.</span>
               </motion.h2>
 
               <motion.div
@@ -786,9 +786,9 @@ export default function App() {
                 </p>
 
                 {/* Quote Card (Glassmorphic) */}
-                <div className="aura-glass p-10 rounded-[2rem] border border-white/40 shadow-aura-soft mb-16 relative overflow-hidden">
-                  <div className="absolute top-4 left-4 text-aura-gold/20 font-serif text-8xl leading-none">&quot;</div>
-                  <p className="relative z-10 font-serif text-2xl md:text-3xl text-aura-black italic leading-snug">
+                <div className="aura-glass p-8 md:p-10 rounded-[2rem] border border-white/40 shadow-aura-soft mb-12 md:mb-16 relative overflow-hidden">
+                  <div className="absolute top-2 left-2 md:top-4 md:left-4 text-aura-gold/20 font-serif text-6xl md:text-8xl leading-none">&quot;</div>
+                  <p className="relative z-10 font-serif text-xl md:text-3xl text-aura-black italic leading-snug">
                     True aesthetic dentistry is invisible. We don't just restore teeth; we restore the uninhibited freedom to express joy.
                   </p>
                 </div>
@@ -837,9 +837,9 @@ export default function App() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-aura-gold opacity-80 z-20" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }} />
 
               {/* Name Plate Overlay */}
-              <div className="absolute bottom-10 left-10 z-20 aura-glass-dark p-8 rounded-[2rem] border border-white/10 shadow-2xl backdrop-blur-xl">
-                <h4 className="font-serif text-3xl text-white mb-2 italic">Dr. Nidhi Mehta</h4>
-                <p className="font-display text-[9px] uppercase tracking-[0.3em] text-aura-gold">BDS, Comprehensive Dentist & Founder</p>
+              <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 z-20 aura-glass-dark p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-white/10 shadow-2xl backdrop-blur-xl">
+                <h4 className="font-serif text-2xl md:text-3xl text-white mb-1 md:mb-2 italic">Dr. Nidhi Mehta</h4>
+                <p className="font-display text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-aura-gold">BDS, Comprehensive Dentist & Founder</p>
               </div>
 
               {/* Subtle Gradient Overlay for Text Readability */}
@@ -867,14 +867,14 @@ export default function App() {
           <div className="absolute inset-0 bg-gradient-to-t from-aura-black via-aura-black/20 to-aura-black/60 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(26,27,38,0.7)_100%)] pointer-events-none" />
 
-          <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-10 pb-20 pt-10">
+          <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-10 pb-16 md:pb-20 pt-8 md:pt-10">
             {/* Left Content */}
             <div className="max-w-2xl">
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="font-display text-[9px] uppercase tracking-[0.7em] text-aura-gold mb-6 flex items-center gap-4"
+                className="font-display text-[8px] md:text-[9px] uppercase tracking-[0.7em] text-aura-gold mb-4 md:mb-6 flex items-center gap-4"
               >
                 <div className="w-8 h-[1px] bg-aura-gold/50" />
                 Digital Impressions
@@ -884,7 +884,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
-                className="font-sans font-bold tracking-tight text-[10vw] lg:text-[6vw] leading-[1.05] text-white"
+                className="font-sans font-bold tracking-tight text-[11vw] lg:text-[6vw] leading-[1.05] text-white"
               >
                 Seamless <br className="hidden md:block" /> <span className="font-serif italic font-light text-aura-gold">Scanning.</span>
               </motion.h2>
@@ -896,15 +896,15 @@ export default function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 0.4 }}
-              className="w-full md:w-[480px] aura-glass-dark p-6 md:p-12 rounded-[2.5rem] border border-white/10 backdrop-blur-xl shadow-2xl"
+              className="w-full md:w-[480px] aura-glass-dark p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 backdrop-blur-xl shadow-2xl"
             >
-              <h3 className="font-serif text-2xl md:text-3xl text-white italic mb-4">Advanced Scanning Technology</h3>
-              <p className="font-sans text-sm md:text-base text-white/70 leading-relaxed mb-8">
-                Experience the future of dentistry. Our intraoral scanner captures a perfectly accurate, full-color 3D replica of your teeth in under 60 seconds — completely eliminating the discomfort of traditional impression putty.
+              <h3 className="font-serif text-xl md:text-3xl text-white italic mb-4">Advanced Scanning Technology</h3>
+              <p className="font-sans text-sm md:text-base text-white/70 leading-relaxed mb-6 md:mb-8">
+                Experience the future of dentistry. Our intraoral scanner captures a perfectly accurate, full-color 3D replica of your teeth in under 60 seconds — eliminating traditional impression discomfort.
               </p>
               <div className="flex flex-wrap gap-2 md:gap-3">
-                <span className="px-4 py-2 rounded-full border border-white/20 text-[8px] uppercase tracking-widest text-white/50 bg-white/5 backdrop-blur-md">60 Second Scan</span>
-                <span className="px-4 py-2 rounded-full border border-white/20 text-[8px] uppercase tracking-widest text-white/50 bg-white/5 backdrop-blur-md">True-Color 3D</span>
+                <span className="px-4 py-2 rounded-full border border-white/20 text-[7px] md:text-[8px] uppercase tracking-widest text-white/50 bg-white/5 backdrop-blur-md">60 Second Scan</span>
+                <span className="px-4 py-2 rounded-full border border-white/20 text-[7px] md:text-[8px] uppercase tracking-widest text-white/50 bg-white/5 backdrop-blur-md">True-Color 3D</span>
               </div>
             </motion.div>
           </div>
