@@ -967,94 +967,196 @@ export default function App() {
 
               <div className="relative z-10 w-full">
                 <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 font-display text-[9px] uppercase tracking-[0.3em] text-white font-medium shadow-sm mb-12 md:mb-16">
-                  <Star className="w-3 h-3 text-aura-gold" /> Signature
+              {/* Mobile Bento (Dedicated Stack) */}
+          {isMobile ? (
+            <div className="flex flex-col gap-6">
+              {/* Card 1: Full Mouth Rehab */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[550px] shadow-aura-soft"
+              >
+                <div className="absolute inset-0">
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-50" alt="Full Mouth Rehabilitation" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
-
-                <h3 className="font-sans font-bold text-4xl md:text-7xl leading-none text-white mb-6 md:mb-10 tracking-tight">
-                  Full Mouth <br /> Rehabilitation
-                </h3>
-
-                <p className="font-sans text-sm md:text-xl text-white/80 max-w-md md:leading-relaxed">
-                  Comprehensive functional and aesthetic rebuild of your entire dental architecture for peak performance and absolute confidence.
-                </p>
-              </div>
-
-              {/* Bottom Nav Pills */}
-              <div className="relative z-10 flex flex-wrap gap-2 md:gap-4 mt-12 md:mt-20">
-                {['Reconstruction', 'Bite Correction', 'Aesthetics'].map((tag) => (
-                  <div key={tag} className="px-4 py-2 md:px-8 md:py-4 rounded-full bg-white/10 backdrop-blur-md font-display text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-white font-medium shadow-aura-soft border border-white/20 hover:bg-white hover:text-black transition-colors duration-300">
-                    {tag}
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Star className="w-4 h-4 text-aura-gold" />
+                    <span className="font-display text-[10px] uppercase tracking-[0.4em] text-white/50">Signature</span>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Card 2: Smile Design */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="md:col-span-4 bg-aura-beige rounded-[3rem] p-10 md:p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
-            >
-              <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-20" alt="Smile Design" />
-                <div className="absolute inset-0 bg-gradient-to-br from-aura-gold/10 to-transparent" />
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
-                <p className="font-sans text-sm text-aura-black/60 leading-relaxed">Architecting the perfect aesthetic frame for your face using minimally invasive porcelain and digital modeling.</p>
-              </div>
-              <div className="relative z-10 mt-8">
-                <div className="w-12 h-12 rounded-full bg-aura-black text-white flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
-                  <ArrowUpRight className="w-6 h-6 text-white" />
+                  <h3 className="font-sans font-bold text-[12vw] leading-[0.95] tracking-tight mb-8">Full Mouth<br />Rehabilitation</h3>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Card 3: Implants */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="md:col-span-4 bg-aura-black text-white rounded-[3rem] p-10 md:p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
-            >
-              <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
-                <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-40" alt="Dental Implants" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-              </div>
-              <div className="relative z-10">
-                <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center mb-6">
-                  <div className="w-3 h-3 rotate-45 border border-aura-accent/50" />
+                <div className="relative z-10">
+                  <p className="font-sans text-base text-white/70 mb-10 leading-relaxed">
+                    Comprehensive functional and aesthetic rebuild of your entire dental architecture for peak performance and absolute confidence.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['Reconstruction', 'Bite Correction', 'Aesthetics'].map(tag => (
+                      <span key={tag} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] uppercase tracking-widest text-white/80">{tag}</span>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-white">Implants</h3>
-                <p className="font-sans text-sm text-white/50 leading-relaxed">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement.</p>
-              </div>
-              <div className="relative z-10 flex justify-end mt-8">
-                <ArrowUpRight className="w-6 h-6 text-white/30 group-hover:text-white transition-colors duration-500" />
-              </div>
-            </motion.div>
+              </motion.div>
 
-            {/* Card 4: Orthodontics */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="md:col-span-8 bg-white rounded-[3rem] p-10 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group cursor-none shadow-aura-soft min-h-[400px] md:h-auto"
-            >
-              <div className="relative z-10 flex-1">
-                <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-6 block">Precision</span>
-                <h3 className="font-sans font-bold text-[8vw] md:text-5xl leading-none tracking-tight mb-6 text-aura-black">Orthodontics &<br />Clear Aligners</h3>
-                <p className="font-sans text-base text-aura-black/60 max-w-sm leading-relaxed mb-8">Modern invisible solutions to align your teeth with comfort and clinical precision.</p>
-                <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
-              </div>
-              <div className="relative w-full md:w-1/3 aspect-square md:aspect-auto md:h-full rounded-[2rem] overflow-hidden">
-                <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover" alt="Orthodontics" />
-              </div>
-            </motion.div>
-          </div>
+              {/* Card 2: Smile Design */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-aura-beige rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
+              >
+                <div className="absolute inset-0">
+                  <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill className="object-cover opacity-20" alt="Smile Design" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-aura-black">Smile<br />Design</h3>
+                  <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Architecting the perfect aesthetic frame for your face using minimally invasive porcelain and digital modeling.</p>
+                </div>
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-full bg-aura-black text-white flex items-center justify-center">
+                    <ArrowUpRight className="w-6 h-6" />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 3: Implants */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-aura-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
+              >
+                <div className="absolute inset-0">
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Dental Implants" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                </div>
+                <div className="relative z-10">
+                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mb-6">
+                    <div className="w-3 h-3 rotate-45 border border-aura-accent/50" />
+                  </div>
+                  <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-white">Implants</h3>
+                  <p className="font-sans text-base text-white/50 leading-relaxed">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement.</p>
+                </div>
+                <div className="relative z-10 flex justify-end">
+                  <ArrowUpRight className="w-6 h-6 text-white/30" />
+                </div>
+              </motion.div>
+
+              {/* Card 4: Orthodontics */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
+              >
+                <div className="relative z-10">
+                  <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-6 block">Precision</span>
+                  <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-aura-black">Orthodontics</h3>
+                  <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Modern invisible solutions to align your teeth with comfort and clinical precision.</p>
+                </div>
+                <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontics" />
+                </div>
+              </motion.div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-12 gap-6">
+              {/* Card 1: Full Mouth Rehab (Desktop) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.1 }}
+                className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
+              >
+                <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-60" alt="Full Mouth Rehabilitation" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                </div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Star className="w-4 h-4 text-aura-gold" />
+                    <span className="font-display text-[10px] uppercase tracking-[0.4em] text-white/50">Signature</span>
+                  </div>
+                  <h3 className="font-sans font-bold text-6xl leading-[0.95] tracking-tight mb-8">Full Mouth<br />Rehabilitation</h3>
+                </div>
+                <div className="relative z-10 max-w-md">
+                  <p className="font-sans text-xl text-white/70 mb-10 leading-relaxed">
+                    Comprehensive functional and aesthetic rebuild of your entire dental architecture for peak performance and absolute confidence.
+                  </p>
+                  <div className="flex gap-3">
+                    {['Reconstruction', 'Bite Correction', 'Aesthetics'].map(tag => (
+                      <span key={tag} className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-widest text-white/80">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 2: Smile Design (Desktop) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="col-span-4 bg-aura-beige rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
+              >
+                <div className="relative z-10">
+                  <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
+                  <p className="font-sans text-sm text-aura-black/60 leading-relaxed">Architecting the perfect aesthetic frame for your face using minimally invasive porcelain and digital modeling.</p>
+                </div>
+                <div className="relative z-10 mt-auto">
+                  <div className="w-12 h-12 rounded-full bg-aura-black text-white flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
+                    <ArrowUpRight className="w-6 h-6" />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 3: Implants (Desktop) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="col-span-4 bg-aura-black text-white rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
+              >
+                <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Dental Implants" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                </div>
+                <div className="relative z-10">
+                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center mb-6">
+                    <div className="w-3 h-3 rotate-45 border border-aura-accent/50" />
+                  </div>
+                  <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-white">Implants</h3>
+                  <p className="font-sans text-sm text-white/50 leading-relaxed">Premium titanium and zirconia implant systems for permanent, lifelike tooth replacement.</p>
+                </div>
+                <div className="relative z-10 flex justify-end">
+                  <ArrowUpRight className="w-6 h-6 text-white/30 group-hover:text-white transition-colors duration-500" />
+                </div>
+              </motion.div>
+
+              {/* Card 4: Orthodontics (Desktop) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.4 }}
+                className="col-span-8 bg-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group cursor-none shadow-aura-soft"
+              >
+                <div className="relative z-10 flex-1">
+                  <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-6 block">Precision</span>
+                  <h3 className="font-sans font-bold text-5xl leading-none tracking-tight mb-6 text-aura-black">Orthodontics &<br />Clear Aligners</h3>
+                  <p className="font-sans text-base text-aura-black/60 max-w-sm leading-relaxed mb-8">Modern invisible solutions to align your teeth with comfort and clinical precision.</p>
+                  <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
+                </div>
+                <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontics" />
+                </div>
+              </motion.div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -1084,42 +1186,76 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`flex ${isMobile ? 'flex-col gap-6' : 'h-[80vh] gap-4'}`}>
-            {[
-              { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
-              { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
-              { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
-            ].map((phase, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                className={`${isMobile ? 'w-full min-h-[450px]' : 'flex-1'} relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform`}
-              >
-                <Image src={phase.img} fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={phase.title} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
-                  <div className="flex justify-between items-start">
+          {/* Workflow (Mobile Dedicated vs Desktop) */}
+          {isMobile ? (
+            <div className="flex flex-col gap-6">
+              {[
+                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
+                { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
+                { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
+              ].map((phase, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="w-full min-h-[500px] relative rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep"
+                >
+                  <Image src={phase.img} fill className="object-cover opacity-40" alt={phase.title} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
                     <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
-                      <ArrowUpRight className="w-5 h-5 text-white" />
+                    <div>
+                      <h3 className="font-serif text-[10vw] text-white mb-6 leading-none">{phase.title}</h3>
+                      <p className="font-sans text-base text-white/60 mb-8 leading-relaxed">{phase.desc}</p>
+                      <div className="flex gap-3">
+                        {phase.tags.map(tag => (
+                          <span key={tag} className="px-4 py-2 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="font-serif text-3xl md:text-5xl text-white mb-4 leading-none">{phase.title}</h3>
-                    <p className="font-sans text-sm md:text-base text-white/60 mb-6 leading-relaxed">{phase.desc}</p>
-                    <div className="flex gap-3">
-                      {phase.tags.map(tag => (
-                        <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
-                      ))}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex h-[80vh] gap-4">
+              {[
+                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
+                { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
+                { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
+              ].map((phase, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                  className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform"
+                >
+                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={phase.title} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                  <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
+                    <div className="flex justify-between items-start">
+                      <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
+                      <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
+                        <ArrowUpRight className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-5xl text-white mb-4 leading-none">{phase.title}</h3>
+                      <p className="font-sans text-base text-white/60 mb-6 leading-relaxed">{phase.desc}</p>
+                      <div className="flex gap-3">
+                        {phase.tags.map(tag => (
+                          <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
