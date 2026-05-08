@@ -183,6 +183,7 @@ const localBusinessSchema = {
       "url": "https://smilecliniquedental.com",
       "telephone": "+91-9820627550",
       "image": "https://smilecliniquedental.com/hero.png",
+      "logo": "https://smilecliniquedental.com/smilecliniqueicon.png",
       "priceRange": "₹₹₹",
       "address": {
         "@type": "PostalAddress",

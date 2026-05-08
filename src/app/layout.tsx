@@ -27,9 +27,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://smilecliniquedental.com'),
-  title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta, Mumbai',
+  title: 'Smile Clinique | Dr. Nidhi Mehta | Premium Dentist Mumbai',
   description:
-    'Experience painless, world-class dental treatments at Smile Clinique, Malabar Hill, Mumbai. Dr. Nidhi Mehta specializes in Cosmetic Dentistry, Full Mouth Rehabilitation, Veneers, Implants, Orthodontics, and Invisible Aligners. Book your appointment today.',
+    'Experience painless, world-class dental care at Smile Clinique, Malabar Hill, Mumbai. Dr. Nidhi Mehta specializes in Cosmetic Dentistry, Implants & Veneers.',
   applicationName: 'Smile Clinique',
   authors: [{ name: 'Dr. Nidhi Mehta', url: 'https://smilecliniquedental.com' }],
   generator: 'Next.js',
@@ -59,11 +59,16 @@ export const metadata: Metadata = {
     address: true,
     telephone: true,
   },
+  icons: {
+    icon: '/smilecliniqueicon.png',
+    shortcut: '/smilecliniqueicon.png',
+    apple: '/smilecliniqueicon.png',
+  },
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta',
+    title: 'Smile Clinique | Dr. Nidhi Mehta | Premium Dentist Mumbai',
     description:
       'Premium cosmetic and comprehensive dental care at Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, and full mouth rehabilitation.',
     url: 'https://smilecliniquedental.com',
@@ -81,7 +86,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta, Mumbai',
+    title: 'Smile Clinique | Dr. Nidhi Mehta | Premium Dentist Mumbai',
     description:
       'Experience painless, world-class dental care at Malabar Hill, Mumbai. Cosmetic dentistry, implants, aligners & more.',
     images: ['/hero.png'],
