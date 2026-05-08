@@ -961,13 +961,36 @@ export default function App() {
                   alt="Full mouth dental rehabilitation treatment showing comprehensive dental reconstruction"
                   loading="lazy"
                 />
-              </div>
-              {/* Dark Overlay for Readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20 pointer-events-none" />
+      {/* 5. The Masterpiece (Services Bento) */}
+      <section id="services" className="relative z-[40] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
+            <div className="max-w-2xl text-left">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent mb-8"
+              >
+                The Masterpiece
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-sans font-bold tracking-tight text-[11vw] md:text-[4.5vw] leading-[1.05] text-[#1a202c]"
+              >
+                Curating the <br /><span className="font-serif italic font-light text-aura-accent">Inimitable Smile</span>
+              </motion.h2>
+            </div>
+            <p className="font-sans text-base md:text-lg text-[#2d3748]/60 mb-2 leading-relaxed max-w-sm text-left italic border-l-2 border-aura-accent/20 pl-8">
+              "We don't just treat teeth; we architect confidence through clinical mastery and aesthetic intuition."
+            </p>
+          </div>
 
-              <div className="relative z-10 w-full">
-                <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 font-display text-[9px] uppercase tracking-[0.3em] text-white font-medium shadow-sm mb-12 md:mb-16">
-              {/* Mobile Bento (Dedicated Stack) */}
+          {/* Mobile Bento (Dedicated Stack) */}
           {isMobile ? (
             <div className="flex flex-col gap-6">
               {/* Card 1: Full Mouth Rehab */}
