@@ -173,60 +173,94 @@ const faqSchema = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "Dentist",
-  "name": "Smile Clinique Dental Care Centre",
-  "alternateName": "Smile Clinique",
-  "description": "Premium cosmetic and comprehensive dental care by Dr. Nidhi Mehta in Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, invisible aligners, and full mouth rehabilitation.",
-  "url": "https://smilecliniquedental.com",
-  "telephone": "+91-9820627550",
-  "image": "https://smilecliniquedental.com/hero.png",
-  "priceRange": "₹₹₹",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "G 3, Akashdeep Building, Dongersi Road",
-    "addressLocality": "Malabar Hill",
-    "addressRegion": "Mumbai",
-    "postalCode": "400006",
-    "addressCountry": "IN"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 18.9553,
-    "longitude": 72.8007
-  },
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "09:00",
-      "closes": "13:00"
+      "@type": "Dentist",
+      "@id": "https://smilecliniquedental.com/#dentist",
+      "name": "Smile Clinique Dental Care Centre",
+      "alternateName": "Smile Clinique",
+      "description": "Premium cosmetic and comprehensive dental care by Dr. Nidhi Mehta in Malabar Hill, Mumbai. Specializing in smile design, implants, veneers, invisible aligners, and full mouth rehabilitation.",
+      "url": "https://smilecliniquedental.com",
+      "telephone": "+91-9820627550",
+      "image": "https://smilecliniquedental.com/hero.png",
+      "priceRange": "₹₹₹",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "G 3, Akashdeep Building, Dongersi Road",
+        "addressLocality": "Malabar Hill",
+        "addressRegion": "Mumbai",
+        "postalCode": "400006",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 18.9553,
+        "longitude": 72.8007
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "13:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "16:00",
+          "closes": "19:00"
+        }
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Dr. Nidhi Mehta",
+        "jobTitle": "BDS, Comprehensive Dentist & Founder",
+        "knowsAbout": ["Cosmetic Dentistry", "Oral Implantology", "Full Mouth Rehabilitation", "Orthodontics"]
+      },
+      "medicalSpecialty": [
+        "CosmeticDentistry",
+        "DentalImplants",
+        "Orthodontics",
+        "Prosthodontics"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Dental Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Full Mouth Rehabilitation",
+              "description": "Comprehensive structural and aesthetic dental reconstruction for complex cases."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Porcelain Veneers & Smile Design",
+              "description": "Custom artisanal porcelain veneers for the ultimate aesthetic transformation."
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "500",
+        "bestRating": "5"
+      }
     },
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "16:00",
-      "closes": "19:00"
+      "@type": "MedicalWebPage",
+      "@id": "https://smilecliniquedental.com/#webpage",
+      "url": "https://smilecliniquedental.com",
+      "name": "Smile Clinique - Premium Dental Care Mumbai",
+      "about": { "@id": "https://smilecliniquedental.com/#dentist" },
+      "mainEntity": { "@id": "https://smilecliniquedental.com/#dentist" }
     }
-  ],
-  "founder": {
-    "@type": "Person",
-    "name": "Dr. Nidhi Mehta",
-    "jobTitle": "BDS, Comprehensive Dentist & Founder"
-  },
-  "medicalSpecialty": [
-    "Cosmetic Dentistry",
-    "Dental Implants",
-    "Orthodontics",
-    "Prosthodontics",
-    "Full Mouth Rehabilitation"
-  ],
-  "sameAs": [],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "500",
-    "bestRating": "5"
-  }
+  ]
 };
 
 const breadcrumbSchema = {
@@ -238,6 +272,32 @@ const breadcrumbSchema = {
       "position": 1,
       "name": "Home",
       "item": "https://smilecliniquedental.com"
+    }
+  ]
+};
+
+const medicalProcedureSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalProcedure",
+      "name": "Full Mouth Rehabilitation",
+      "description": "Comprehensive functional and aesthetic rebuild of the entire dental architecture.",
+      "procedureType": "Surgical and Restorative",
+      "relevantSpecialty": {
+        "@type": "MedicalSpecialty",
+        "name": "Prosthodontics"
+      }
+    },
+    {
+      "@type": "MedicalProcedure",
+      "name": "Porcelain Veneers",
+      "description": "Artisanal hand-finished ceramic veneers for aesthetic smile transformation.",
+      "procedureType": "Cosmetic",
+      "relevantSpecialty": {
+        "@type": "MedicalSpecialty",
+        "name": "CosmeticDentistry"
+      }
     }
   ]
 };
@@ -434,6 +494,8 @@ export default function App() {
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Grain disabled={isMobile} />
       {/* Custom Cursor */}
       <motion.div
@@ -573,7 +635,7 @@ export default function App() {
                     fill
                     sizes="56px"
                     className="object-cover"
-                    alt="Preventive dental care check-up"
+                    alt="Preventive dental check-up and professional cleaning at Smile Clinique Malabar Hill"
                   />
                 </div>
                 <h4 className="font-sans font-medium text-[#2d3748] text-[15px] pt-1 leading-tight tracking-tight">Preventive Care</h4>
@@ -949,7 +1011,7 @@ export default function App() {
                 className="bg-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[550px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-50" alt="Full Mouth Rehabilitation" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-50" alt="Full mouth dental rehabilitation and reconstruction for complex functional and aesthetic cases" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -979,7 +1041,7 @@ export default function App() {
                 className="bg-aura-beige rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill className="object-cover opacity-20" alt="Smile Design" />
+                  <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill className="object-cover opacity-20" alt="Digital smile design and aesthetic mapping for porcelain veneers and aesthetic transformation" />
                 </div>
                 <div className="relative z-10">
                   <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-aura-black">Smile<br />Design</h3>
@@ -1000,7 +1062,7 @@ export default function App() {
                 className="bg-aura-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Dental Implants" />
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Premium titanium and zirconia dental implants for permanent tooth replacement at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1028,7 +1090,7 @@ export default function App() {
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Modern invisible solutions to align your teeth with comfort and clinical precision.</p>
                 </div>
                 <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontics" />
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners for precise teeth alignment and occlusion correction" />
                 </div>
               </motion.div>
             </div>
@@ -1043,7 +1105,7 @@ export default function App() {
                 className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
               >
                 <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-60" alt="Full Mouth Rehabilitation" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-60" alt="Comprehensive full mouth dental rehabilitation treatment result showcasing total smile reconstruction" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1093,7 +1155,7 @@ export default function App() {
                 className="col-span-4 bg-aura-black text-white rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
               >
                 <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
-                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Dental Implants" />
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Advanced dental implant surgery for clinical excellence and long-term functional stability" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1123,7 +1185,7 @@ export default function App() {
                   <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
                 </div>
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontics" />
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Modern orthodontic solutions including clear aligners for adults and children at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
@@ -1172,7 +1234,7 @@ export default function App() {
                   viewport={{ once: true }}
                   className="w-full min-h-[500px] relative rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep"
                 >
-                  <Image src={phase.img} fill className="object-cover opacity-40" alt={phase.title} />
+                  <Image src={phase.img} fill className="object-cover opacity-40" alt={`${phase.title} – ${phase.desc} clinical process step at Smile Clinique Mumbai`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
                     <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
@@ -1204,7 +1266,7 @@ export default function App() {
                   transition={{ duration: 0.8, delay: i * 0.1 }}
                   className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform"
                 >
-                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={phase.title} />
+                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow for ${phase.title} at Smile Clinique`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
@@ -1286,7 +1348,7 @@ export default function App() {
                   transition={{ duration: 1.5 }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={member.name} loading="lazy" />
+                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={`${member.name} – ${member.role} clinical phase at Smile Clinique Mumbai`} loading="lazy" />
                 </motion.div>
                 <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none">
                   <motion.div

@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   title: 'Smile Clinique | Premium Dental Care by Dr. Nidhi Mehta, Mumbai',
   description:
     'Experience painless, world-class dental treatments at Smile Clinique, Malabar Hill, Mumbai. Dr. Nidhi Mehta specializes in Cosmetic Dentistry, Full Mouth Rehabilitation, Veneers, Implants, Orthodontics, and Invisible Aligners. Book your appointment today.',
+  applicationName: 'Smile Clinique',
+  authors: [{ name: 'Dr. Nidhi Mehta', url: 'https://smilecliniquedental.com' }],
+  generator: 'Next.js',
   keywords: [
     'dentist mumbai',
     'dentist malabar hill',
@@ -46,7 +49,16 @@ export const metadata: Metadata = {
     'painless dentistry mumbai',
     'teeth whitening mumbai',
     'porcelain veneers mumbai',
+    'dental veneers south mumbai',
+    'pain-free dental treatment malabar hill',
+    'luxury dental clinic mumbai',
   ],
+  category: 'Healthcare',
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
   alternates: {
     canonical: '/',
   },
@@ -84,10 +96,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    // Add your Google Search Console verification code here when ready
-    // google: 'your-verification-code',
   },
 };
 
