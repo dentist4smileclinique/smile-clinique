@@ -317,8 +317,8 @@ const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWi
 
   return (
     <motion.div
-      style={{ x, y, rotate, zIndex, scale }}
-      className="absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-none origin-bottom px-4"
+      style={isMobile ? { zIndex } : { x, y, rotate, zIndex, scale }}
+      className={`absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-none origin-bottom px-4 ${isMobile ? 'w-full flex justify-center' : ''}`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -346,9 +346,11 @@ export default function App() {
 
   // Smooth Scroll Initialization (Lenis) — desktop only for better mobile perf
   useEffect(() => {
-    const mobile = window.innerWidth < 768 || 'ontouchstart' in window;
-    setIsMobile(mobile);
-    if (mobile) return; // Skip Lenis on mobile — native scroll is faster
+    // Detect mobile/touch device
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsMobile(isTouch);
+    
+    if (isTouch) return; // Skip Lenis on mobile — native scroll is faster and smoother
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -537,23 +539,25 @@ export default function App() {
         {/* Soft ambient glow behind text to ensure legibility over dark image areas */}
         <div className="absolute top-1/2 left-[35%] -translate-y-1/2 w-[30vw] h-[30vw] bg-[#fcfcfc] rounded-full blur-[100px] z-[5] pointer-events-none opacity-90" />
 
-        {/* Right-Aligned Typography layer */}
-        <div className="relative z-10 w-full flex justify-end items-center pointer-events-none mt-[10vh] md:mt-0 pr-[4%] md:pr-[2%]">
+        {/* Typography layer */}
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-[15vh] md:mt-0 pr-0 md:pr-[2%]">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.4 }}
-            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
+            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%] px-6"
           >
-            <h1 className="flex flex-col items-center text-center">
-              <span className="font-chancery text-[11vw] md:text-[5.5vw] text-[#1a2456] leading-[1.1] tracking-[0.01em]">Smile Clinique</span>
-              <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.1] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
-            </h1>
-            <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
-            <div className="w-full flex justify-center md:justify-end mt-6 md:mt-8">
-              <p className="font-sans text-base md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right">
-                Mumbai&apos;s Trusted Dental Care Centre.
-              </p>
+            <div className="bg-white/10 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-6 md:p-0 rounded-[2rem] md:rounded-none border border-white/20 md:border-none flex flex-col items-center md:items-end">
+              <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] text-[#1a2456] leading-[1.1] tracking-[0.01em]">Smile Clinique</span>
+                <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.1] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
+              </h1>
+              <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
+              <div className="w-full flex justify-center md:justify-end mt-4 md:mt-8">
+                <p className="font-sans text-sm md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right">
+                  Mumbai&apos;s Trusted Dental Care Centre.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -1380,38 +1384,39 @@ export default function App() {
         </div>
       </section>
 
-      {/* 9. Patient Stories (Cyclical Arc Carousel) */}
-      <section id="testimonials" ref={arcContainerRef} className="relative z-[100] h-[400vh] bg-aura-beige -mt-16 rounded-t-[4rem] md:rounded-t-[6rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
-        <div className="sticky top-0 h-[100vh] w-full flex items-center justify-center overflow-hidden pt-16">
+      {/* 9. Patient Stories (Carousel) */}
+      <section id="testimonials" ref={arcContainerRef} className={`relative z-[100] ${isMobile ? 'py-20 h-auto' : 'h-[400vh]'} bg-aura-beige -mt-16 rounded-t-[4rem] md:rounded-t-[6rem] shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]`}>
+        <div className={`${isMobile ? 'relative h-auto' : 'sticky top-0 h-[100vh]'} w-full flex items-center justify-center overflow-hidden pt-16`}>
 
           {/* Background Large Text */}
           <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 px-10"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 px-6"
             style={{ backgroundImage: 'radial-gradient(circle at center, rgba(217, 255, 0, 0.2) 0%, transparent 50%)' }}
           >
-            <h2 className="font-display font-bold text-[14vw] md:text-[18vw] leading-[0.85] uppercase tracking-tighter text-aura-black/5 text-center mix-blend-multiply">
-              WELLNESS<br />STORIES<br />SHARE
+            <h2 className="font-display font-bold text-[15vw] md:text-[18vw] leading-[0.85] uppercase tracking-tighter text-aura-black/5 text-center mix-blend-multiply">
+              WELLNESS<br />STORIES
             </h2>
           </div>
 
           {/* Cards Container */}
-          <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24">
+          <div className={`relative w-full ${isMobile ? 'flex overflow-x-auto snap-x snap-mandatory px-6 gap-6 no-scrollbar pb-12 h-auto' : 'h-[600px] perspective-[1000px]'} max-w-[1600px] mx-auto z-10 mt-12 md:mt-24`}>
             {[
               { theme: 'light' as const, quote: "Visited Dr. Nidhi at Smile Clinique in Malabar Hill. Fabulous experience. All precautions taken care off. Superb skill!", author: "Nancy Mehta", location: "Google Review • 5 Stars" },
               { theme: 'image' as const, author: "Nancy Mehta", location: "Google Review • 5 Stars", img: "/nancy2.png" },
               { theme: 'lime' as const, quote: "Good doctors, well equipped, honest advice, good work. Aur kya chahiye! Perfect clinical skill and finesse.", author: "Himanshu Dhoria", location: "Mumbai Resident" },
               { theme: 'image' as const, author: "Himanshu Dhoria", location: "Google Review • 5 Stars", img: "/himanshu2.png" }
             ].map((card, i, arr) => (
-              <ArcCard
-                key={i}
-                index={i}
-                totalCards={arr.length}
-                progress={arcProgress}
-                card={card}
-                onHover={() => { setIsHovering(true); setCursorText("Story"); }}
-                onLeave={() => { setIsHovering(false); setCursorText(""); }}
-                windowWidth={windowWidth}
-              />
+              <div key={i} className={`${isMobile ? 'snap-center shrink-0 w-[85vw] flex items-center justify-center' : ''}`}>
+                <ArcCard
+                  index={i}
+                  totalCards={arr.length}
+                  progress={arcProgress}
+                  card={card}
+                  onHover={() => { setIsHovering(true); setCursorText("Story"); }}
+                  onLeave={() => { setIsHovering(false); setCursorText(""); }}
+                  windowWidth={windowWidth}
+                />
+              </div>
             ))}
           </div>
         </div>
