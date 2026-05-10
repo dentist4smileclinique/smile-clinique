@@ -599,14 +599,14 @@ export default function App() {
         </div>
 
         {/* Typography Layer */}
-        <div className="relative z-10 w-full flex justify-start md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.6 }}
-            className="flex flex-col items-start md:items-end w-full md:w-[55%] lg:w-[50%]"
+            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
-            <h1 className="flex flex-col items-start text-left md:items-end md:text-right">
+            <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
               <span className="font-chancery text-[12vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
               <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
             </h1>
@@ -781,7 +781,7 @@ export default function App() {
 
 
           {/* Centered Masterpiece Text */}
-          <div className="relative z-30 flex flex-col items-start text-left px-6 md:px-6">
+          <div className="relative z-30 flex flex-col items-center text-center px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -789,7 +789,7 @@ export default function App() {
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-5xl relative z-30"
             >
-              <h2 className="font-sans font-bold text-[11vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm text-left md:text-center">
+              <h2 className="font-sans font-bold text-[8.5vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm">
                 We treat the human smile not as <br className="hidden md:block" />
                 a mere feature, but as the absolute <br className="hidden md:block" />
                 <span className="relative inline-block my-1 md:my-0">
