@@ -500,7 +500,7 @@ export default function App() {
   const workflowRef = useRef(null);
   const { scrollYProgress: workflowProgress } = useScroll({
     target: workflowRef,
-    offset: ["start center", "end center"]
+    offset: ["start start", "end end"]
   });
 
   const activePhase = useTransform(workflowProgress, [0, 0.2, 0.4, 0.6, 0.8, 1], [0, 0, 1, 2, 3, 3]);
@@ -1240,8 +1240,8 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div ref={workflowRef} className="h-[300vh] relative -mx-6 px-6">
-              <div className="sticky top-24 left-0 right-0 flex flex-col gap-4">
+            <div ref={workflowRef} className="h-[500vh] relative -mx-6 px-6">
+              <div className="sticky top-0 h-screen flex flex-col justify-center gap-4 py-20">
                 {workflowPhases.map((phase, i) => (
                   <motion.div
                     key={i}
