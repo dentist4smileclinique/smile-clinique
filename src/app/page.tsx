@@ -1226,7 +1226,7 @@ export default function App() {
               {[
                 { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030", tags: ["Analysis", "3D Scan"] },
                 { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
-                { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
+                { title: "World-Class Restoration", phase: "Phase 03", desc: "Meticulous selection of world-class dental restorations from premier global laboratories for absolute clinical excellence.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Global Standards", "Precision"] }
               ].map((phase, i) => (
                 <motion.div
                   key={i}
@@ -1257,7 +1257,7 @@ export default function App() {
               {[
                 { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
                 { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
-                { title: "Boutique Fabrication", phase: "Phase 03", desc: "Artisanal creation of your dental restorations in our boutique laboratory.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Artistry", "Precision"] }
+                { title: "World-Class Restoration", phase: "Phase 03", desc: "Meticulous selection of world-class dental restorations from premier global laboratories for absolute clinical excellence.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Global Standards", "Precision"] }
               ].map((phase, i) => (
                 <motion.div
                   key={i}
