@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo, useCallback, ReactNode } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValueEvent } from 'motion/react';
 import { ArrowUpRight, Plus, Star, ArrowRight, BookOpen, Menu, X, ArrowDown, ScanLine, Sparkles, Gem, Activity, Smile, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import Lenis from 'lenis';
