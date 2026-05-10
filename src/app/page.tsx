@@ -497,17 +497,8 @@ export default function App() {
   ];
 
   // Workflow Scroll Logic for Accordion
-  const workflowRef = useRef(null);
-  const { scrollYProgress: workflowProgress } = useScroll({
-    target: workflowRef,
-    offset: ["start start", "end end"]
-  });
-
-  const activePhase = useTransform(workflowProgress, [0, 0.2, 0.4, 0.6, 0.8, 1], [0, 0, 1, 2, 3, 3]);
+  // Remove complex scroll logic that caused whitespace issues
   const [currentPhase, setCurrentPhase] = useState(0);
-  useMotionValueEvent(activePhase, "change", (latest) => {
-    setCurrentPhase(Math.round(latest));
-  });
   return (
     <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
       {/* Structured Data */}
@@ -1240,55 +1231,55 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div ref={workflowRef} className="h-[500vh] relative -mx-6 px-6">
-              <div className="sticky top-0 h-screen flex flex-col justify-center gap-4 py-20">
-                {workflowPhases.map((phase, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ 
-                      height: currentPhase === i ? 420 : 80,
-                      opacity: 1
-                    }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full relative rounded-[2.5rem] overflow-hidden bg-aura-black shadow-aura-deep group border border-white/5"
+            <div className="flex flex-col gap-4">
+              {workflowPhases.map((phase, i) => (
+                <motion.div
+                  key={i}
+                  onViewportEnter={() => setCurrentPhase(i)}
+                  viewport={{ amount: 0.6, margin: "-10% 0px -10% 0px" }}
+                  animate={{ 
+                    height: currentPhase === i ? 400 : 80,
+                    opacity: 1
+                  }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full relative rounded-[2.5rem] overflow-hidden bg-aura-black shadow-aura-deep group border border-white/5"
+                >
+                  <Image src={phase.img} fill className="object-cover opacity-40" alt={`${phase.title} – ${phase.desc}`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  
+                  {/* Collapsed Header Overlay */}
+                  <motion.div 
+                    animate={{ opacity: currentPhase === i ? 0 : 1 }}
+                    className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
                   >
-                    <Image src={phase.img} fill className="object-cover opacity-40" alt={`${phase.title} – ${phase.desc}`} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                    
-                    {/* Collapsed Header Overlay */}
-                    <motion.div 
-                      animate={{ opacity: currentPhase === i ? 0 : 1 }}
-                      className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
-                    >
-                      <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                      <h4 className="font-serif text-base text-white/80">{phase.title}</h4>
-                    </motion.div>
-
-                    <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
-                      <motion.span 
-                        animate={{ opacity: currentPhase === i ? 1 : 0 }}
-                        className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent"
-                      >
-                        {phase.phase}
-                      </motion.span>
-                      <motion.div
-                        animate={{ 
-                          opacity: currentPhase === i ? 1 : 0,
-                          y: currentPhase === i ? 0 : 20
-                        }}
-                      >
-                        <h3 className="font-serif text-[8vw] text-white mb-4 leading-none">{phase.title}</h3>
-                        <p className="font-sans text-xs text-white/60 mb-6 leading-relaxed line-clamp-3">{phase.desc}</p>
-                        <div className="flex gap-2">
-                          {phase.tags.map(tag => (
-                            <span key={tag} className="px-3 py-1 rounded-full border border-white/10 text-[7px] uppercase tracking-widest text-white/40">{tag}</span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    </div>
+                    <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
+                    <h4 className="font-serif text-base text-white/80">{phase.title}</h4>
                   </motion.div>
-                ))}
-              </div>
+
+                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
+                    <motion.span 
+                      animate={{ opacity: currentPhase === i ? 1 : 0 }}
+                      className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent"
+                    >
+                      {phase.phase}
+                    </motion.span>
+                    <motion.div
+                      animate={{ 
+                        opacity: currentPhase === i ? 1 : 0,
+                        y: currentPhase === i ? 0 : 20
+                      }}
+                    >
+                      <h3 className="font-serif text-[8vw] text-white mb-4 leading-none">{phase.title}</h3>
+                      <p className="font-sans text-xs text-white/60 mb-6 leading-relaxed line-clamp-3">{phase.desc}</p>
+                      <div className="flex gap-2">
+                        {phase.tags.map(tag => (
+                          <span key={tag} className="px-3 py-1 rounded-full border border-white/10 text-[7px] uppercase tracking-widest text-white/40">{tag}</span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           ) : (
             <div className="flex h-[80vh] gap-4">
