@@ -599,14 +599,14 @@ export default function App() {
         </div>
 
         {/* Typography Layer */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
+        <div className="relative z-10 w-full flex justify-start md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.6 }}
-            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
+            className="flex flex-col items-start md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
-            <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
+            <h1 className="flex flex-col items-start text-left md:items-end md:text-right">
               <span className="font-chancery text-[12vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
               <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
             </h1>
@@ -781,7 +781,7 @@ export default function App() {
 
 
           {/* Centered Masterpiece Text */}
-          <div className="relative z-30 flex flex-col items-center text-center px-4 md:px-6">
+          <div className="relative z-30 flex flex-col items-start text-left px-6 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -789,7 +789,7 @@ export default function App() {
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-5xl relative z-30"
             >
-              <h2 className="font-sans font-bold text-[8.5vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm">
+              <h2 className="font-sans font-bold text-[11vw] md:text-[4.5vw] leading-[1.2] text-[#1a202c] tracking-tight drop-shadow-sm text-left md:text-center">
                 We treat the human smile not as <br className="hidden md:block" />
                 a mere feature, but as the absolute <br className="hidden md:block" />
                 <span className="relative inline-block my-1 md:my-0">
@@ -1419,10 +1419,10 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.5 }}
-            className="mt-48 w-full bg-aura-white border border-aura-black/5 shadow-aura-medium p-24 md:p-32 rounded-[5rem] flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-20"
+            className="mt-48 w-full bg-aura-white border border-aura-black/5 shadow-aura-medium p-12 md:p-32 rounded-[3.5rem] md:rounded-[5rem] flex flex-col md:flex-row justify-between items-start md:items-center text-left gap-20"
           >
             <div className="px-6 md:px-0">
-              <h3 className="font-sans font-bold tracking-tight text-4xl md:text-5xl mb-6 text-aura-black">Ready to redefine <br /> your smile?</h3>
+              <h3 className="font-sans font-bold tracking-tight text-[11vw] md:text-[5vw] mb-6 text-aura-black leading-tight">Ready to redefine <br /> your smile?</h3>
               <p className="font-sans text-base text-aura-black/60 max-w-sm">Join the 500+ patients who chose premium boutique dental care.</p>
             </div>
             <a href="tel:+919820627550" className="group relative w-64 h-64 rounded-full bg-aura-black flex items-center justify-center pointer-events-auto cursor-none overflow-hidden" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
@@ -1436,7 +1436,7 @@ export default function App() {
       {/* All Treatments Ticker */}
       <section className="py-24 md:py-32 border-t border-aura-black/5 overflow-hidden relative bg-aura-beige">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-20 text-center">
-          <h2 className="font-sans font-bold tracking-tight text-4xl md:text-5xl text-aura-black">
+          <h2 className="font-sans font-bold tracking-tight text-[11vw] md:text-[5vw] text-aura-black leading-tight">
             <span className="font-serif italic font-light opacity-50">Every</span> <TypewriterText text="Treatment We Offer" delay={0.2} />
           </h2>
           <p className="font-sans text-base text-aura-black/50 mt-6 max-w-2xl mx-auto">Comprehensive dental care under one roof — from preventive checkups to complex full-mouth rehabilitations.</p>
@@ -1516,7 +1516,7 @@ export default function App() {
              <div className="font-display text-[10px] uppercase tracking-[0.4em] mb-8 flex items-center gap-4 text-aura-accent">
                <div className="w-12 h-[1px] bg-aura-accent/30" /> Client Inquiries
              </div>
-             <h2 className="font-sans font-bold tracking-tight text-5xl md:text-7xl leading-none text-aura-black mb-6">
+             <h2 className="font-sans font-bold tracking-tight text-[11vw] md:text-[7vw] leading-[1.05] text-aura-black mb-6">
                Frequently <br/><span className="font-serif italic font-light text-aura-accent">Asked</span>
              </h2>
           </div>
@@ -1549,7 +1549,7 @@ export default function App() {
           >
             <Star className="w-8 h-8 md:w-12 md:h-12 text-aura-accent" />
           </motion.div>
-          <h2 className="font-serif text-3xl md:text-6xl lg:text-7xl leading-tight text-aura-black mb-16">
+          <h2 className="font-serif text-[8vw] md:text-[6vw] lg:text-[7vw] leading-tight text-aura-black mb-16">
             "We believe that a smile is not merely a physical attribute, but a profound expression of <span className="italic text-aura-accent">human connection</span> and <span className="italic text-aura-accent">inner vitality</span>."
           </h2>
           <div className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-black/40">
