@@ -484,12 +484,30 @@ export default function App() {
 
 
 
-  const team = [
-    { name: "Diagnostic Blueprint", role: "Phase 01", img: "/methodology_1.png", bio: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and AI analysis.", category: "Analysis" },
-    { name: "Aesthetic Simulation", role: "Phase 02", img: "/methodology_2.png", bio: "Virtual rendering and tangible mockups of your potential, allowing you to preview the final result before we begin.", category: "Design" },
-    { name: "Artisanal Fabrication", role: "Phase 03", img: "/methodology_3.png", bio: "Hand-finished ceramics meticulously layered and glazed by our master ceramists in the innovation lab.", category: "Creation" },
-    { name: "Harmonic Integration", role: "Phase 04", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000", bio: "Flawless structural placement for enduring, natural brilliance that becomes completely indistinguishable from nature.", category: "Delivery" },
+  const teamMembers = [
+    { name: "Dr. Nidhi Mehta", role: "Founder & Lead Dentist", img: "/drnidhi.JPG", bio: "Leading Smile Clinique with a vision for comprehensive, aesthetic-focused dental mastery and patient-centric care.", category: "Leadership" },
+    { name: "Expert Associates", role: "Specialist Team", img: "/methodology_3.png", bio: "A curated team of specialists dedicated to the highest standards of clinical precision and patient comfort.", category: "Clinical" },
   ];
+
+  const workflowPhases = [
+    { title: "Diagnostic Blueprint", phase: "Phase 01", img: "/methodology_1.png", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and AI analysis.", tags: ["Analysis", "3D Scan"] },
+    { title: "Aesthetic Simulation", phase: "Phase 02", img: "/methodology_2.png", desc: "Virtual rendering and tangible mockups of your potential, allowing you to preview the final result before we begin.", tags: ["Digital Twin", "Mockup"] },
+    { title: "World-Class Restoration", phase: "Phase 03", img: "/methodology_3.png", desc: "Meticulous selection of world-class dental restorations from premier global laboratories.", tags: ["Global Standards", "Precision"] },
+    { title: "Harmonic Integration", phase: "Phase 04", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000", desc: "Flawless structural placement for enduring, natural brilliance that becomes completely indistinguishable from nature.", tags: ["Delivery", "Integration"] },
+  ];
+
+  // Workflow Scroll Logic for Accordion
+  const workflowRef = useRef(null);
+  const { scrollYProgress: workflowProgress } = useScroll({
+    target: workflowRef,
+    offset: ["start center", "end center"]
+  });
+
+  const activePhase = useTransform(workflowProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0, 1, 2, 3]);
+  const [currentPhase, setCurrentPhase] = useState(0);
+  useMotionValueEvent(activePhase, "change", (latest) => {
+    setCurrentPhase(Math.round(latest));
+  });
   return (
     <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
       {/* Structured Data */}
@@ -1222,43 +1240,59 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div className="flex flex-col gap-6">
-              {[
-                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030", tags: ["Analysis", "3D Scan"] },
-                { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
-                { title: "World-Class Restoration", phase: "Phase 03", desc: "Meticulous selection of world-class dental restorations from premier global laboratories for absolute clinical excellence.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Global Standards", "Precision"] }
-              ].map((phase, i) => (
+            <div ref={workflowRef} className="flex flex-col gap-4 relative">
+              {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="w-full min-h-[500px] relative rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep"
+                  animate={{ 
+                    height: currentPhase === i ? 450 : 100,
+                    opacity: 1
+                  }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full relative rounded-[2.5rem] overflow-hidden bg-aura-black shadow-aura-deep group border border-white/5"
                 >
-                  <Image src={phase.img} fill className="object-cover opacity-40" alt={`${phase.title} – ${phase.desc} clinical process step at Smile Clinique Mumbai`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
+                  <Image src={phase.img} fill className="object-cover opacity-40" alt={`${phase.title} – ${phase.desc}`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  
+                  {/* Collapsed Header Overlay */}
+                  <motion.div 
+                    animate={{ opacity: currentPhase === i ? 0 : 1 }}
+                    className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
+                  >
                     <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                    <div>
-                      <h3 className="font-serif text-[10vw] text-white mb-6 leading-none">{phase.title}</h3>
-                      <p className="font-sans text-base text-white/60 mb-8 leading-relaxed">{phase.desc}</p>
-                      <div className="flex gap-3">
+                    <h4 className="font-serif text-lg text-white/80">{phase.title}</h4>
+                  </motion.div>
+
+                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
+                    <motion.span 
+                      animate={{ opacity: currentPhase === i ? 1 : 0 }}
+                      className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent"
+                    >
+                      {phase.phase}
+                    </motion.span>
+                    <motion.div
+                      animate={{ 
+                        opacity: currentPhase === i ? 1 : 0,
+                        y: currentPhase === i ? 0 : 20
+                      }}
+                    >
+                      <h3 className="font-serif text-[9vw] text-white mb-4 leading-none">{phase.title}</h3>
+                      <p className="font-sans text-sm text-white/60 mb-6 leading-relaxed">{phase.desc}</p>
+                      <div className="flex gap-2">
                         {phase.tags.map(tag => (
-                          <span key={tag} className="px-4 py-2 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
+                          <span key={tag} className="px-3 py-1.5 rounded-full border border-white/10 text-[8px] uppercase tracking-widest text-white/40">{tag}</span>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
+              {/* Spacer for scroll target */}
+              <div className="h-[20vh] w-full" />
             </div>
           ) : (
             <div className="flex h-[80vh] gap-4">
-              {[
-                { title: "Diagnostic Blueprint", phase: "Phase 01", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning.", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070", tags: ["Analysis", "3D Scan"] },
-                { title: "Clinical Simulation", phase: "Phase 02", desc: "Preview your results before we begin. We create a digital twin of your future smile.", img: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=2070", tags: ["Digital Twin", "Mockup"] },
-                { title: "World-Class Restoration", phase: "Phase 03", desc: "Meticulous selection of world-class dental restorations from premier global laboratories for absolute clinical excellence.", img: "https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=2070", tags: ["Global Standards", "Precision"] }
-              ].map((phase, i) => (
+              {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 30 }}
@@ -1267,7 +1301,7 @@ export default function App() {
                   transition={{ duration: 0.8, delay: i * 0.1 }}
                   className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform"
                 >
-                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow for ${phase.title} at Smile Clinique`} />
+                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
@@ -1317,7 +1351,7 @@ export default function App() {
                 The Absolute <br /><span className="font-serif italic font-light text-aura-accent">Authority</span>
               </motion.h2>
             </div>
-            <div className="flex gap-4 mb-2">
+            <div className="hidden md:flex gap-4 mb-2">
               <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 3))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 rotate-180 transition-transform group-hover:-translate-x-1" />
               </button>
@@ -1328,7 +1362,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 h-[600px] md:h-[700px] w-full">
-            {team.map((member, i) => (
+            {teamMembers.map((member, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -1349,7 +1383,7 @@ export default function App() {
                   transition={{ duration: 1.5 }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={`${member.name} – ${member.role} clinical phase at Smile Clinique Mumbai`} loading="lazy" />
+                  <Image src={member.img} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" alt={`${member.name} – ${member.role}`} loading="lazy" />
                 </motion.div>
                 <div className="absolute inset-x-0 bottom-0 p-10 md:p-14 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end h-[60%] pointer-events-none">
                   <motion.div
