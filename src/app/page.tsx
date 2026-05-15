@@ -1772,6 +1772,105 @@ export default function App() {
                   </Magnetic>
                 </div>
               </motion.div>
+      {/* 8. Location & Access Card */}
+      <section id="location" className="relative z-[115] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.03)]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Map Info */}
+            <div className="lg:col-span-5 flex flex-col gap-10">
+              <div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent mb-8"
+                >
+                  The Sanctuary
+                </motion.div>
+                <motion.h2
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="font-sans font-bold tracking-tight text-5xl md:text-7xl leading-[1.1] text-aura-black mb-8"
+                >
+                  Visit us in <br /><span className="font-serif italic font-light text-aura-accent">Malabar Hill</span>
+                </motion.h2>
+                <p className="font-sans text-lg text-aura-black/60 leading-relaxed max-w-md">
+                  Experience world-class dental care in the heart of Mumbai. Our boutique practice is designed for absolute comfort and clinical excellence.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-aura-beige flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-aura-accent" />
+                  </div>
+                  <div>
+                    <span className="block font-display text-[10px] uppercase tracking-widest text-aura-black/40 mb-1">Address</span>
+                    <span className="font-sans text-base text-aura-black/80">G 3, Akashdeep Building, Dongersi Road,<br />Malabar Hill, Mumbai - 400006</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-aura-beige flex items-center justify-center shrink-0">
+                    <Clock className="w-5 h-5 text-aura-accent" />
+                  </div>
+                  <div>
+                    <span className="block font-display text-[10px] uppercase tracking-widest text-aura-black/40 mb-1">Hours</span>
+                    <span className="font-sans text-base text-aura-black/80">Mon–Sat: 9 AM–1 PM | 4 PM–7 PM<br />Sunday: Closed</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <Magnetic>
+                  <a 
+                    href="https://maps.app.goo.gl/9R6wR89u792Y7X7Z7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => { setIsHovering(true); setCursorText("Go"); }}
+                    onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
+                    className="px-10 py-5 rounded-full bg-aura-black text-white text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-aura-accent transition-all duration-500 shadow-aura-deep cursor-none"
+                  >
+                    Open in Maps
+                  </a>
+                </Magnetic>
+              </div>
+            </div>
+
+            {/* Visual Map Mockup */}
+            <div className="lg:col-span-7 h-[500px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-aura-deep group border border-black/5">
+              <Image 
+                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2066" 
+                fill 
+                className="object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-[10s]" 
+                alt="Smile Clinique Location Map" 
+              />
+              <div className="absolute inset-0 bg-aura-beige/10" />
+              
+              {/* Pulsing Pin Marker */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full bg-aura-accent/30 animate-ping" />
+                  <div className="relative w-16 h-16 rounded-full bg-white shadow-aura-deep flex items-center justify-center border border-aura-accent/20">
+                    <div className="w-10 h-10 rounded-full bg-aura-accent flex items-center justify-center text-white">
+                      <LogoIcon className="w-6 h-6 invert brightness-0" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-aura-medium border border-black/5">
+                  <span className="font-chancery text-2xl text-aura-black">Smile Clinique</span>
+                </div>
+              </div>
+
+              {/* Aesthetic Overlay Controls */}
+              <div className="absolute bottom-8 right-8 flex gap-2">
+                <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
+                  <Plus className="w-5 h-5 text-aura-black/40" />
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
+                  <div className="w-5 h-[2px] bg-aura-black/40" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
