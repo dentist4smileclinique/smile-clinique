@@ -748,56 +748,67 @@ export default function App() {
           </motion.div>
         </div>
 
-        {/* Floating Interactive Cards at Bottom */}
-        <div className="absolute bottom-6 md:bottom-16 left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-4 pointer-events-none">
-          <div className="w-full flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pointer-events-auto px-1 py-4">
+        {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
+        <div className={`w-full ${isMobile ? 'relative mt-32' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
+          <div className={`w-full flex ${isMobile ? 'flex-col gap-6' : 'overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4'} pointer-events-auto px-1 py-4`}>
             {/* Card 1: Expanded (Preventive Care) */}
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="bg-white p-5 rounded-2xl border border-black/5 shadow-aura-soft w-[85vw] md:w-[360px] shrink-0 snap-center flex flex-col"
+              initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
+              whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
+              animate={!isMobile ? { y: 0, opacity: 1 } : {}}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-white p-6 rounded-[2.5rem] border border-black/5 shadow-aura-soft w-full md:w-[360px] shrink-0 snap-center flex flex-col"
             >
-              <div className="flex justify-between items-start gap-3">
-                <div className="flex gap-3 items-start flex-1">
-                  <div className="w-14 h-10 rounded-lg overflow-hidden shrink-0 mt-0.5 relative">
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex gap-4 items-start flex-1">
+                  <div className="w-16 h-12 rounded-xl overflow-hidden shrink-0 mt-0.5 relative shadow-sm">
                     <Image
                       src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070"
                       fill
-                      sizes="56px"
+                      sizes="64px"
                       className="object-cover"
-                      alt="Preventive dental check-up and professional cleaning at Smile Clinique Malabar Hill"
+                      alt="Preventive dental care"
                     />
                   </div>
-                  <h4 className="font-sans font-medium text-[#2d3748] text-[15px] pt-1 leading-tight tracking-tight">Preventive Care</h4>
+                  <div>
+                    <h4 className="font-sans font-bold text-[#1a202c] text-[17px] pt-1 leading-tight tracking-tight">Preventive Care</h4>
+                    <p className="text-[12px] text-[#2d3748]/50 mt-1 uppercase tracking-widest font-medium">Phase 01</p>
+                  </div>
                 </div>
               </div>
-
-              <p className="text-[11px] text-[#2d3748]/70 leading-[1.6] mt-4 font-medium pr-2">
+              <p className="text-[13px] text-[#2d3748]/70 leading-relaxed mt-5 font-medium">
                 Healthy smiles begin with prevention. Our team provides regular check-ups, professional cleanings, and personalized guidance to protect your teeth and gums.
               </p>
             </motion.div>
 
             {/* Other Cards */}
             {[
-              { title: 'Cosmetic Dentistry', img: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400&auto=format&fit=crop' },
-              { title: 'Orthodontics', img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop' },
-              { title: 'Implants & Restorations', img: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=400&auto=format&fit=crop' }
+              { title: 'Cosmetic Dentistry', phase: 'Phase 02', img: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400' },
+              { title: 'Orthodontics', phase: 'Phase 03', img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400' },
+              { title: 'Implants & Restorations', phase: 'Phase 04', img: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=400' }
             ].map((card, i) => (
               <motion.div
                 key={i}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1 + i * 0.1 }}
-                className="bg-white p-4 rounded-2xl border border-black/5 shadow-aura-soft flex items-center justify-between w-[75vw] md:w-[280px] snap-center shrink-0 hover:bg-[#f8f9fa] transition-colors duration-300 pointer-events-auto"
+                initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
+                whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
+                animate={!isMobile ? { y: 0, opacity: 1 } : {}}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: isMobile ? 0.2 : 1 + i * 0.1 }}
+                className="bg-white p-5 rounded-[2rem] border border-black/5 shadow-aura-soft flex items-center justify-between w-full md:w-[280px] snap-center shrink-0 hover:bg-[#f8f9fa] transition-colors duration-300 pointer-events-auto"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-[50px] h-[40px] rounded-lg overflow-hidden shrink-0 relative">
-                    <Image src={card.img} fill sizes="50px" className="object-cover" alt={card.title} />
+                <div className="flex items-center gap-4">
+                  <div className="w-[60px] h-[45px] rounded-xl overflow-hidden shrink-0 relative shadow-sm">
+                    <Image src={card.img} fill sizes="60px" className="object-cover" alt={card.title} />
                   </div>
-                  <span className="font-sans font-medium text-[14px] text-[#2d3748] leading-tight tracking-tight">{card.title}</span>
+                  <div className="flex flex-col">
+                    <span className="font-sans font-bold text-[15px] text-[#1a202c] leading-tight tracking-tight">{card.title}</span>
+                    <span className="text-[9px] text-[#2d3748]/40 uppercase tracking-widest font-medium mt-0.5">{card.phase}</span>
+                  </div>
                 </div>
-                <Plus className="w-5 h-5 text-[#2d3748]/40" />
+                <div className="w-8 h-8 rounded-full bg-aura-beige/50 flex items-center justify-center border border-black/5">
+                  <Plus className="w-4 h-4 text-[#2d3748]/40" />
+                </div>
               </motion.div>
             ))}
           </div>
@@ -1358,71 +1369,83 @@ export default function App() {
           </div>
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
-          {isMobile ? (
-            <div className="flex flex-col gap-6 w-full">
-              {workflowPhases.map((phase, i) => (
-                <motion.div
-                  key={i}
-                  layout
-                  animate={{ 
-                    height: currentPhase === i ? 480 : 110,
-                    backgroundColor: currentPhase === i ? "#f8f9fa" : "#0A0A0B",
-                  }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => setCurrentPhase(i)}
-                  className={`w-full relative rounded-[2.5rem] overflow-hidden shadow-aura-deep border transition-all duration-700 ${currentPhase === i ? 'border-aura-accent/20' : 'border-white/5'} will-change-[height,background-color] pointer-events-auto`}
-                >
-                  <Image 
-                    src={phase.img} 
-                    fill 
-                    priority={i === 0} 
-                    className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-10' : 'opacity-40'}`} 
-                    alt={`${phase.title}`} 
-                  />
-                  {currentPhase !== i && <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />}
-                  
-                  {/* Collapsed Header Overlay */}
-                  <motion.div 
+          <div className="w-full min-h-[500px]">
+            {isMobile ? (
+              <div className="flex flex-col gap-6 w-full">
+                {workflowPhases.map((phase, i) => (
+                  <motion.div
+                    key={i}
+                    layout
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
                     animate={{ 
-                      opacity: currentPhase === i ? 0 : 1,
-                      y: currentPhase === i ? -20 : 0
+                      height: currentPhase === i ? 480 : 120,
+                      backgroundColor: currentPhase === i ? "#ffffff" : "#0A0A0B",
                     }}
-                    className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={() => setCurrentPhase(i)}
+                    className={`w-full relative rounded-[3rem] overflow-hidden shadow-aura-deep border transition-all duration-700 ${currentPhase === i ? 'border-aura-accent/30' : 'border-white/10'} will-change-[height,background-color] pointer-events-auto`}
                   >
-                    <span className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                    <h4 className="font-serif text-lg text-white">{phase.title}</h4>
-                  </motion.div>
-
-                  <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
-                    <motion.div
-                      animate={{ 
-                        opacity: currentPhase === i ? 1 : 0,
-                        y: currentPhase === i ? 0 : -10
-                      }}
-                    >
-                      <span className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent block mb-2">{phase.phase}</span>
-                      <h3 className="font-serif text-[8vw] leading-[1.1] text-aura-black">{phase.title}</h3>
-                    </motion.div>
+                    <div className="absolute inset-0">
+                      <Image 
+                        src={phase.img} 
+                        fill 
+                        priority={i === 0} 
+                        className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-10' : 'opacity-40'}`} 
+                        alt={`${phase.title}`} 
+                      />
+                      {currentPhase !== i && <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />}
+                    </div>
                     
-                    <motion.div
+                    {/* Collapsed Header Overlay */}
+                    <motion.div 
                       animate={{ 
-                        opacity: currentPhase === i ? 1 : 0,
-                        y: currentPhase === i ? 0 : 40,
+                        opacity: currentPhase === i ? 0 : 1,
+                        y: currentPhase === i ? -20 : 0
                       }}
-                      transition={{ duration: 0.6 }}
+                      className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
                     >
-                      <p className="font-sans text-[14px] mb-8 leading-relaxed text-black/60">{phase.desc}</p>
-                      <div className="flex gap-2">
-                        {phase.tags.map(tag => (
-                          <span key={tag} className="px-4 py-2 rounded-full border border-black/10 text-[8px] uppercase tracking-widest text-black/40 bg-white/50 backdrop-blur-sm">{tag}</span>
-                        ))}
+                      <div className="flex flex-col gap-1">
+                        <span className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
+                        <h4 className="font-serif text-xl text-white">{phase.title}</h4>
+                      </div>
+                      <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-md">
+                        <Plus className="w-4 h-4 text-white/50" />
                       </div>
                     </motion.div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
+
+                    <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
+                      <motion.div
+                        animate={{ 
+                          opacity: currentPhase === i ? 1 : 0,
+                          y: currentPhase === i ? 0 : -20
+                        }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <span className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent block mb-3">{phase.phase}</span>
+                        <h3 className="font-serif text-[10vw] leading-[1] text-aura-black">{phase.title}</h3>
+                      </motion.div>
+                      
+                      <motion.div
+                        animate={{ 
+                          opacity: currentPhase === i ? 1 : 0,
+                          y: currentPhase === i ? 0 : 40,
+                        }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                      >
+                        <p className="font-sans text-[15px] mb-8 leading-relaxed text-black/60">{phase.desc}</p>
+                        <div className="flex flex-wrap gap-3">
+                          {phase.tags.map(tag => (
+                            <span key={tag} className="px-5 py-2 rounded-full border border-black/10 text-[9px] uppercase tracking-widest text-black/40 bg-black/5 backdrop-blur-sm font-medium">{tag}</span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
             <div className="flex h-[80vh] gap-4 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
@@ -1457,7 +1480,8 @@ export default function App() {
             </div>
           )}
         </div>
-      </section>
+      </div>
+    </section>
       {/* 7. The Absolute Authority (Team) */}
       <section id="team" className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="absolute inset-0 opacity-[0.02] aura-grain pointer-events-none" />
