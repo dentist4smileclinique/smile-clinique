@@ -1359,20 +1359,26 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col gap-6 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
                   layout
                   animate={{ 
-                    height: currentPhase === i ? 450 : 100,
-                    backgroundColor: currentPhase === i ? "#ffffff" : "#0A0A0B",
+                    height: currentPhase === i ? 480 : 110,
+                    backgroundColor: currentPhase === i ? "#f8f9fa" : "#0A0A0B",
                   }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => setCurrentPhase(i)}
                   className={`w-full relative rounded-[2.5rem] overflow-hidden shadow-aura-deep border transition-all duration-700 ${currentPhase === i ? 'border-aura-accent/20' : 'border-white/5'} will-change-[height,background-color] pointer-events-auto`}
                 >
-                  <Image src={phase.img} fill priority={i === 0} className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-30' : 'opacity-50'}`} alt={`${phase.title}`} />
+                  <Image 
+                    src={phase.img} 
+                    fill 
+                    priority={i === 0} 
+                    className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-10' : 'opacity-40'}`} 
+                    alt={`${phase.title}`} 
+                  />
                   {currentPhase !== i && <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />}
                   
                   {/* Collapsed Header Overlay */}
@@ -1388,12 +1394,16 @@ export default function App() {
                   </motion.div>
 
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
-                    <motion.span 
-                      animate={{ opacity: currentPhase === i ? 1 : 0, y: currentPhase === i ? 0 : 20 }}
-                      className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent"
+                    <motion.div
+                      animate={{ 
+                        opacity: currentPhase === i ? 1 : 0,
+                        y: currentPhase === i ? 0 : -10
+                      }}
                     >
-                      {phase.phase}
-                    </motion.span>
+                      <span className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent block mb-2">{phase.phase}</span>
+                      <h3 className="font-serif text-[8vw] leading-[1.1] text-aura-black">{phase.title}</h3>
+                    </motion.div>
+                    
                     <motion.div
                       animate={{ 
                         opacity: currentPhase === i ? 1 : 0,
@@ -1401,11 +1411,10 @@ export default function App() {
                       }}
                       transition={{ duration: 0.6 }}
                     >
-                      <h3 className="font-serif text-[9vw] mb-4 leading-none text-aura-black">{phase.title}</h3>
-                      <p className="font-sans text-[13px] mb-8 leading-relaxed text-black/70">{phase.desc}</p>
+                      <p className="font-sans text-[14px] mb-8 leading-relaxed text-black/60">{phase.desc}</p>
                       <div className="flex gap-2">
                         {phase.tags.map(tag => (
-                          <span key={tag} className="px-4 py-2 rounded-full border border-black/10 text-[8px] uppercase tracking-widest text-black/50 bg-white/50 backdrop-blur-sm">{tag}</span>
+                          <span key={tag} className="px-4 py-2 rounded-full border border-black/10 text-[8px] uppercase tracking-widest text-black/40 bg-white/50 backdrop-blur-sm">{tag}</span>
                         ))}
                       </div>
                     </motion.div>
@@ -1837,37 +1846,24 @@ export default function App() {
             </div>
 
             {/* Visual Map Mockup */}
-            <div className="lg:col-span-7 h-[500px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-aura-deep group border border-black/5">
-              <Image 
-                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2066" 
-                fill 
-                className="object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-[10s]" 
-                alt="Smile Clinique Location Map" 
+            <div className="lg:col-span-7 h-[500px] md:h-[600px] relative rounded-[3rem] overflow-hidden shadow-aura-deep group border border-black/5 bg-aura-beige">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.630131844217!2d72.7959881!3d18.9477588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cdfba84ed791%3A0x9ba637a308aabb27!2sSmile%20Clinique%20-%20Dr.%20Nidhi%20Mehta!5e0!3m2!1sen!2sin!4v1778780300517!5m2!1sen!2sin" 
+                className="absolute inset-0 w-full h-full grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 border-0"
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Smile Clinique Location Map"
               />
-              <div className="absolute inset-0 bg-aura-beige/10" />
+              <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.05)] border-[12px] border-white/50 rounded-[3rem]" />
               
-              {/* Pulsing Pin Marker */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full bg-aura-accent/30 animate-ping" />
-                  <div className="relative w-16 h-16 rounded-full bg-white shadow-aura-deep flex items-center justify-center border border-aura-accent/20">
-                    <div className="w-10 h-10 rounded-full bg-aura-accent flex items-center justify-center text-white">
-                      <LogoIcon className="w-6 h-6 invert brightness-0" />
-                    </div>
-                  </div>
+              {/* Aesthetic Overlay Controls (Decorative) */}
+              <div className="absolute bottom-8 right-8 flex gap-2 pointer-events-none">
+                <div className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
+                  <Plus className="w-4 h-4 text-aura-black/40" />
                 </div>
-                <div className="mt-4 bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-aura-medium border border-black/5">
-                  <span className="font-chancery text-2xl text-aura-black">Smile Clinique</span>
-                </div>
-              </div>
-
-              {/* Aesthetic Overlay Controls */}
-              <div className="absolute bottom-8 right-8 flex gap-2">
-                <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
-                  <Plus className="w-5 h-5 text-aura-black/40" />
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
-                  <div className="w-5 h-[2px] bg-aura-black/40" />
+                <div className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center border border-black/5 shadow-aura-soft">
+                  <div className="w-4 h-[2px] bg-aura-black/40" />
                 </div>
               </div>
             </div>
