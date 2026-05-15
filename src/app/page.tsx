@@ -400,9 +400,66 @@ const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWi
   );
 }
 
+function Preloader({ isFinished }: { isFinished: boolean }) {
+  return (
+    <AnimatePresence>
+      {!isFinished && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ 
+            y: "-100%",
+            transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.8 }
+          }}
+          className="fixed inset-0 z-[10000] bg-[#0A0A0B] flex flex-col items-center justify-center overflow-hidden"
+        >
+          <div className="relative flex flex-col items-center">
+            {/* Ambient Background Glow */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-[400px] h-[400px] bg-aura-accent/20 blur-[100px] rounded-full"
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative z-10 flex flex-col items-center"
+            >
+              <div className="w-24 h-24 mb-8">
+                <LogoIcon className="w-full h-full invert brightness-0" />
+              </div>
+              <h2 className="font-chancery text-4xl md:text-5xl text-white tracking-normal mb-4">Smile Clinique</h2>
+              <div className="w-48 h-[1px] bg-white/10 relative overflow-hidden">
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "100%" }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-aura-accent to-transparent"
+                />
+              </div>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.4 }}
+                transition={{ delay: 0.5, duration: 1 }}
+                className="font-sans text-[10px] uppercase tracking-[0.5em] text-white mt-6"
+              >
+                Excellence in Dentistry
+              </motion.span>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -419,22 +476,18 @@ export default function App() {
   // Mobile detection
   const [isMobile, setIsMobile] = useState(false);
 
-  // Smooth Scroll Initialization (Lenis) — desktop only for better mobile perf
+  // Smooth Scroll Initialization (Lenis)
   useEffect(() => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsMobile(isTouch);
-    
-    if (isTouch) return; // Native scroll is faster on mobile
-
-    // Performance-tuned Lenis for desktop
+    // Ultra-smooth Lenis configuration for both desktop and mobile
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.1,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.8, // Balanced for premium feel
+      syncTouch: true, // Crucial for smooth mobile interaction
       infinite: false,
     });
 
@@ -445,8 +498,17 @@ export default function App() {
 
     requestAnimationFrame(raf);
 
+    const checkMobile = () => {
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setIsMobile(isTouch || window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     return () => {
       lenis.destroy();
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
@@ -476,8 +538,8 @@ export default function App() {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-      setTimeout(() => setIsLoaded(true), 400);
-    }, 1800);
+      setTimeout(() => setIsLoaded(true), 1200);
+    }, 2500);
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -531,16 +593,27 @@ export default function App() {
   ];
 
   // Workflow Scroll Logic for Accordion
-  // Remove complex scroll logic that caused whitespace issues
+  const workflowRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: workflowProgress } = useScroll({
+    target: workflowRef,
+    offset: ["start 60%", "end 40%"] // Tighter trigger range
+  });
+
   const [currentPhase, setCurrentPhase] = useState(0);
+
+  // Automatically update currentPhase based on scroll position in the workflow section
+  useMotionValueEvent(workflowProgress, "change", (latest) => {
+    if (!isMobile) return;
+    // Map 0-1 range to 0-3 phase indices
+    const phase = Math.min(3, Math.max(0, Math.floor(latest * 4)));
+    if (phase !== currentPhase) {
+      setCurrentPhase(phase);
+    }
+  });
   return (
     <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
+      <Preloader isFinished={!isLoading} />
       {/* Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Grain disabled={isMobile} />
       {/* Custom Cursor */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference hidden md:flex items-center justify-center overflow-hidden rounded-full border border-aura-beige/20"
@@ -1259,7 +1332,7 @@ export default function App() {
       </section>
 
       {/* 6. The Precision Protocol (Workflow) */}
-      <section id="workflow" className="relative z-[50] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
+      <section id="workflow" ref={workflowRef} className="relative z-[50] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
             <div className="max-w-2xl text-left">
@@ -1286,53 +1359,53 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-5 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
-                  onViewportEnter={() => setCurrentPhase(i)}
-                  viewport={{ amount: 0.3, margin: "-15% 0px -15% 0px" }}
+                  layout
                   animate={{ 
-                    height: currentPhase === i ? 420 : 90,
-                    backgroundColor: currentPhase === i ? "#FFE9ED" : "#0A0A0B",
+                    height: currentPhase === i ? 450 : 100,
+                    backgroundColor: currentPhase === i ? "#ffffff" : "#0A0A0B",
                   }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full relative rounded-[2.5rem] overflow-hidden shadow-aura-deep group border border-white/5"
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={() => setCurrentPhase(i)}
+                  className={`w-full relative rounded-[2.5rem] overflow-hidden shadow-aura-deep border transition-all duration-700 ${currentPhase === i ? 'border-aura-accent/20' : 'border-white/5'} will-change-[height,background-color] pointer-events-auto`}
                 >
-                  <Image src={phase.img} fill className={`object-cover ${currentPhase === i ? 'opacity-20' : 'opacity-40'}`} alt={`${phase.title} – ${phase.desc}`} />
+                  <Image src={phase.img} fill priority={i === 0} className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-30' : 'opacity-50'}`} alt={`${phase.title}`} />
                   {currentPhase !== i && <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />}
                   
                   {/* Collapsed Header Overlay */}
                   <motion.div 
                     animate={{ 
                       opacity: currentPhase === i ? 0 : 1,
-                      color: currentPhase === i ? "#1a202c" : "#ffffff"
+                      y: currentPhase === i ? -20 : 0
                     }}
                     className="absolute inset-0 flex items-center justify-between px-10 z-20 pointer-events-none"
                   >
-                    <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                    <h4 className="font-serif text-base">{phase.title}</h4>
+                    <span className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
+                    <h4 className="font-serif text-lg text-white">{phase.title}</h4>
                   </motion.div>
 
                   <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
                     <motion.span 
-                      animate={{ opacity: currentPhase === i ? 1 : 0 }}
-                      className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent"
+                      animate={{ opacity: currentPhase === i ? 1 : 0, y: currentPhase === i ? 0 : 20 }}
+                      className="font-display text-[9px] uppercase tracking-[0.4em] text-aura-accent"
                     >
                       {phase.phase}
                     </motion.span>
                     <motion.div
                       animate={{ 
                         opacity: currentPhase === i ? 1 : 0,
-                        y: currentPhase === i ? 0 : 20,
-                        color: currentPhase === i ? "#1a202c" : "#ffffff"
+                        y: currentPhase === i ? 0 : 40,
                       }}
+                      transition={{ duration: 0.6 }}
                     >
-                      <h3 className="font-serif text-[8vw] mb-4 leading-none">{phase.title}</h3>
-                      <p className={`font-sans text-xs mb-6 leading-relaxed line-clamp-3 ${currentPhase === i ? 'text-black/60' : 'text-white/60'}`}>{phase.desc}</p>
+                      <h3 className="font-serif text-[9vw] mb-4 leading-none text-aura-black">{phase.title}</h3>
+                      <p className="font-sans text-[13px] mb-8 leading-relaxed text-black/70">{phase.desc}</p>
                       <div className="flex gap-2">
                         {phase.tags.map(tag => (
-                          <span key={tag} className={`px-3 py-1 rounded-full border text-[7px] uppercase tracking-widest ${currentPhase === i ? 'border-black/10 text-black/40' : 'border-white/10 text-white/40'}`}>{tag}</span>
+                          <span key={tag} className="px-4 py-2 rounded-full border border-black/10 text-[8px] uppercase tracking-widest text-black/50 bg-white/50 backdrop-blur-sm">{tag}</span>
                         ))}
                       </div>
                     </motion.div>
@@ -1351,7 +1424,7 @@ export default function App() {
                   transition={{ duration: 0.8, delay: i * 0.1 }}
                   className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform"
                 >
-                  <Image src={phase.img} fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
+                  <Image src={phase.img} fill priority={i === 0} className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
@@ -1418,12 +1491,13 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
+                whileHover={!isMobile ? { scale: 1.02 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
                 onClick={() => setActiveMember(i)}
                 animate={{
                   flex: activeMember === i ? (windowWidth > 768 ? 4 : 1) : (windowWidth > 768 ? 0.8 : 0.2),
                 }}
-                className={`relative overflow-hidden rounded-[2.5rem] cursor-none group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'}`}
+                className={`relative overflow-hidden rounded-[2.5rem] cursor-none group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'} will-change-[flex]`}
               >
                 <motion.div
                   animate={{
@@ -1695,83 +1769,8 @@ export default function App() {
       {/* Section moved to position 2 */}
 
 
-      {/* 2. The Manifesto (Art & Science) - NEW SECTION */}
-      {/* 9. The Action (Footer) */}
 
 
-      {/* 9. The Action (Footer) */}
-
-      {/* 9. The Action (Footer) */}
-      {/* 11. Location Section */}
-      <section className="py-24 md:py-48 px-6 md:px-12 bg-aura-beige relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="bg-white rounded-[3.5rem] md:rounded-[5rem] overflow-hidden shadow-aura-deep border border-black/5 flex flex-col lg:flex-row min-h-[600px] group">
-            {/* Map Column */}
-            <div className="w-full lg:w-1/2 h-[400px] lg:h-auto relative overflow-hidden">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.630131844217!2d72.7959881!3d18.9477588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cdfba84ed791%3A0x9ba637a308aabb27!2sSmile%20Clinique%20-%20Dr.%20Nidhi%20Mehta!5e0!3m2!1sen!2sin!4v1778780300517!5m2!1sen!2sin" 
-                className="absolute inset-0 w-full h-full grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 border-0"
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.1)]" />
-            </div>
-            {/* Info Column */}
-            <div className="w-full lg:w-1/2 p-12 md:p-24 flex flex-col justify-center bg-white relative">
-              <div className="absolute top-0 left-0 w-full h-full aura-grain opacity-[0.03] pointer-events-none" />
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <span className="font-display text-[10px] uppercase tracking-[0.5em] text-aura-accent mb-8 block">Find Us</span>
-                <h2 className="font-serif text-[10vw] md:text-[4vw] text-[#1a202c] leading-none mb-12">Visit Our <br /><span className="italic font-light text-aura-accent">Sanctuary</span></h2>
-                
-                <div className="space-y-10">
-                  <div className="flex gap-8">
-                    <div className="w-12 h-12 rounded-2xl bg-aura-accent/5 flex items-center justify-center shrink-0 border border-aura-accent/10">
-                      <MapPin className="w-5 h-5 text-aura-accent" />
-                    </div>
-                    <div>
-                      <p className="font-display text-[9px] uppercase tracking-widest text-black/40 mb-2">Location</p>
-                      <p className="font-sans text-base md:text-lg text-[#1a202c] leading-relaxed">
-                        G 3, Akashdeep Building, <br />
-                        Dongersi Road, Malabar Hill, <br />
-                        Mumbai - 400006
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-8">
-                    <div className="w-12 h-12 rounded-2xl bg-aura-accent/5 flex items-center justify-center shrink-0 border border-aura-accent/10">
-                      <Clock className="w-5 h-5 text-aura-accent" />
-                    </div>
-                    <div>
-                      <p className="font-display text-[9px] uppercase tracking-widest text-black/40 mb-2">Operating Hours</p>
-                      <p className="font-sans text-base md:text-lg text-[#1a202c]">
-                        Mon – Sat: 10:00 AM – 9:00 PM <br />
-                        <span className="text-aura-accent/60">Sunday: Closed</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-16">
-                  <Magnetic>
-                    <a 
-                      href="https://maps.app.goo.gl/9R6wR89u792Y7X7Z7" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-4 bg-[#1a202c] text-white px-10 py-5 rounded-full text-sm font-medium hover:bg-aura-accent transition-all duration-500 shadow-aura-soft group"
-                    >
-                      Get Directions
-                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
-                    </a>
-                  </Magnetic>
-                </div>
-              </motion.div>
       {/* 8. Location & Access Card */}
       <section id="location" className="relative z-[115] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.03)]">
         <div className="max-w-[1400px] mx-auto">
