@@ -1260,7 +1260,7 @@ export default function App() {
 
       {/* 6. The Precision Protocol (Workflow) */}
       <section id="workflow" className="relative z-[50] py-24 md:py-48 px-6 md:px-12 bg-white overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1400px] mx-auto w-full">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
             <div className="max-w-2xl text-left">
               <motion.div
@@ -1286,12 +1286,12 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           {isMobile ? (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
                   onViewportEnter={() => setCurrentPhase(i)}
-                  viewport={{ amount: 0.2, margin: "-10% 0px -10% 0px" }}
+                  viewport={{ amount: 0.3, margin: "-15% 0px -15% 0px" }}
                   animate={{ 
                     height: currentPhase === i ? 420 : 90,
                     backgroundColor: currentPhase === i ? "#FFE9ED" : "#0A0A0B",
@@ -1341,7 +1341,7 @@ export default function App() {
               ))}
             </div>
           ) : (
-            <div className="flex h-[80vh] gap-4">
+            <div className="flex h-[80vh] gap-4 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
@@ -1402,10 +1402,10 @@ export default function App() {
               </motion.h2>
             </div>
             <div className="hidden md:flex gap-4 mb-2">
-              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 3))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 rotate-180 transition-transform group-hover:-translate-x-1" />
               </button>
-              <button onClick={() => setActiveMember(prev => (prev < 3 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev < 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
