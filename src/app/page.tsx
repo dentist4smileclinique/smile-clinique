@@ -587,14 +587,14 @@ export default function App() {
 
   const teamMembers = [
     { name: "Dr. Nidhi Mehta", role: "Founder & Lead Dentist", img: "/drnidhi.JPG", bio: "Leading Smile Clinique with a vision for comprehensive, aesthetic-focused dental mastery and patient-centric care.", category: "Leadership" },
-    { name: "Expert Associates", role: "Specialist Team", img: "https://images.unsplash.com/photo-1559839734-2b71f1e59852?q=80&w=400", bio: "A curated team of world-class specialists dedicated to the highest standards of clinical precision and patient comfort.", category: "Clinical" },
+    { name: "Expert Associates", role: "Specialist Team", img: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070", bio: "A curated team of world-class specialists dedicated to the highest standards of clinical precision and patient comfort.", category: "Clinical" },
   ];
 
   const workflowPhases = [
     { title: "Architectural Blueprint", phase: "Phase 01", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and clinical intuition to architect your ideal frame.", tags: ["Biometric Mapping", "3D Scan"] },
     { title: "Virtual Simulation", phase: "Phase 02", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=2070", desc: "Experience the outcome before we begin. High-fidelity virtual rendering allows for precise aesthetic alignment and collaboration.", tags: ["Digital Twin", "Co-Creation"] },
     { title: "Master Craftsmanship", phase: "Phase 03", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=2070", desc: "Bespoke restoration fabrication using world-class materials and artisanal techniques from the world's premier dental laboratories.", tags: ["Artisanal Lab", "Porcelain Mastery"] },
-    { title: "Refined Integration", phase: "Phase 04", img: "https://images.unsplash.com/photo-1516539137713-7ee35ebfb524?q=80&w=2070", desc: "Meticulous structural placement for enduring, natural brilliance that harmonizes perfectly with your unique biological features.", tags: ["Clinical Integration", "Longevity"] },
+    { title: "Refined Integration", phase: "Phase 04", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030", desc: "Meticulous structural placement for enduring, natural brilliance that harmonizes perfectly with your unique biological features.", tags: ["Clinical Integration", "Longevity"] },
   ];
 
   // Workflow Scroll Logic for Accordion
@@ -775,7 +775,7 @@ export default function App() {
                 <div className="flex gap-4 items-start flex-1">
                   <div className="w-16 h-12 rounded-xl overflow-hidden shrink-0 mt-0.5 relative shadow-sm">
                     <Image
-                      src="https://images.unsplash.com/photo-1559839734-2b71f1e59852?q=80&w=400"
+                      src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070"
                       fill
                       sizes="64px"
                       className="object-cover"
@@ -794,54 +794,56 @@ export default function App() {
             </motion.div>
 
             {/* Other Cards */}
-            {[
-              { 
-                title: 'Cosmetic Dentistry', 
-                phase: 'Phase 02', 
-                img: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400',
-                desc: 'Elevate your natural aesthetic. From precision porcelain veneers to expert whitening, we craft bespoke transformations.'
-              },
-              { 
-                title: 'Orthodontics', 
-                phase: 'Phase 03', 
-                img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=400',
-                desc: 'The art of alignment. We use cutting-edge clear aligners and discreet technology for a perfectly balanced smile.'
-              },
-              { 
-                title: 'Implants & Restorations', 
-                phase: 'Phase 04', 
-                img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=400',
-                desc: 'Restoring form and function. High-precision implant protocols returning the strength and beauty of your natural teeth.'
-              }
-            ].map((card, i) => (
-              <motion.div
-                key={i}
-                initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
-                whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
-                animate={!isMobile ? { y: 0, opacity: 1 } : {}}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: isMobile ? 0.2 : 1 + i * 0.1 }}
-                className="bg-white p-6 rounded-[2rem] border border-black/5 shadow-aura-soft flex flex-col w-full md:w-[320px] snap-center shrink-0 hover:bg-[#f8f9fa] transition-all duration-500 pointer-events-auto group"
-              >
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-[60px] h-[45px] rounded-xl overflow-hidden shrink-0 relative shadow-sm group-hover:scale-105 transition-transform duration-500">
-                      <Image src={card.img} fill sizes="60px" className="object-cover" alt={card.title} />
+            {
+              [
+                { 
+                  title: 'Cosmetic Dentistry', 
+                  phase: 'Phase 02', 
+                  img: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400',
+                  desc: 'Elevate your natural aesthetic. From precision porcelain veneers to expert whitening, we craft bespoke transformations.'
+                },
+                { 
+                  title: 'Orthodontics', 
+                  phase: 'Phase 03', 
+                  img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400',
+                  desc: 'The art of alignment. We use cutting-edge clear aligners and discreet technology for a perfectly balanced smile.'
+                },
+                { 
+                  title: 'Implants & Restorations', 
+                  phase: 'Phase 04', 
+                  img: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=400',
+                  desc: 'Restoring form and function. High-precision implant protocols returning the strength and beauty of your natural teeth.'
+                }
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
+                  whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
+                  animate={!isMobile ? { y: 0, opacity: 1 } : {}}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: isMobile ? 0.2 : 1 + i * 0.1 }}
+                  className="bg-white p-6 rounded-[2rem] border border-black/5 shadow-aura-soft flex flex-col w-full md:w-[320px] snap-center shrink-0 hover:bg-[#f8f9fa] transition-all duration-500 pointer-events-auto group"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-[60px] h-[45px] rounded-xl overflow-hidden shrink-0 relative shadow-sm group-hover:scale-105 transition-transform duration-500">
+                        <Image src={card.img} fill sizes="60px" className="object-cover" alt={card.title} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="font-sans font-bold text-[15px] text-[#1a202c] leading-tight tracking-tight">{card.title}</span>
+                        <span className="text-[9px] text-[#2d3748]/40 uppercase tracking-widest font-medium mt-0.5">{card.phase}</span>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <span className="font-sans font-bold text-[15px] text-[#1a202c] leading-tight tracking-tight">{card.title}</span>
-                      <span className="text-[9px] text-[#2d3748]/40 uppercase tracking-widest font-medium mt-0.5">{card.phase}</span>
+                    <div className="w-8 h-8 rounded-full bg-aura-beige/50 flex items-center justify-center border border-black/5 group-hover:bg-aura-accent group-hover:text-white transition-colors duration-300">
+                      <Plus className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-aura-beige/50 flex items-center justify-center border border-black/5 group-hover:bg-aura-accent group-hover:text-white transition-colors duration-300">
-                    <Plus className="w-4 h-4" />
-                  </div>
-                </div>
-                <p className="text-[12px] text-[#2d3748]/60 leading-relaxed font-medium">
-                  {card.desc}
-                </p>
-              </motion.div>
-            ))}
+                  <p className="text-[12px] text-[#2d3748]/60 leading-relaxed font-medium">
+                    {card.desc}
+                  </p>
+                </motion.div>
+              ))
+            }
           </div>
         </div>
 
@@ -1191,7 +1193,7 @@ export default function App() {
                 className="bg-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[550px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1516539137713-7ee35ebfb524?q=80&w=2070" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1221,7 +1223,7 @@ export default function App() {
                 className="bg-aura-beige rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2070" fill className="object-cover opacity-40" alt="Digital smile design and aesthetic mapping for porcelain veneers" />
+                  <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill className="object-cover opacity-40" alt="Digital smile design and aesthetic mapping for porcelain veneers" />
                   <div className="absolute inset-0 bg-gradient-to-b from-aura-beige/50 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1243,7 +1245,7 @@ export default function App() {
                 className="bg-aura-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[450px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1559839734-2b71f1e59852?q=80&w=2070" fill className="object-cover opacity-50" alt="Permanent foundations with premium dental implants" />
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-50" alt="Permanent foundations with premium dental implants" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1271,7 +1273,7 @@ export default function App() {
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Discrete Alignment. Modern invisible solutions designed to guide your teeth into a perfectly balanced occlusion.</p>
                 </div>
                 <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
@@ -1286,7 +1288,7 @@ export default function App() {
                 className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
               >
                 <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                  <Image src="https://images.unsplash.com/photo-1516539137713-7ee35ebfb524?q=80&w=2070" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1317,7 +1319,7 @@ export default function App() {
                 className="col-span-4 bg-aura-beige rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2070" fill className="object-cover opacity-20" alt="Digital smile design at Smile Clinique" />
+                  <Image src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=2070" fill className="object-cover opacity-20" alt="Digital smile design at Smile Clinique" />
                 </div>
                 <div className="relative z-10">
                   <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
@@ -1339,7 +1341,7 @@ export default function App() {
                 className="col-span-4 bg-aura-black text-white rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
               >
                 <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
-                  <Image src="https://images.unsplash.com/photo-1559839734-2b71f1e59852?q=80&w=2070" fill className="object-cover opacity-40" alt="Premium dental implants at Smile Clinique Mumbai" />
+                  <Image src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2070" fill className="object-cover opacity-40" alt="Premium dental implants at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1369,7 +1371,7 @@ export default function App() {
                   <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
                 </div>
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
+                  <Image src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
