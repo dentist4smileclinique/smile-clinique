@@ -710,47 +710,54 @@ export default function App() {
       {/* 1. The Hero - Single Image Background Seamless Blend Match */}
       <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fcfcfc] overflow-hidden flex flex-col md:flex-row items-center">
         
-        {/* Visual Layer - Image */}
-        <div className="relative w-full md:absolute md:inset-y-0 md:left-0 md:w-[45%] h-[65vh] md:h-full z-0 overflow-hidden" 
-             style={windowWidth > 768 ? { WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)', maskImage: 'linear-gradient(to right, black 60%, transparent 100%)' } : {}}>
+        {/* Visual Layer - Immersive Group Portrait */}
+        <div className="relative w-full md:absolute md:inset-y-0 md:left-0 md:w-[60%] h-[75vh] md:h-full z-0 overflow-hidden" 
+             style={windowWidth > 768 ? { WebkitMaskImage: 'linear-gradient(to right, black 85%, transparent 100%)', maskImage: 'linear-gradient(to right, black 85%, transparent 100%)' } : {}}>
           <motion.div
-            initial={{ scale: 1.05, opacity: 0 }}
+            initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
             className="w-full h-full relative"
           >
             <Image
-              src="/hero.png"
+              src="/community_hero.png"
               fill
               sizes="100vw"
-              className="object-cover object-[70%_20%] md:object-[75%_20%]"
-              alt="Beautiful smile showcasing premium dental care at Smile Clinique Mumbai"
+              className="object-cover object-center md:object-[center_35%]"
+              alt="Dr. Nidhi Mehta with a joyful community representing generational dental care"
               priority
             />
+            {/* Ambient Overlay for depth */}
+            <div className="absolute inset-0 bg-black/5" />
             {/* Mobile Bottom Fade */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#fcfcfc] via-transparent to-transparent md:hidden z-10" />
           </motion.div>
-               {/* Typography Layer */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-12 md:mt-0 px-6 md:px-24 md:pr-[2%]">
+        </div>
+
+        {/* Typography Layer - Sophisticated Editorial Layout */}
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-8 md:mt-0 px-6 md:px-24 md:pr-[5%]">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.6 }}
-            className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.4, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center md:items-end w-full md:w-[50%] lg:w-[45%]"
           >
-            <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
-              <span className="font-chancery text-[10vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] opacity-100">Smile Clinique</span>
-              <span className="font-chancery text-[7vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2 opacity-100">Dental Care Centre</span>
-            </h1>
-            <span className="font-chancery text-[4vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5 opacity-100">by Dr. Nidhi Mehta</span>
-            <div className="w-full flex justify-center md:justify-end mt-4 md:mt-10">
-              <p className="font-sans text-[13px] md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none opacity-80">
-                Mumbai&apos;s Trusted <br className="md:hidden" /> Dental Care Centre.
+            <div className="mb-6 md:mb-12 flex flex-col items-center md:items-end">
+              <span className="font-display text-[10px] md:text-[12px] uppercase tracking-[0.6em] text-aura-accent mb-4 block">The Human Protocol</span>
+              <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Designing</span>
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] text-aura-accent leading-[0.95] tracking-[-0.02em] opacity-100 italic">Generational</span>
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Smiles</span>
+              </h1>
+            </div>
+            
+            <div className="w-full flex justify-center md:justify-end">
+              <p className="font-sans text-[13px] md:text-[18px] text-aura-black/60 font-light tracking-wide text-center md:text-right max-w-[320px] md:max-w-md leading-relaxed">
+                Led by <span className="text-aura-black font-medium">Dr. Nidhi Mehta</span>, we blend world-class clinical mastery with a deep commitment to the community we serve.
               </p>
             </div>
           </motion.div>
         </div>
-      </div>
 
         {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
         <div className={`w-full ${(mounted && isMobile) ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
