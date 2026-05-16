@@ -615,10 +615,9 @@ export default function App() {
       setCurrentPhase(phase);
     }
   });
-  if (!mounted) return <div className="min-h-screen bg-aura-beige" />;
 
   return (
-    <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
+    <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${(mounted && isMobile) ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
       <Preloader isFinished={!isLoading} />
       {/* Structured Data */}
       {/* Custom Cursor */}
@@ -754,7 +753,7 @@ export default function App() {
       </div>
 
         {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
-        <div className={`w-full ${isMobile ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
+        <div className={`w-full ${(mounted && isMobile) ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
           <div className={`w-full flex ${isMobile ? 'flex-col gap-6' : 'overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4'} pointer-events-auto px-1 py-4`}>
             {/* Card 1: Expanded (Preventive Care) */}
             <motion.div
@@ -1155,7 +1154,7 @@ export default function App() {
           </div>
 
           {/* Mobile Bento (Dedicated Stack) */}
-          {isMobile ? (
+          {(mounted && isMobile) ? (
             <div className="flex flex-col gap-6">
               {/* Card 1: Full Mouth Rehab */}
               <motion.div
@@ -1375,7 +1374,7 @@ export default function App() {
 
           {/* Workflow (Mobile Dedicated vs Desktop) */}
           <div className="w-full min-h-[500px]">
-            {isMobile ? (
+            {(mounted && isMobile) ? (
               <div className="flex flex-col gap-6 w-full">
                 {workflowPhases.map((phase, i) => (
                   <motion.div
@@ -1783,7 +1782,7 @@ export default function App() {
 
           {/* Cards Container */}
           <div className="relative w-full h-[600px] max-w-[1600px] mx-auto z-10 pointer-events-none perspective-[1000px] mt-24 will-change-transform">
-            {[
+            {mounted && [
               { theme: 'light' as const, quote: "Visited Dr. Nidhi at Smile Clinique in Malabar Hill. Fabulous experience. All precautions taken care off. Superb skill!", author: "Nancy Mehta", location: "Google Review • 5 Stars" },
               { theme: 'image' as const, author: "Nancy Mehta", location: "Google Review • 5 Stars", img: "/nancy2.png" },
               { theme: 'lime' as const, quote: "Good doctors, well equipped, honest advice, good work. Aur kya chahiye! Perfect clinical skill and finesse.", author: "Himanshu Dhoria", location: "Mumbai Resident" },
