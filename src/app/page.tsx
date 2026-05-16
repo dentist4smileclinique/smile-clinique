@@ -458,6 +458,11 @@ function Preloader({ isFinished }: { isFinished: boolean }) {
 }
 
 export default function App() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isLoading, setIsLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -610,6 +615,8 @@ export default function App() {
       setCurrentPhase(phase);
     }
   });
+  if (!mounted) return <div className="min-h-screen bg-aura-beige" />;
+
   return (
     <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${isMobile ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
       <Preloader isFinished={!isLoading} />
@@ -733,18 +740,18 @@ export default function App() {
             className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
             <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
-              <span className="font-chancery text-[10vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
-              <span className="font-chancery text-[7vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
+              <span className="font-chancery text-[10vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] opacity-100">Smile Clinique</span>
+              <span className="font-chancery text-[7vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2 opacity-100">Dental Care Centre</span>
             </h1>
-            <span className="font-chancery text-[4vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
+            <span className="font-chancery text-[4vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5 opacity-100">by Dr. Nidhi Mehta</span>
             <div className="w-full flex justify-center md:justify-end mt-4 md:mt-10">
-              <p className="font-sans text-[13px] md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none">
+              <p className="font-sans text-[13px] md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none opacity-80">
                 Mumbai&apos;s Trusted <br className="md:hidden" /> Dental Care Centre.
               </p>
             </div>
           </motion.div>
         </div>
-  </div>
+      </div>
 
         {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
         <div className={`w-full ${isMobile ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
@@ -1385,7 +1392,7 @@ export default function App() {
                     onClick={() => setCurrentPhase(i)}
                     className={`w-full relative rounded-[3rem] overflow-hidden shadow-aura-deep border transition-all duration-700 ${currentPhase === i ? 'border-aura-accent/30' : 'border-white/10'} will-change-[height,background-color] pointer-events-auto`}
                   >
-                    <div className="absolute inset-0">
+                    <div className="absolute inset-0 h-full w-full">
                       <Image 
                         src={phase.img} 
                         fill 
@@ -1452,9 +1459,11 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: i * 0.1 }}
-                  className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform"
+                  className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform min-h-[500px]"
                 >
-                  <Image src={phase.img} fill priority={i === 0} className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
+                  <div className="absolute inset-0 h-full w-full">
+                    <Image src={phase.img} fill priority={i === 0} className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
@@ -1995,13 +2004,13 @@ export default function App() {
     </main>
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] flex flex-col items-end gap-3 pointer-events-auto">
+      <div className="fixed bottom-6 right-6 z-[200] flex flex-col items-end gap-3 pointer-events-auto">
         {/* Tooltip Message */}
         <motion.div
           initial={{ opacity: 0, y: 10, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden md:block"
+          className="hidden sm:block"
         >
           <a
             href="https://wa.me/919820627550?text=Hi%20Smile%20Clinique%2C%20I%27d%20like%20to%20book%20an%20appointment%20for%20a%20consultation.%20Please%20let%20me%20know%20the%20available%20slots."
