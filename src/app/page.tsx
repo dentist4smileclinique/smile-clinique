@@ -708,7 +708,7 @@ export default function App() {
 
       <main id="main-content" role="main">
       {/* 1. The Hero - Single Image Background Seamless Blend Match */}
-      <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fcfcfc] overflow-hidden flex flex-col md:flex-row items-center">
+      <section className="relative min-h-[100vh] md:h-[110vh] w-full bg-[#fff9f9] overflow-hidden flex flex-col md:flex-row items-center">
         
         {/* Visual Layer - Immersive Group Portrait */}
         <div className="relative w-full md:absolute md:inset-y-0 md:left-0 md:w-[60%] h-[75vh] md:h-full z-0 overflow-hidden" 
@@ -720,11 +720,11 @@ export default function App() {
             className="w-full h-full relative"
           >
             <Image
-              src="/community_hero.png"
+              src="/pink_hero.png"
               fill
               sizes="100vw"
-              className="object-cover object-center md:object-[center_35%]"
-              alt="Dr. Nidhi Mehta with a joyful community representing generational dental care"
+              className="object-cover object-center md:object-[center_25%]"
+              alt="Radiant Indian smile showcasing clinical excellence at Smile Clinique Mumbai"
               priority
             />
             {/* Ambient Overlay for depth */}
