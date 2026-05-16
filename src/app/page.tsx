@@ -660,18 +660,18 @@ export default function App() {
         }`}
       >
         {/* Logo */}
-        <div className="pointer-events-auto flex items-center gap-4">
-          <div className="relative w-14 h-14 md:w-20 md:h-20 shrink-0 flex items-center justify-center group">
-            <LogoIcon className="w-full h-full p-0.5 group-hover:scale-110 transition-transform duration-500" />
+        <div className="pointer-events-auto flex items-center gap-3 md:gap-4 shrink-0">
+          <div className="relative w-12 h-12 md:w-20 md:h-20 shrink-0 flex items-center justify-center group">
+            <LogoIcon className="w-full h-full p-0.5 group-hover:scale-110 transition-transform duration-500 object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-chancery text-[26px] md:text-[32px] tracking-normal text-[#2d3748] leading-[0.8]">Smile Clinique</span>
-            <span className="font-sans text-[8px] md:text-[10px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-2 md:mt-3 pl-0.5 md:pl-1">by Dr. Nidhi Mehta</span>
+          <div className="flex flex-col min-w-0">
+            <span className="font-chancery text-[22px] md:text-[32px] tracking-normal text-[#2d3748] leading-[0.8] whitespace-nowrap">Smile Clinique</span>
+            <span className="font-sans text-[7px] md:text-[10px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-1.5 md:mt-3 pl-0.5 md:pl-1 truncate">by Dr. Nidhi Mehta</span>
           </div>
         </div>
 
-        {/* Center Nav Pill */}
-        <div className={`hidden md:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Center Nav Pill - Hide on tablet/mobile landscape (< 1024px) */}
+        <div className={`hidden lg:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {[
             { label: 'Treatments', href: '#treatments' },
             { label: 'Our Clinic', href: 'https://maps.app.goo.gl/9R6wR89u792Y7X7Z7' },
@@ -724,10 +724,8 @@ export default function App() {
             {/* Mobile Bottom Fade */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#fcfcfc] via-transparent to-transparent md:hidden z-10" />
           </motion.div>
-        </div>
-
-        {/* Typography Layer */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none -mt-32 md:mt-0 px-6 md:px-24 md:pr-[2%]">
+               {/* Typography Layer */}
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-12 md:mt-0 px-6 md:px-24 md:pr-[2%]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -735,21 +733,21 @@ export default function App() {
             className="flex flex-col items-center md:items-end w-full md:w-[55%] lg:w-[50%]"
           >
             <h1 className="flex flex-col items-center text-center md:items-end md:text-right">
-
-              <span className="font-chancery text-[12vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
-              <span className="font-chancery text-[8.5vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
+              <span className="font-chancery text-[10vw] md:text-[5.5vw] text-[#1a2456] leading-[1.05] tracking-[0.01em]">Smile Clinique</span>
+              <span className="font-chancery text-[7vw] md:text-[4.2vw] text-[#1a2456] leading-[1.05] tracking-[0.01em] -mt-1 md:-mt-2">Dental Care Centre</span>
             </h1>
-            <span className="font-chancery text-[4.5vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
-            <div className="w-full flex justify-center md:justify-end mt-6 md:mt-10">
-              <p className="font-sans text-sm md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none">
+            <span className="font-chancery text-[4vw] md:text-[1.8vw] text-[#1a202c]/50 tracking-normal mt-3 md:mt-5">by Dr. Nidhi Mehta</span>
+            <div className="w-full flex justify-center md:justify-end mt-4 md:mt-10">
+              <p className="font-sans text-[13px] md:text-xl text-[#1a202c]/60 font-light tracking-wide text-center md:text-right max-w-[280px] md:max-w-none">
                 Mumbai&apos;s Trusted <br className="md:hidden" /> Dental Care Centre.
               </p>
             </div>
           </motion.div>
         </div>
+  </div>
 
         {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
-        <div className={`w-full ${isMobile ? 'relative mt-32' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
+        <div className={`w-full ${isMobile ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
           <div className={`w-full flex ${isMobile ? 'flex-col gap-6' : 'overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4'} pointer-events-auto px-1 py-4`}>
             {/* Card 1: Expanded (Preventive Care) */}
             <motion.div
