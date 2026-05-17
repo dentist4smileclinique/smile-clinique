@@ -1498,16 +1498,18 @@ export default function App() {
                       </div>
                     </div>
                     <div className="flex flex-col justify-end">
-                      <div className="min-h-[96px] flex items-end mb-4">
+                      <div className="h-[96px] flex items-end mb-4">
                         <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight">{phase.title}</h3>
                       </div>
-                      <div className="min-h-[120px] xl:min-h-[96px] mb-6">
+                      <div className="h-[140px] xl:h-[96px] mb-6 overflow-hidden">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        {phase.tags.map(tag => (
-                          <span key={tag} className="px-3.5 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
-                        ))}
+                      <div className="h-[40px] flex items-center">
+                        <div className="flex flex-wrap gap-2">
+                          {phase.tags.map(tag => (
+                            <span key={tag} className="px-3.5 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
