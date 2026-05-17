@@ -308,7 +308,7 @@ const medicalProcedureSchema = {
 function FAQItem({ question, answer, isOpen, onClick, onHover, onLeave }: { question: string, answer: string, isOpen: boolean, onClick: () => void, onHover: () => void, onLeave: () => void }) {
   return (
     <div 
-      className="border-b border-aura-black/10 py-8 cursor-none pointer-events-auto group"
+      className="border-b border-aura-black/10 py-8  pointer-events-auto group"
       onClick={onClick}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
@@ -391,7 +391,7 @@ const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWi
   return (
     <motion.div
       style={{ x, y, rotate, zIndex, scale }}
-      className="absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-none origin-bottom px-4"
+      className="absolute top-1/2 left-1/2 -track-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto  origin-bottom px-4"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -618,40 +618,26 @@ export default function App() {
     }
   });
 
+  // Team Scroll Logic for Accordion
+  const teamRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: teamProgress } = useScroll({
+    target: teamRef,
+    offset: ["start 60%", "end 40%"]
+  });
+
+  useMotionValueEvent(teamProgress, "change", (latest) => {
+    if (!isMobile) return;
+    const member = Math.min(1, Math.max(0, Math.floor(latest * 2)));
+    if (member !== activeMember) {
+      setActiveMember(member);
+    }
+  });
+
   return (
-    <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${(mounted && isMobile) ? 'cursor-auto' : 'aura-grain cursor-none'}`}>
+    <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${(mounted && isMobile) ? 'cursor-auto' : 'aura-grain '}`}>
       <Preloader isFinished={!isLoading} />
       {/* Structured Data */}
-      {/* Custom Cursor */}
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference hidden md:flex items-center justify-center overflow-hidden rounded-full border border-aura-beige/20"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          width: isHovering ? 100 : 12,
-          height: isHovering ? 100 : 12,
-          opacity: isLoading ? 0 : 1
-        }}
-        transition={{ type: "spring", stiffness: 250, damping: 30, mass: 0.5 }}
-      >
-        <AnimatePresence mode="wait">
-          {isHovering && cursorText && (
-            <motion.span
-              key={cursorText}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              className="text-[10px] text-aura-beige uppercase tracking-[0.3em] font-medium"
-            >
-              {cursorText}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.div>
+
 
 
 
@@ -668,7 +654,7 @@ export default function App() {
         }`}
       >
         {/* Logo */}
-        <div className="pointer-events-auto flex items-center gap-3 md:gap-4 shrink-0">
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="pointer-events-auto flex items-center gap-3 md:gap-4 shrink-0 cursor-pointer">
           <div className="relative w-12 h-12 md:w-20 md:h-20 landscape:w-8 landscape:h-8 md:landscape:w-10 md:landscape:h-10 shrink-0 flex items-center justify-center group">
             <LogoIcon className="w-full h-full p-0.5 group-hover:scale-110 transition-transform duration-500 object-contain" />
           </div>
@@ -676,7 +662,7 @@ export default function App() {
             <span className="font-chancery text-[22px] md:text-[32px] landscape:text-[16px] md:landscape:text-[20px] tracking-normal text-[#2d3748] leading-[0.8] whitespace-nowrap">Smile Clinique</span>
             <span className="font-sans text-[7px] md:text-[10px] landscape:text-[5px] md:landscape:text-[6px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-1.5 md:mt-3 pl-0.5 md:pl-1 truncate">by Dr. Nidhi Mehta</span>
           </div>
-        </div>
+        </a>
 
         {/* Center Nav Pill - Hide on tablet/mobile landscape (< 1024px) */}
         <div className={`hidden lg:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -692,7 +678,7 @@ export default function App() {
               rel={item.label === 'Our Clinic' ? 'noopener noreferrer' : undefined}
               onMouseEnter={() => { setIsHovering(true); setCursorText(item.label === 'Our Clinic' ? "Visit" : "Go"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="hover:text-[#2d3748] transition-colors duration-300 cursor-none"
+              className="hover:text-[#2d3748] transition-colors duration-300 "
             >
               {item.label}
             </a>
@@ -701,7 +687,7 @@ export default function App() {
 
         <div className="pointer-events-auto flex items-center gap-4">
           <Magnetic>
-            <a href="tel:+919820627550" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 landscape:px-4 landscape:py-1.5 landscape:text-[10px] rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300 cursor-none shadow-aura-soft">
+            <a href="tel:+919820627550" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 landscape:px-4 landscape:py-1.5 landscape:text-[10px] rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300  shadow-aura-soft">
               Book Now
             </a>
           </Magnetic>
@@ -1054,7 +1040,7 @@ export default function App() {
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
-              className="relative aspect-[4/5] w-full rounded-[3rem] overflow-hidden shadow-aura-deep group pointer-events-auto cursor-none border border-black/5"
+              className="relative aspect-[4/5] w-full rounded-[3rem] overflow-hidden shadow-aura-deep group pointer-events-auto  border border-black/5"
               onMouseEnter={() => { setIsHovering(true); setCursorText("Founder"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
             >
@@ -1093,7 +1079,7 @@ export default function App() {
           style={{ opacity: spaceOverlayOpacity }}
           className="absolute inset-0 z-20 bg-aura-accent pointer-events-none mix-blend-overlay"
         />
-        <div className="relative w-full h-[80vh] md:h-[100vh] flex items-center justify-center cursor-none group" onMouseEnter={() => { setIsHovering(true); setCursorText("Watch"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
+        <div className="relative w-full h-[80vh] md:h-[100vh] flex items-center justify-center  group" onMouseEnter={() => { setIsHovering(true); setCursorText("Watch"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
           {/* Background Video */}
           <video
             src="https://assets.smilecliniquedental.com/scan.mp4"
@@ -1230,11 +1216,7 @@ export default function App() {
                   <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-aura-black">Smile<br />Design</h3>
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Architectural Aesthetics. Using digital smile design and minimally invasive porcelain, we create a bespoke frame that perfectly complements your facial features.</p>
                 </div>
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-full bg-aura-black text-white flex items-center justify-center">
-                    <ArrowUpRight className="w-6 h-6" />
-                  </div>
-                </div>
+
               </motion.div>
 
               {/* Card 3: Implants */}
@@ -1255,9 +1237,7 @@ export default function App() {
                   <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-white">Implants</h3>
                   <p className="font-sans text-base text-white/50 leading-relaxed">Permanent Foundations. High-precision implant protocols restoring the strength and natural feel of your teeth.</p>
                 </div>
-                <div className="relative z-10 flex justify-end">
-                  <ArrowUpRight className="w-6 h-6 text-white/30" />
-                </div>
+
               </motion.div>
 
               {/* Card 4: Orthodontics */}
@@ -1285,7 +1265,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
+                className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group  shadow-aura-soft will-change-transform"
               >
                 <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
                   <Image src="/full-mouth-rehab.png" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
@@ -1316,7 +1296,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="col-span-4 bg-aura-beige rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
+                className="col-span-4 bg-aura-beige rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group  shadow-aura-soft"
               >
                 <div className="absolute inset-0">
                   <Image src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2070" fill className="object-cover opacity-20" alt="Digital smile design at Smile Clinique" />
@@ -1325,11 +1305,7 @@ export default function App() {
                   <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
                   <p className="font-sans text-sm text-aura-black/60 leading-relaxed">Architectural Aesthetics. Using digital smile design and minimally invasive porcelain, we create a bespoke frame for your face.</p>
                 </div>
-                <div className="relative z-10 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-aura-black text-white flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
-                    <ArrowUpRight className="w-6 h-6" />
-                  </div>
-                </div>
+
               </motion.div>
 
               {/* Card 3: Implants (Desktop) */}
@@ -1338,7 +1314,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="col-span-4 bg-aura-black text-white rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft"
+                className="col-span-4 bg-aura-black text-white rounded-[3rem] p-12 relative overflow-hidden flex flex-col justify-between group  shadow-aura-soft"
               >
                 <div className="absolute inset-0 group-hover:scale-110 transition-transform duration-[5s]">
                   <Image src="https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?q=80&w=2070" fill className="object-cover opacity-40" alt="Premium dental implants at Smile Clinique Mumbai" />
@@ -1351,9 +1327,7 @@ export default function App() {
                   <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-white">Implants</h3>
                   <p className="font-sans text-sm text-white/50 leading-relaxed">Permanent Foundations. High-precision implant protocols restoring the strength and natural feel of your teeth.</p>
                 </div>
-                <div className="relative z-10 flex justify-end">
-                  <ArrowUpRight className="w-6 h-6 text-white/30 group-hover:text-white transition-colors duration-500" />
-                </div>
+
               </motion.div>
 
               {/* Card 4: Orthodontics (Desktop) */}
@@ -1362,13 +1336,13 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.4 }}
-                className="col-span-8 bg-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group cursor-none shadow-aura-soft"
+                className="col-span-8 bg-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 group  shadow-aura-soft"
               >
                 <div className="relative z-10 flex-1">
                   <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-6 block">Precision</span>
                   <h3 className="font-sans font-bold text-5xl leading-none tracking-tight mb-6 text-aura-black">Orthodontics &<br />Clear Aligners</h3>
                   <p className="font-sans text-base text-aura-black/60 max-w-sm leading-relaxed mb-8">Discrete Alignment. Modern invisible solutions designed to guide your teeth into a perfectly balanced occlusion.</p>
-                  <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
+
                 </div>
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
                   <Image src="/clear_aligners.png" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
@@ -1502,7 +1476,6 @@ export default function App() {
                     <div className="flex justify-between items-start">
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
                       <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
-                        <ArrowUpRight className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     <div>
@@ -1523,7 +1496,7 @@ export default function App() {
       </div>
     </section>
       {/* 7. The Absolute Authority (Team) */}
-      <section id="team" className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
+      <section id="team" ref={teamRef} className="relative z-[60] py-24 md:py-48 px-6 md:px-12 bg-aura-beige overflow-hidden rounded-t-[4rem] md:rounded-t-[5rem] -mt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.02),inset_0_2px_0_rgba(255,255,255,0.3)]">
         <div className="absolute inset-0 opacity-[0.02] aura-grain pointer-events-none" />
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-32 gap-10">
@@ -1548,10 +1521,10 @@ export default function App() {
               </motion.h2>
             </div>
             <div className="hidden md:flex gap-4 mb-2">
-              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev > 0 ? prev - 1 : 1))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all  pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 rotate-180 transition-transform group-hover:-translate-x-1" />
               </button>
-              <button onClick={() => setActiveMember(prev => (prev < 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-none pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
+              <button onClick={() => setActiveMember(prev => (prev < 1 ? prev + 1 : 0))} className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-all  pointer-events-auto group bg-white/50 backdrop-blur-sm shadow-aura-soft">
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -1570,7 +1543,7 @@ export default function App() {
                 animate={{
                   flex: activeMember === i ? (windowWidth > 768 ? 4 : 1) : (windowWidth > 768 ? 0.8 : 0.2),
                 }}
-                className={`relative overflow-hidden rounded-[2.5rem] cursor-none group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'} will-change-[flex]`}
+                className={`relative overflow-hidden rounded-[2.5rem]  group transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeMember === i ? 'bg-white shadow-aura-deep' : 'bg-aura-white border border-black/5'} will-change-[flex]`}
               >
                 <motion.div
                   animate={{
@@ -1640,7 +1613,7 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: i * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                className="group relative aspect-[3/4] rounded-[2rem] overflow-hidden pointer-events-auto cursor-none shadow-aura-soft border border-aura-black/5"
+                className="group relative aspect-[3/4] rounded-[2rem] overflow-hidden pointer-events-auto  shadow-aura-soft border border-aura-black/5"
                 onMouseEnter={() => { setIsHovering(true); setCursorText("View"); }}
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
               >
@@ -1667,7 +1640,7 @@ export default function App() {
               <h3 className="font-sans font-bold tracking-tight text-[11vw] md:text-[5vw] mb-6 text-aura-black leading-tight">Ready to redefine <br /> your smile?</h3>
               <p className="font-sans text-base text-aura-black/60 max-w-sm">Join the 1500 + patients who chose premium boutique dental care.</p>
             </div>
-            <a href="tel:+919820627550" className="group relative w-64 h-64 rounded-full bg-aura-black flex items-center justify-center pointer-events-auto cursor-none overflow-hidden" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
+            <a href="tel:+919820627550" className="group relative w-64 h-64 rounded-full bg-aura-black flex items-center justify-center pointer-events-auto  overflow-hidden" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}>
               <div className="absolute inset-0 bg-aura-accent scale-0 group-hover:scale-100 transition-transform duration-700 rounded-full" />
               <span className="relative z-10 font-display text-[10px] uppercase tracking-[0.5em] text-aura-white transition-colors duration-500">Book Now</span>
             </a>
@@ -1901,7 +1874,7 @@ export default function App() {
                     rel="noopener noreferrer"
                     onMouseEnter={() => { setIsHovering(true); setCursorText("Go"); }}
                     onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                    className="px-10 py-5 rounded-full bg-aura-black text-white text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-aura-accent transition-all duration-500 shadow-aura-deep cursor-none"
+                    className="px-10 py-5 rounded-full bg-aura-black text-white text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-aura-accent transition-all duration-500 shadow-aura-deep "
                   >
                     Open in Maps
                   </a>
@@ -1969,7 +1942,7 @@ export default function App() {
               transition={{ duration: 0.8, delay: 0.2 }}
               onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-aura-white text-aura-black flex items-center justify-center group overflow-hidden cursor-none shadow-aura-deep"
+              className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-aura-white text-aura-black flex items-center justify-center group overflow-hidden  shadow-aura-deep"
             >
               <div className="absolute inset-0 bg-aura-black translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               <span className="relative z-10 font-display text-xs md:text-sm uppercase tracking-[0.4em] font-medium group-hover:scale-110 group-hover:text-aura-white transition-all duration-700">Book Now</span>
@@ -1994,8 +1967,8 @@ export default function App() {
                 <a href="tel:+919820627550" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
                   <span className="opacity-50 font-sans">M:</span> +91 98206 27550
                 </a>
-                <a href="tel:02223681440" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
-                  <span className="opacity-50 font-sans">T:</span> 022 2368 1440
+                <a href="tel:02223697602" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
+                  <span className="opacity-50 font-sans">T:</span> 022 - 23697602
                 </a>
               </div>
             </div>
@@ -2015,7 +1988,7 @@ export default function App() {
                <div className="flex flex-col gap-2">
                  <span className="text-aura-white/50 text-[8px] tracking-[0.3em] uppercase">Contact</span>
                  <a href="tel:+919820627550" className="text-aura-white text-xs">+91 98206 27550</a>
-                 <a href="tel:02223681440" className="text-aura-white text-xs">022 2368 1440</a>
+                 <a href="tel:02223697602" className="text-aura-white text-xs">022 - 23697602</a>
                </div>
              </div>
           </div>
@@ -2038,29 +2011,7 @@ export default function App() {
 
       {/* Floating WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-[200] flex flex-col items-end gap-3 pointer-events-auto">
-        {/* Tooltip Message */}
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden sm:block"
-        >
-          <a
-            href="https://wa.me/919820627550?text=Hi%20Smile%20Clinique%2C%20I%27d%20like%20to%20book%20an%20appointment%20for%20a%20consultation.%20Please%20let%20me%20know%20the%20available%20slots."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group cursor-pointer"
-          >
-            <div className="bg-white rounded-2xl rounded-br-sm shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-5 py-3.5 max-w-[240px] border border-black/5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.16)] transition-shadow duration-300">
-              <p className="font-sans text-[13px] text-[#1a202c] leading-relaxed">
-                👋 Hi! Need a dental appointment?{' '}
-                <span className="text-[#25D366] font-semibold group-hover:underline">
-                  Chat with us
-                </span>
-              </p>
-            </div>
-          </a>
-        </motion.div>
+
 
         {/* WhatsApp Button */}
         <motion.div
