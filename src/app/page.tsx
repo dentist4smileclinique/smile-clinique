@@ -593,10 +593,10 @@ export default function App() {
   ];
 
   const workflowPhases = [
-    { title: "Architectural Blueprint", phase: "Phase 01", img: "https://images.unsplash.com/photo-1593022327092-28682a297e28?q=80&w=2070", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and clinical intuition to architect your ideal frame.", tags: ["Biometric Mapping", "3D Scan"] },
-    { title: "Virtual Simulation", phase: "Phase 02", img: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2070", desc: "Experience the outcome before we begin. High-fidelity virtual rendering allows for precise aesthetic alignment and collaboration.", tags: ["Digital Twin", "Co-Creation"] },
-    { title: "Master Craftsmanship", phase: "Phase 03", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070", desc: "Bespoke restoration fabrication using world-class materials and artisanal techniques from the world's premier dental laboratories.", tags: ["Artisanal Lab", "Porcelain Mastery"] },
-    { title: "Refined Integration", phase: "Phase 04", img: "https://images.unsplash.com/photo-1516539137713-7ee35ebfb524?q=80&w=2070", desc: "Meticulous structural placement for enduring, natural brilliance that harmonizes perfectly with your unique biological features.", tags: ["Clinical Integration", "Longevity"] },
+    { title: "Architectural Blueprint", phase: "Phase 01", img: "/methodology_1.png", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and clinical intuition to architect your ideal frame.", tags: ["Biometric Mapping", "3D Scan"] },
+    { title: "Virtual Simulation", phase: "Phase 02", img: "/methodology_2.png", desc: "Experience the outcome before we begin. High-fidelity virtual rendering allows for precise aesthetic alignment and collaboration.", tags: ["Digital Twin", "Co-Creation"] },
+    { title: "Master Craftsmanship", phase: "Phase 03", img: "/methodology_3.png", desc: "Bespoke restoration fabrication using world-class materials and artisanal techniques from the world's premier dental laboratories.", tags: ["Artisanal Lab", "Porcelain Mastery"] },
+    { title: "Refined Integration", phase: "Phase 04", img: "/methodology_4_integration_1776380162441.png", desc: "Meticulous structural placement for enduring, natural brilliance that harmonizes perfectly with your unique biological features.", tags: ["Clinical Integration", "Longevity"] },
   ];
 
   // Workflow Scroll Logic for Accordion
@@ -1193,7 +1193,7 @@ export default function App() {
                 className="bg-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[550px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1576092762791-dd9e22201387?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="/full-mouth-rehab.png" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1273,7 +1273,7 @@ export default function App() {
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Discrete Alignment. Modern invisible solutions designed to guide your teeth into a perfectly balanced occlusion.</p>
                 </div>
                 <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
+                  <Image src="/clear_aligners.png" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
@@ -1288,7 +1288,7 @@ export default function App() {
                 className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
               >
                 <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                  <Image src="https://images.unsplash.com/photo-1576092762791-dd9e22201387?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="/full-mouth-rehab.png" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1371,7 +1371,7 @@ export default function App() {
                   <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
                 </div>
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
+                  <Image src="/clear_aligners.png" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
