@@ -572,6 +572,30 @@ export default function App() {
     offset: ["start start", "end end"]
   });
 
+  // Auto-scroll to Location section after 4 seconds of reaching the last Testimonials card
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    const unsubscribe = arcProgress.on("change", (latest) => {
+      if (latest >= 0.99) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          if (arcProgress.get() >= 0.99) {
+            const locationSection = document.getElementById("location");
+            if (locationSection) {
+              locationSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }, 4000);
+      } else {
+        clearTimeout(timeoutId);
+      }
+    });
+    return () => {
+      unsubscribe();
+      clearTimeout(timeoutId);
+    };
+  }, [arcProgress]);
+
   const { scrollYProgress: spaceProgress } = useScroll({
     target: spaceRef,
     offset: ["start end", "end start"]
@@ -1989,17 +2013,18 @@ export default function App() {
              </div>
           </div>
           <div className="flex gap-10 items-center">
-            {['Testimonials'].map((item) => (
-              <a
-                key={item}
-                href="#testimonials"
-                onMouseEnter={() => { setIsHovering(true); setCursorText("Visit"); }}
-                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                className="hover:text-aura-white transition-colors duration-300 font-display"
-              >
-                {item}
-              </a>
-            ))}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onMouseEnter={() => { setIsHovering(true); setCursorText("Top"); }}
+              onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
+              className="hover:text-aura-white transition-colors duration-300 font-display"
+            >
+              Go to Start
+            </a>
           </div>
         </div>
       </footer>
