@@ -1967,8 +1967,8 @@ export default function App() {
                 <a href="tel:+919820627550" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
                   <span className="opacity-50 font-sans">M:</span> +91 98206 27550
                 </a>
-                <a href="tel:02223697602" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
-                  <span className="opacity-50 font-sans">T:</span> 022 - 23697602
+                <a href="tel:02235780947" className="text-aura-white hover:text-white transition-colors flex items-center gap-2">
+                  <span className="opacity-50 font-sans">T:</span> 022-35780947
                 </a>
               </div>
             </div>
@@ -1988,7 +1988,7 @@ export default function App() {
                <div className="flex flex-col gap-2">
                  <span className="text-aura-white/50 text-[8px] tracking-[0.3em] uppercase">Contact</span>
                  <a href="tel:+919820627550" className="text-aura-white text-xs">+91 98206 27550</a>
-                 <a href="tel:02223697602" className="text-aura-white text-xs">022 - 23697602</a>
+                 <a href="tel:02235780947" className="text-aura-white text-xs">022-35780947</a>
                </div>
              </div>
           </div>
