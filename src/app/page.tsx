@@ -572,20 +572,20 @@ export default function App() {
     offset: ["start start", "end end"]
   });
 
-  // Auto-scroll to Location section after 4 seconds of reaching the last Testimonials card
+  // Auto-scroll to Location section after 2 seconds of reaching the last Testimonials card (resting position at progress >= 0.7)
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     const unsubscribe = arcProgress.on("change", (latest) => {
-      if (latest >= 0.99) {
+      if (latest >= 0.7) {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
-          if (arcProgress.get() >= 0.99) {
+          if (arcProgress.get() >= 0.7) {
             const locationSection = document.getElementById("location");
             if (locationSection) {
               locationSection.scrollIntoView({ behavior: "smooth" });
             }
           }
-        }, 4000);
+        }, 2000);
       } else {
         clearTimeout(timeoutId);
       }
