@@ -1429,10 +1429,11 @@ export default function App() {
                         src={phase.img} 
                         fill 
                         priority={i === 0} 
-                        className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-10' : 'opacity-40'}`} 
+                        className={`object-cover transition-opacity duration-1000 ${currentPhase === i ? 'opacity-[0.45]' : 'opacity-40'}`} 
                         alt={`${phase.title}`} 
                       />
                       {currentPhase !== i && <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />}
+                      {currentPhase === i && <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/20 to-white/90" />}
                     </div>
                     
                     {/* Collapsed Header Overlay */}
