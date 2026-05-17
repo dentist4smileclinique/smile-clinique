@@ -6,20 +6,44 @@ import Image from 'next/image';
 import Lenis from 'lenis';
 
 function TypewriterText({ text, className, delay = 0, isMobile = false }: { text: string, className?: string, delay?: number, isMobile?: boolean }) {
+  const words = text.split(" ");
+  let charCount = 0;
+
   return (
-    <span className={`inline-block ${className}`}>
-      {text.split("").map((char, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: isMobile ? 0.3 : 0.4, delay: isMobile ? 0 : delay + index * 0.02, ease: "easeOut" }}
-          className="inline-block"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
+    <span className={`inline-block ${className || ''}`}>
+      {words.map((word, wordIndex) => {
+        const wordChars = word.split("");
+        const wordSpan = (
+          <span key={wordIndex} className="inline-block whitespace-nowrap">
+            {wordChars.map((char) => {
+              const currentIndex = charCount++;
+              return (
+                <motion.span
+                  key={currentIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: isMobile ? 0.3 : 0.4, delay: isMobile ? 0 : delay + currentIndex * 0.02, ease: "easeOut" }}
+                  className="inline-block"
+                >
+                  {char}
+                </motion.span>
+              );
+            })}
+          </span>
+        );
+
+        if (wordIndex < words.length - 1) {
+          charCount++;
+        }
+
+        return (
+          <React.Fragment key={wordIndex}>
+            {wordSpan}
+            {wordIndex < words.length - 1 && " "}
+          </React.Fragment>
+        );
+      })}
     </span>
   );
 }
