@@ -691,16 +691,14 @@ export default function App() {
         {/* Center Nav Pill - Hide on tablet/mobile landscape (< 1024px) */}
         <div className={`hidden lg:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {[
-            { label: 'Treatments', href: '#treatments' },
-            { label: 'Our Clinic', href: 'https://maps.app.goo.gl/9R6wR89u792Y7X7Z7' },
+            { label: 'Treatments', href: '#services' },
+            { label: 'Our Clinic', href: '#space' },
             { label: 'Testimonials', href: '#testimonials' }
           ].map((item) => (
             <a
               key={item.label}
               href={item.href}
-              target={item.label === 'Our Clinic' ? '_blank' : undefined}
-              rel={item.label === 'Our Clinic' ? 'noopener noreferrer' : undefined}
-              onMouseEnter={() => { setIsHovering(true); setCursorText(item.label === 'Our Clinic' ? "Visit" : "Go"); }}
+              onMouseEnter={() => { setIsHovering(true); setCursorText("Go"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
               className="hover:text-[#2d3748] transition-colors duration-300 "
             >
@@ -747,7 +745,7 @@ export default function App() {
         </div>
 
         {/* Typography Layer - Sophisticated Editorial Layout */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-8 md:mt-0 px-6 md:px-24 md:pr-[5%] landscape:pb-16">
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-8 md:mt-0 px-6 md:px-24 md:pr-[5%] landscape:pb-16 md:-translate-y-16 lg:-translate-y-24">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -1789,7 +1787,7 @@ export default function App() {
           >
             <Star className="w-8 h-8 md:w-12 md:h-12 text-aura-accent" />
           </motion.div>
-          <h2 className="font-serif text-[8vw] md:text-[6vw] lg:text-[7vw] leading-tight text-aura-black mb-16">
+          <h2 className="font-serif text-[6vw] md:text-[4vw] lg:text-[4vw] leading-tight text-aura-black mb-16 max-w-4xl mx-auto">
             "We believe that a smile is not merely a physical attribute, but a profound expression of <span className="italic text-aura-accent">human connection</span> and <span className="italic text-aura-accent">inner vitality</span>."
           </h2>
           <div className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-black/40">
