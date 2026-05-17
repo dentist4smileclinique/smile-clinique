@@ -1491,18 +1491,22 @@ export default function App() {
                     <Image src={phase.img} fill priority={i === 0} className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                  <div className="absolute inset-0 p-12 flex flex-col justify-between z-10">
+                  <div className="absolute inset-0 p-8 xl:p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
                       <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
                       </div>
                     </div>
-                    <div>
-                      <h3 className="font-serif text-5xl text-white mb-4 leading-none">{phase.title}</h3>
-                      <p className="font-sans text-base text-white/60 mb-6 leading-relaxed">{phase.desc}</p>
-                      <div className="flex gap-3">
+                    <div className="flex flex-col justify-end">
+                      <div className="min-h-[96px] flex items-end mb-4">
+                        <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight">{phase.title}</h3>
+                      </div>
+                      <div className="min-h-[120px] xl:min-h-[96px] mb-6">
+                        <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
                         {phase.tags.map(tag => (
-                          <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40">{tag}</span>
+                          <span key={tag} className="px-3.5 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
                         ))}
                       </div>
                     </div>
