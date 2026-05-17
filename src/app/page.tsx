@@ -661,20 +661,20 @@ export default function App() {
       {/* Navigation - Exact Screenshot Match */}
       <nav 
         aria-label="Main navigation" 
-        className={`fixed top-0 left-0 right-0 z-[100] px-6 md:px-24 py-4 md:py-6 flex justify-between items-center transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[100] px-6 md:px-24 landscape:py-1 py-4 md:py-6 flex justify-between items-center transition-all duration-500 ${
           scrolled 
-            ? 'bg-white/80 backdrop-blur-xl border-b border-black/5 shadow-aura-soft pt-4' 
-            : 'bg-transparent pt-8 md:pt-12'
+            ? 'bg-white/80 backdrop-blur-xl border-b border-black/5 shadow-aura-soft landscape:pt-1 pt-4' 
+            : 'bg-transparent landscape:pt-2 pt-8 md:pt-12'
         }`}
       >
         {/* Logo */}
         <div className="pointer-events-auto flex items-center gap-3 md:gap-4 shrink-0">
-          <div className="relative w-12 h-12 md:w-20 md:h-20 landscape:w-10 landscape:h-10 md:landscape:w-16 md:landscape:h-16 shrink-0 flex items-center justify-center group">
+          <div className="relative w-12 h-12 md:w-20 md:h-20 landscape:w-8 landscape:h-8 md:landscape:w-10 md:landscape:h-10 shrink-0 flex items-center justify-center group">
             <LogoIcon className="w-full h-full p-0.5 group-hover:scale-110 transition-transform duration-500 object-contain" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-chancery text-[22px] md:text-[32px] landscape:text-[18px] md:landscape:text-[24px] tracking-normal text-[#2d3748] leading-[0.8] whitespace-nowrap">Smile Clinique</span>
-            <span className="font-sans text-[7px] md:text-[10px] landscape:text-[6px] md:landscape:text-[8px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-1.5 md:mt-3 pl-0.5 md:pl-1 truncate">by Dr. Nidhi Mehta</span>
+            <span className="font-chancery text-[22px] md:text-[32px] landscape:text-[16px] md:landscape:text-[20px] tracking-normal text-[#2d3748] leading-[0.8] whitespace-nowrap">Smile Clinique</span>
+            <span className="font-sans text-[7px] md:text-[10px] landscape:text-[5px] md:landscape:text-[6px] tracking-[0.2em] uppercase text-[#2d3748]/60 mt-1.5 md:mt-3 pl-0.5 md:pl-1 truncate">by Dr. Nidhi Mehta</span>
           </div>
         </div>
 
@@ -701,7 +701,7 @@ export default function App() {
 
         <div className="pointer-events-auto flex items-center gap-4">
           <Magnetic>
-            <a href="tel:+919820627550" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300 cursor-none shadow-aura-soft">
+            <a href="tel:+919820627550" onMouseEnter={() => { setIsHovering(true); setCursorText("Call"); }} onMouseLeave={() => { setIsHovering(false); setCursorText(""); }} className="bg-[#1e293b] text-white px-6 py-2.5 landscape:px-4 landscape:py-1.5 landscape:text-[10px] rounded-full text-[12px] font-medium hover:bg-black transition-all duration-300 cursor-none shadow-aura-soft">
               Book Now
             </a>
           </Magnetic>
@@ -1193,7 +1193,7 @@ export default function App() {
                 className="bg-black text-white rounded-[3rem] p-10 relative overflow-hidden flex flex-col justify-between min-h-[550px] shadow-aura-soft"
               >
                 <div className="absolute inset-0">
-                  <Image src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="https://images.unsplash.com/photo-1576092762791-dd9e22201387?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1273,7 +1273,7 @@ export default function App() {
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Discrete Alignment. Modern invisible solutions designed to guide your teeth into a perfectly balanced occlusion.</p>
                 </div>
                 <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
@@ -1288,7 +1288,7 @@ export default function App() {
                 className="col-span-8 bg-black text-white rounded-[3rem] p-20 relative overflow-hidden flex flex-col justify-between group cursor-none shadow-aura-soft will-change-transform"
               >
                 <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[3s]">
-                  <Image src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
+                  <Image src="https://images.unsplash.com/photo-1576092762791-dd9e22201387?q=80&w=2030" fill className="object-cover opacity-60" alt="Full mouth dental rehabilitation and reconstruction at Smile Clinique Mumbai" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 </div>
                 <div className="relative z-10">
@@ -1371,7 +1371,7 @@ export default function App() {
                   <button className="px-8 py-3 rounded-full bg-aura-black text-white text-xs uppercase tracking-widest hover:bg-aura-accent transition-colors duration-500 pointer-events-auto">View Details</button>
                 </div>
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible aligners at Smile Clinique" />
+                  <Image src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
               </motion.div>
             </div>
