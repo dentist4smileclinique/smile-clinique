@@ -795,7 +795,6 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-sans font-bold text-[#1a202c] text-[17px] pt-1 leading-tight tracking-tight">Preventive Care</h4>
-                    <p className="text-[12px] text-[#2d3748]/50 mt-1 uppercase tracking-widest font-medium">Phase 01</p>
                   </div>
                 </div>
               </div>
@@ -1582,7 +1581,7 @@ export default function App() {
                   >
                     <p className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent mb-4">{member.role}</p>
                     <h3 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-[0.9] tracking-tight">{member.name}</h3>
-                    <p className="font-sans text-base md:text-lg text-white/70 max-w-md leading-relaxed line-clamp-2 md:line-clamp-none mb-8">{member.bio}</p>
+                    <p className="font-sans text-base md:text-lg text-white/70 max-w-md leading-relaxed mb-8">{member.bio}</p>
                   </motion.div>
                 </div>
               </motion.div>
