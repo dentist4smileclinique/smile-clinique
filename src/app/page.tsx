@@ -525,7 +525,9 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -735,7 +737,7 @@ export default function App() {
         </div>
 
         {/* Typography Layer - Sophisticated Editorial Layout */}
-        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-8 md:mt-0 px-6 md:px-24 md:pr-[5%]">
+        <div className="relative z-10 w-full flex justify-center md:justify-end items-center pointer-events-none mt-8 md:mt-0 px-6 md:px-24 md:pr-[5%] landscape:pb-16">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -745,9 +747,9 @@ export default function App() {
             <div className="mb-6 md:mb-12 flex flex-col items-center md:items-end">
               <span className="font-display text-[10px] md:text-[12px] uppercase tracking-[0.6em] text-aura-accent mb-4 block">The Human Protocol</span>
               <h1 className="flex flex-col items-center text-center md:items-end md:text-right landscape:pt-12 md:landscape:pt-0">
-                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[8vw] md:landscape:text-[4vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Designing</span>
-                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[8vw] md:landscape:text-[4vw] text-aura-accent leading-[0.95] tracking-[-0.02em] opacity-100 italic">Generational</span>
-                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[8vw] md:landscape:text-[4vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Smiles</span>
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[6vw] md:landscape:text-[3.5vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Designing</span>
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[6vw] md:landscape:text-[3.5vw] text-aura-accent leading-[0.95] tracking-[-0.02em] opacity-100 italic">Generational</span>
+                <span className="font-chancery text-[11vw] md:text-[5.5vw] landscape:text-[6vw] md:landscape:text-[3.5vw] text-aura-black leading-[0.95] tracking-[-0.02em] opacity-100">Smiles</span>
               </h1>
             </div>
             
@@ -760,13 +762,12 @@ export default function App() {
         </div>
 
         {/* Floating Interactive Cards - Reveal on Scroll for Mobile */}
-        <div className={`w-full ${(mounted && isMobile) ? 'relative mt-20' : 'absolute bottom-6 md:bottom-16'} left-0 right-0 z-30 px-6 md:px-24 flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none`}>
-          <div className={`w-full flex ${isMobile ? 'flex-col gap-6' : 'overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4'} pointer-events-auto px-1 py-4`}>
+        <div className="w-full relative mt-20 md:mt-0 md:absolute md:bottom-16 left-0 right-0 z-30 px-6 md:px-24 flex landscape:hidden lg:landscape:flex flex-col md:flex-row items-center md:items-end gap-6 pointer-events-none">
+          <div className="w-full flex flex-col md:flex-row md:overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 md:gap-4 pointer-events-auto px-1 py-4">
             {/* Card 1: Expanded (Preventive Care) */}
             <motion.div
-              initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
-              whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
-              animate={!isMobile ? { y: 0, opacity: 1 } : {}}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="bg-white p-6 rounded-[2.5rem] border border-black/5 shadow-aura-soft w-full md:w-[380px] shrink-0 snap-center flex flex-col"
@@ -817,9 +818,8 @@ export default function App() {
               ].map((card, i) => (
                 <motion.div
                   key={i}
-                  initial={isMobile ? { opacity: 0, y: 50 } : { y: 100, opacity: 0 }}
-                  whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
-                  animate={!isMobile ? { y: 0, opacity: 1 } : {}}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.8, delay: isMobile ? 0.2 : 1 + i * 0.1 }}
                   className="bg-white p-6 rounded-[2rem] border border-black/5 shadow-aura-soft flex flex-col w-full md:w-[320px] snap-center shrink-0 hover:bg-[#f8f9fa] transition-all duration-500 pointer-events-auto group"
