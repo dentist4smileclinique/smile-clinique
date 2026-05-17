@@ -817,11 +817,7 @@ export default function App() {
                       </div>
                       <div className="flex flex-col">
                         <span className="font-sans font-bold text-[15px] text-[#1a202c] leading-tight tracking-tight">{card.title}</span>
-                        <span className="text-[9px] text-[#2d3748]/40 uppercase tracking-widest font-medium mt-0.5">{card.phase}</span>
                       </div>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-aura-beige/50 flex items-center justify-center border border-black/5 group-hover:bg-aura-accent group-hover:text-white transition-colors duration-300">
-                      <Plus className="w-4 h-4" />
                     </div>
                   </div>
                   <p className="text-[12px] text-[#2d3748]/60 leading-relaxed font-medium">
