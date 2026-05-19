@@ -1500,7 +1500,7 @@ export default function App() {
                 ))}
               </div>
             ) : (
-            <div className="flex h-[80vh] gap-4 w-full">
+            <div className="flex min-h-[80vh] gap-4 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
@@ -1517,17 +1517,15 @@ export default function App() {
                   <div className="absolute inset-0 p-8 xl:p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
-                      <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-aura-accent transition-colors duration-500">
-                      </div>
                     </div>
                     <div className="flex flex-col justify-end">
-                      <div className="h-[96px] flex items-end mb-4">
+                      <div className="flex items-end mb-4 mt-auto">
                         <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight">{phase.title}</h3>
                       </div>
-                      <div className="h-[140px] xl:h-[96px] mb-6 overflow-hidden">
+                      <div className="mb-6">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
                       </div>
-                      <div className="h-[40px] flex items-center">
+                      <div className="flex items-center">
                         <div className="flex flex-wrap gap-2">
                           {phase.tags.map(tag => (
                             <span key={tag} className="px-3.5 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
