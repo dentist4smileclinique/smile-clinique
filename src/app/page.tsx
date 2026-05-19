@@ -644,7 +644,7 @@ export default function App() {
   const workflowPhases = [
     { title: "Architectural Blueprint", phase: "Phase 01", img: "/methodology_1.png", desc: "Sub-millimeter digital mapping of your facial architecture using 3D scanning and clinical intuition to architect your ideal frame.", tags: ["Biometric Mapping", "3D Scan"] },
     { title: "Virtual Simulation", phase: "Phase 02", img: "/methodology_2.png", desc: "Experience the outcome before we begin. High-fidelity virtual rendering allows for precise aesthetic alignment and collaboration.", tags: ["Digital Twin", "Co-Creation"] },
-    { title: "Master Craftsmanship", phase: "Phase 03", img: "/methodology_3.png", desc: "Bespoke restoration fabrication using world-class materials and artisanal techniques from the world's premier dental laboratories.", tags: ["Artisanal Lab", "Porcelain Mastery"] },
+    { title: "Master Crafts\u00ADmanship", phase: "Phase 03", img: "/methodology_3.png", desc: "Bespoke restoration fabrication using world-class materials and artisanal techniques from the world's premier dental laboratories.", tags: ["Artisanal Lab", "Porcelain Mastery"] },
     { title: "Refined Integration", phase: "Phase 04", img: "/methodology_4_integration_1776380162441.png", desc: "Meticulous structural placement for enduring, natural brilliance that harmonizes perfectly with your unique biological features.", tags: ["Clinical Integration", "Longevity"] },
   ];
 
@@ -1520,7 +1520,7 @@ export default function App() {
                     </div>
                     <div className="mt-auto w-full flex flex-col">
                       <div className="h-[80px] lg:h-[100px] xl:h-[120px] w-full flex items-start mb-4">
-                        <h3 className="font-serif text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white leading-[1.1] tracking-tight w-full" style={{ wordBreak: 'break-word', WebkitHyphens: 'auto', hyphens: 'auto' }}>{phase.title}</h3>
+                        <h3 className="font-serif text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white leading-[1.1] tracking-tight w-full" style={{ WebkitHyphens: 'auto', hyphens: 'auto' }}>{phase.title}</h3>
                       </div>
                       <div className="h-[140px] lg:h-[120px] xl:h-[96px] mb-6">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
