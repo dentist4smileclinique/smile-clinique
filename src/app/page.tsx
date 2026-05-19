@@ -1519,8 +1519,8 @@ export default function App() {
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
                     </div>
                     <div className="mt-auto w-full flex flex-col">
-                      <div className="h-[80px] lg:h-[100px] xl:h-[120px] w-full flex items-start mb-4">
-                        <h3 className="font-serif text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white leading-[1.1] tracking-tight w-full" style={{ WebkitHyphens: 'auto', hyphens: 'auto' }}>{phase.title}</h3>
+                      <div className="h-[80px] lg:h-[100px] xl:h-[110px] w-full mb-4 block">
+                        <h3 className="font-serif text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl text-white leading-[1.1] tracking-tight w-full" style={{ WebkitHyphens: 'auto', hyphens: 'auto' }}>{phase.title}</h3>
                       </div>
                       <div className="h-[140px] lg:h-[120px] xl:h-[96px] mb-6">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
