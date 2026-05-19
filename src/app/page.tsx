@@ -1518,11 +1518,11 @@ export default function App() {
                     <div className="flex justify-between items-start">
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
                     </div>
-                    <div className="flex flex-col justify-end">
-                      <div className="flex items-end mb-4 mt-auto">
+                    <div className="grid grid-rows-[auto_1fr_auto] gap-0 mt-auto">
+                      <div className="mb-4">
                         <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight break-words">{phase.title}</h3>
                       </div>
-                      <div className="mb-6">
+                      <div className="mb-6 min-h-[6.5rem] xl:min-h-[5.5rem]">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
                       </div>
                       <div className="flex items-center">
