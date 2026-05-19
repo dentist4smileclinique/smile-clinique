@@ -1520,7 +1520,7 @@ export default function App() {
                     </div>
                     <div className="flex flex-col justify-end">
                       <div className="flex items-end mb-4 mt-auto">
-                        <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight">{phase.title}</h3>
+                        <h3 className="font-serif text-3xl xl:text-5xl text-white leading-[1.1] tracking-tight break-words">{phase.title}</h3>
                       </div>
                       <div className="mb-6">
                         <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
