@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo, useCallback, ReactNode } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValueEvent } from 'motion/react';
-import { ArrowUpRight, Plus, Star, ArrowRight, BookOpen, Menu, X, ArrowDown, ScanLine, Sparkles, Gem, Activity, Smile, ChevronDown, MapPin, Clock } from 'lucide-react';
+import { ArrowUpRight, Plus, Star, ArrowRight, BookOpen, Menu, X, ArrowDown, ArrowUp, ScanLine, Sparkles, Gem, Activity, Smile, ChevronDown, MapPin, Clock } from 'lucide-react';
 import Image from 'next/image';
 import Lenis from 'lenis';
 
@@ -2052,7 +2052,7 @@ export default function App() {
                </div>
              </div>
           </div>
-          <div className="flex gap-10 items-center">
+          <div className="flex gap-10 items-center mt-8 md:mt-0">
             <a
               href="#"
               onClick={(e) => {
@@ -2061,9 +2061,12 @@ export default function App() {
               }}
               onMouseEnter={() => { setIsHovering(true); setCursorText("Top"); }}
               onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-              className="hover:text-aura-white transition-colors duration-300 font-display"
+              className="group flex items-center gap-4 px-6 py-3 rounded-full border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-500 shadow-aura-soft"
             >
-              Go to Start
+              <span className="font-display text-[10px] uppercase tracking-[0.3em] text-aura-white">Go to Start</span>
+              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors duration-500">
+                <ArrowUp className="w-4 h-4 text-aura-white" />
+              </div>
             </a>
           </div>
         </div>
