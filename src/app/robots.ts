@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://smileavenuedchadapsar.com/sitemap.xml',
+    sitemap: 'https://smilecliniquedental.com/sitemap.xml',
   };
 }
