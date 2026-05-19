@@ -242,7 +242,8 @@ const localBusinessSchema = {
         "@type": "Person",
         "name": "Dr. Nidhi Mehta",
         "jobTitle": "BDS, Comprehensive Dentist & Founder",
-        "knowsAbout": ["Cosmetic Dentistry", "Oral Implantology", "Full Mouth Rehabilitation", "Orthodontics"]
+        "knowsAbout": ["Cosmetic Dentistry", "Oral Implantology", "Full Mouth Rehabilitation", "Orthodontics"],
+        "image": "https://smilecliniquedental.com/drnidhi.JPG"
       },
       "medicalSpecialty": [
         "CosmeticDentistry",
