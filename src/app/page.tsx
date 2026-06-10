@@ -502,6 +502,7 @@ export default function App() {
   const arcContainerRef = useRef<HTMLDivElement>(null);
   const spaceRef = useRef<HTMLElement>(null);
   const casesRef = useRef<HTMLElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
   // Mobile detection
   const [isMobile, setIsMobile] = useState(false);
@@ -520,6 +521,7 @@ export default function App() {
       syncTouch: true, // Crucial for smooth mobile interaction
       infinite: false,
     });
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -538,6 +540,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
       window.removeEventListener('resize', checkMobile);
     };
   }, []);
@@ -597,29 +600,114 @@ export default function App() {
     offset: ["start start", "end end"]
   });
 
-  // Auto-scroll to Location section after 2 seconds of reaching the last Testimonials card (resting position at progress >= 0.7)
+  // Auto-play testimonials arc animation when section enters viewport
+  const [hasAutoPlayedTestimonials, setHasAutoPlayedTestimonials] = useState(false);
+  const [isAutoPlayingTestimonials, setIsAutoPlayingTestimonials] = useState(false);
+  const userInterruptRef = useRef(false);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasAutoPlayedRef = useRef(false);
+  const isAutoPlayingRef = useRef(false);
+  
+  // Keep refs in sync with state
+  useEffect(() => { hasAutoPlayedRef.current = hasAutoPlayedTestimonials; }, [hasAutoPlayedTestimonials]);
+  useEffect(() => { isAutoPlayingRef.current = isAutoPlayingTestimonials; }, [isAutoPlayingTestimonials]);
+
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const unsubscribe = arcProgress.on("change", (latest) => {
-      if (latest >= 0.7) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          if (arcProgress.get() >= 0.7) {
-            const locationSection = document.getElementById("location");
-            if (locationSection) {
-              locationSection.scrollIntoView({ behavior: "smooth" });
-            }
+    if (!arcContainerRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Use refs to avoid stale closure
+          const hasPlayed = hasAutoPlayedRef.current;
+          const isPlaying = isAutoPlayingRef.current;
+          if (entry.isIntersecting && !hasPlayed && !isPlaying) {
+            // Start auto-play after a small delay
+            if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+            autoPlayTimeoutRef.current = setTimeout(() => {
+              const hasPlayedNow = hasAutoPlayedRef.current;
+              const isPlayingNow = isAutoPlayingRef.current;
+              
+              if (!hasPlayedNow && !isPlayingNow) {
+                setIsAutoPlayingTestimonials(true);
+                userInterruptRef.current = false;
+                
+                const lenis = lenisRef.current;
+                if (lenis) {
+                  const startY = window.scrollY;
+                  const sectionHeight = entry.boundingClientRect.height;
+                  const endY = startY + sectionHeight;
+                  
+                  // Auto-scroll through the entire 600vh section over 5 seconds
+                  lenis.scrollTo(endY, {
+                    duration: 10,
+                    lock: true,
+                    onComplete: () => {
+                      setIsAutoPlayingTestimonials(false);
+                      setHasAutoPlayedTestimonials(true);
+                    },
+                  });
+                }
+              }
+            }, 500);
+          } else if (!entry.isIntersecting && autoPlayTimeoutRef.current) {
+            clearTimeout(autoPlayTimeoutRef.current);
+            autoPlayTimeoutRef.current = null;
           }
-        }, 2000);
-      } else {
-        clearTimeout(timeoutId);
-      }
-    });
+        });
+      },
+      { threshold: 0.0 } // Trigger as soon as any part is visible
+    );
+
+    observer.observe(arcContainerRef.current);
     return () => {
-      unsubscribe();
-      clearTimeout(timeoutId);
+      observer.disconnect();
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     };
-  }, [arcProgress]);
+  }, []); // Empty deps - only set up once
+
+  // Detect user manual scroll during auto-play and cancel it
+  useEffect(() => {
+    if (!isAutoPlayingTestimonials) return;
+    
+    const handleWheel = () => {
+      if (!userInterruptRef.current) {
+        userInterruptRef.current = true;
+        const lenis = lenisRef.current;
+        if (lenis) {
+          lenis.stop();
+          setTimeout(() => lenis.start(), 50);
+        }
+        setIsAutoPlayingTestimonials(false);
+        setHasAutoPlayedTestimonials(true);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('touchstart', handleWheel, { passive: true });
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleWheel);
+    };
+  }, [isAutoPlayingTestimonials]);
+
+  // Auto-scroll to Location section after testimonials auto-play completes
+  useEffect(() => {
+    // Only run when auto-play just finished (was playing, now done, and has been played)
+    if (isAutoPlayingTestimonials || !hasAutoPlayedTestimonials) return;
+    
+    const lenis = lenisRef.current;
+    const locationSection = document.getElementById("location");
+    if (lenis && locationSection) {
+      // Delay to let the user see the final card state
+      setTimeout(() => {
+        // Scroll to the location section with an offset to show the section content
+        const offset = window.innerHeight * 0.3; // Scroll 30% into the viewport
+        lenis.scrollTo(locationSection, { duration: 2, offset: -offset });
+      }, 800);
+    }
+  }, [isAutoPlayingTestimonials, hasAutoPlayedTestimonials]);
 
   const { scrollYProgress: spaceProgress } = useScroll({
     target: spaceRef,
@@ -1500,7 +1588,7 @@ export default function App() {
                 ))}
               </div>
             ) : (
-            <div className="flex min-h-[80vh] gap-4 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 min-h-[80vh] gap-3 w-full">
               {workflowPhases.map((phase, i) => (
                 <motion.div
                   key={i}
@@ -1508,27 +1596,27 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: i * 0.1 }}
-                  className="flex-1 relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform min-h-[500px]"
+                  className="relative group rounded-[3rem] overflow-hidden bg-aura-black shadow-aura-deep will-change-transform min-h-[500px]"
                 >
                   <div className="absolute inset-0 h-full w-full">
                     <Image src={phase.img} fill priority={i === 0} className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-[5s]" alt={`${phase.title} – Detailed clinical workflow`} />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                  <div className="absolute inset-0 p-8 xl:p-12 flex flex-col justify-between z-10">
+                  <div className="absolute inset-0 p-6 lg:p-8 xl:p-12 flex flex-col justify-between z-10">
                     <div className="flex justify-between items-start">
                       <span className="font-display text-[10px] uppercase tracking-[0.4em] text-aura-accent">{phase.phase}</span>
                     </div>
                     <div className="mt-auto w-full flex flex-col">
-                      <div className="h-[80px] lg:h-[100px] xl:h-[110px] w-full mb-4 block">
-                        <h3 className="font-serif text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl text-white leading-[1.1] tracking-tight w-full" style={{ WebkitHyphens: 'auto', hyphens: 'auto' }}>{phase.title}</h3>
+                      <div className="min-h-[80px] lg:min-h-[100px] xl:min-h-[110px] w-full mb-4 block overflow-hidden">
+                        <h3 className="font-serif text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white leading-[1.1] tracking-tight w-full" style={{ WebkitHyphens: 'auto', hyphens: 'auto', overflowWrap: 'break-word' }}>{phase.title}</h3>
                       </div>
-                      <div className="h-[140px] lg:h-[120px] xl:h-[96px] mb-6">
-                        <p className="font-sans text-xs xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
+                      <div className="min-h-[140px] lg:min-h-[120px] xl:min-h-[96px] mb-6 overflow-hidden">
+                        <p className="font-sans text-sm xl:text-base text-white/60 leading-relaxed">{phase.desc}</p>
                       </div>
-                      <div className="h-[50px] flex items-end">
+                      <div className="min-h-[50px] flex items-end">
                         <div className="flex flex-wrap gap-2">
                           {phase.tags.map(tag => (
-                            <span key={tag} className="px-3.5 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
+                            <span key={tag} className="px-3 py-1 lg:px-3.5 lg:py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap">{tag}</span>
                           ))}
                         </div>
                       </div>
