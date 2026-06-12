@@ -1995,7 +1995,7 @@ export default function App() {
                 onClick={handleSkipTestimonials}
                 onMouseEnter={() => { setIsHovering(true); setCursorText("Skip"); }}
                 onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
-                className="absolute bottom-24 right-6 md:bottom-14 md:right-14 z-50 pointer-events-auto group focus:outline-none"
+                className="absolute top-20 left-1/2 -translate-x-1/2 md:top-auto md:bottom-14 md:right-14 md:left-auto md:translate-x-0 z-50 pointer-events-auto group focus:outline-none"
                 aria-label="Skip testimonials and go to next section"
               >
                 <div className="relative flex items-center gap-2.5 pl-5 pr-3.5 py-2.5 md:pl-7 md:pr-4 md:py-3.5 rounded-full bg-white/60 backdrop-blur-2xl border border-black/[0.06] shadow-aura-medium hover:bg-aura-accent hover:border-aura-accent/40 transition-all duration-500 group-hover:shadow-aura-deep group-active:scale-95">
