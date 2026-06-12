@@ -498,6 +498,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMember, setActiveMember] = useState(0);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [showSkipButton, setShowSkipButton] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const arcContainerRef = useRef<HTMLDivElement>(null);
   const spaceRef = useRef<HTMLElement>(null);
@@ -769,6 +770,35 @@ export default function App() {
       setActiveMember(member);
     }
   });
+
+  // Show/hide skip button based on arc carousel scroll position
+  useMotionValueEvent(arcProgress, "change", (latest) => {
+    setShowSkipButton(latest > 0.02 && latest < 0.92);
+  });
+
+  // Skip testimonials carousel and jump to next section
+  const handleSkipTestimonials = useCallback(() => {
+    // Cancel auto-play if running
+    if (isAutoPlayingTestimonials) {
+      userInterruptRef.current = true;
+      const lenis = lenisRef.current;
+      if (lenis) {
+        lenis.stop();
+        setTimeout(() => lenis.start(), 50);
+      }
+      setIsAutoPlayingTestimonials(false);
+      setHasAutoPlayedTestimonials(true);
+    }
+
+    // Scroll to location section
+    setTimeout(() => {
+      const lenis = lenisRef.current;
+      const locationSection = document.getElementById("location");
+      if (lenis && locationSection) {
+        lenis.scrollTo(locationSection, { duration: 1.8, offset: 0 });
+      }
+    }, 100);
+  }, [isAutoPlayingTestimonials]);
 
   return (
     <div ref={containerRef} className={`min-h-screen bg-aura-beige font-sans text-aura-black relative selection:bg-aura-black selection:text-aura-beige ${(mounted && isMobile) ? 'cursor-auto' : 'aura-grain '}`}>
@@ -1953,6 +1983,36 @@ export default function App() {
               />
             ))}
           </div>
+
+          {/* Skip to Next Section — Floating Shortcut */}
+          <AnimatePresence>
+            {showSkipButton && (
+              <motion.button
+                initial={{ opacity: 0, y: 30, scale: 0.92 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 16, scale: 0.95 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                onClick={handleSkipTestimonials}
+                onMouseEnter={() => { setIsHovering(true); setCursorText("Skip"); }}
+                onMouseLeave={() => { setIsHovering(false); setCursorText(""); }}
+                className="absolute bottom-24 right-6 md:bottom-14 md:right-14 z-50 pointer-events-auto group focus:outline-none"
+                aria-label="Skip testimonials and go to next section"
+              >
+                <div className="relative flex items-center gap-2.5 pl-5 pr-3.5 py-2.5 md:pl-7 md:pr-4 md:py-3.5 rounded-full bg-white/60 backdrop-blur-2xl border border-black/[0.06] shadow-aura-medium hover:bg-aura-accent hover:border-aura-accent/40 transition-all duration-500 group-hover:shadow-aura-deep group-active:scale-95">
+                  {/* Orbiting Shimmer Ring */}
+                  <div className="absolute -inset-[5px] rounded-full border border-aura-accent/15 animate-skip-orbit pointer-events-none group-hover:border-white/20" />
+                  <div className="absolute -inset-[10px] rounded-full border border-aura-accent/[0.06] animate-skip-orbit-delayed pointer-events-none group-hover:border-white/10" />
+
+                  <span className="font-display text-[8px] md:text-[9px] uppercase tracking-[0.25em] font-semibold text-aura-black/60 group-hover:text-white/90 transition-colors duration-500 select-none">
+                    Skip ahead
+                  </span>
+                  <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-aura-accent/10 group-hover:bg-white/20 flex items-center justify-center transition-all duration-500 shrink-0">
+                    <ArrowDown className="w-3.5 h-3.5 md:w-4 md:h-4 text-aura-accent group-hover:text-white animate-skip-bounce transition-colors duration-500" />
+                  </div>
+                </div>
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
 
 

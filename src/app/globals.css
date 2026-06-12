@@ -162,6 +162,34 @@ html.lenis body {
   }
 }
 
+/* Skip Button Animations */
+@keyframes skip-bounce-kf {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+@keyframes skip-orbit-kf {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.06); opacity: 0.15; }
+}
+
+@keyframes skip-orbit-delayed-kf {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.04); opacity: 0.08; }
+}
+
+.animate-skip-bounce {
+  animation: skip-bounce-kf 2s ease-in-out infinite;
+}
+
+.animate-skip-orbit {
+  animation: skip-orbit-kf 3s ease-in-out infinite;
+}
+
+.animate-skip-orbit-delayed {
+  animation: skip-orbit-delayed-kf 3s ease-in-out infinite 1.5s;
+}
+
 body {
   background-color: #FAFAFA;
   color: #0A0A0A;
