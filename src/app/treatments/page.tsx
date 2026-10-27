@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     "south mumbai dentist",
   ],
   alternates: {
-    canonical: "/treatments",
+    canonical: "/treatments/",
   },
   openGraph: {
     title: "Dental Treatments in Malabar Hill, Mumbai | Smile Clinique",
     description:
       "Evidence-led patient guides to full mouth rehabilitation, smile design, dental implants and clear aligners in Malabar Hill, Mumbai.",
-    url: "/treatments",
+    url: "/treatments/",
     siteName: CLINIC.shortName,
     locale: "en_IN",
     type: "website",
@@ -77,19 +77,19 @@ const schema = {
     },
     {
       "@type": "CollectionPage",
-      "@id": `${SITE_URL}/treatments#webpage`,
-      url: `${SITE_URL}/treatments`,
+      "@id": `${SITE_URL}/treatments/#webpage`,
+      url: `${SITE_URL}/treatments/`,
       name: "Dental Treatments in Malabar Hill, Mumbai | Smile Clinique",
       description:
         "Evidence-led guides to dental treatments at Smile Clinique in Malabar Hill, Mumbai, including implants, veneers, full mouth rehabilitation and clear aligners.",
       inLanguage: "en-IN",
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#dentist` },
-      breadcrumb: { "@id": `${SITE_URL}/treatments#breadcrumb` },
+      breadcrumb: { "@id": `${SITE_URL}/treatments/#breadcrumb` },
     },
     {
       "@type": "ItemList",
-      "@id": `${SITE_URL}/treatments#list`,
+      "@id": `${SITE_URL}/treatments/#list`,
       name: "Smile Clinique treatment guides",
       numberOfItems: TREATMENTS.length,
       itemListElement: TREATMENTS.map((treatment, index) => ({
@@ -102,7 +102,7 @@ const schema = {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": `${SITE_URL}/treatments#breadcrumb`,
+      "@id": `${SITE_URL}/treatments/#breadcrumb`,
       itemListElement: [
         {
           "@type": "ListItem",
@@ -114,7 +114,7 @@ const schema = {
           "@type": "ListItem",
           position: 2,
           name: "Treatments",
-          item: `${SITE_URL}/treatments`,
+          item: `${SITE_URL}/treatments/`,
         },
       ],
     },

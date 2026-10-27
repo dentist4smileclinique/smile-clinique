@@ -285,7 +285,7 @@ const localBusinessSchema = {
               "@type": "Service",
               "name": "Full Mouth Rehabilitation",
               "description": "Comprehensive structural and aesthetic dental reconstruction for complex cases.",
-              "url": "https://smilecliniquedental.com/treatments/full-mouth-rehabilitation-malabar-hill-mumbai"
+              "url": "https://smilecliniquedental.com/treatments/full-mouth-rehabilitation-malabar-hill-mumbai/"
             }
           },
           {
@@ -294,7 +294,7 @@ const localBusinessSchema = {
               "@type": "Service",
               "name": "Porcelain Veneers & Smile Design",
               "description": "Custom artisanal porcelain veneers for the ultimate aesthetic transformation.",
-              "url": "https://smilecliniquedental.com/treatments/smile-design-malabar-hill-mumbai"
+              "url": "https://smilecliniquedental.com/treatments/smile-design-malabar-hill-mumbai/"
             }
           },
           {
@@ -303,7 +303,7 @@ const localBusinessSchema = {
               "@type": "Service",
               "name": "Dental Implants",
               "description": "Guided implant treatment for single teeth, bridges and full-arch rehabilitation.",
-              "url": "https://smilecliniquedental.com/treatments/dental-implants-malabar-hill-mumbai"
+              "url": "https://smilecliniquedental.com/treatments/dental-implants-malabar-hill-mumbai/"
             }
           },
           {
@@ -312,7 +312,7 @@ const localBusinessSchema = {
               "@type": "Service",
               "name": "Clear Aligners & Orthodontics",
               "description": "Digital orthodontic planning with clear aligners, ceramic braces and fixed appliances.",
-              "url": "https://smilecliniquedental.com/treatments/clear-aligners-orthodontics-malabar-hill-mumbai"
+              "url": "https://smilecliniquedental.com/treatments/clear-aligners-orthodontics-malabar-hill-mumbai/"
             }
           }
         ]
@@ -884,7 +884,7 @@ export default function App() {
         {/* Center Nav Pill - Hide on tablet/mobile landscape (< 1024px) */}
         <div className={`hidden lg:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {[
-            { label: 'Treatments', href: '/treatments' },
+            { label: 'Treatments', href: '/treatments/' },
             { label: 'Our Clinic', href: '#space' },
             { label: 'Testimonials', href: '#testimonials' }
           ].map((item) => (

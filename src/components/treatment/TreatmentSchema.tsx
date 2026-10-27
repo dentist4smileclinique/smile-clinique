@@ -148,7 +148,7 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
         })),
         breadcrumb: { "@id": breadcrumbId },
         significantLink: [
-          `${SITE_URL}/treatments`,
+          `${SITE_URL}/treatments/`,
           ...treatment.related.map((slug) => absoluteTreatmentUrl(slug)),
         ],
       },
@@ -216,7 +216,7 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
             "@type": "ListItem",
             position: 2,
             name: "Treatments",
-            item: `${SITE_URL}/treatments`,
+            item: `${SITE_URL}/treatments/`,
           },
           {
             "@type": "ListItem",

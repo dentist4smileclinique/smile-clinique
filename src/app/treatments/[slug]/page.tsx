@@ -30,7 +30,7 @@ export async function generateMetadata({
     };
   }
 
-  const canonical = `/treatments/${treatment.slug}`;
+  const canonical = `/treatments/${treatment.slug}/`;
 
   return {
     title: { absolute: treatment.title },

@@ -1770,9 +1770,9 @@ export function getRelatedTreatments(treatment: Treatment): Treatment[] {
 }
 
 export function treatmentUrl(slug: string): string {
-  return `/treatments/${slug}`;
+  return `/treatments/${slug}/`;
 }
 
 export function absoluteTreatmentUrl(slug: string): string {
-  return `${SITE_URL}/treatments/${slug}`;
+  return `${SITE_URL}/treatments/${slug}/`;
 }
