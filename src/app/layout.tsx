@@ -59,6 +59,12 @@ export const metadata: Metadata = {
     address: true,
     telephone: true,
   },
+  other: {
+    'geo.region': 'IN-MH',
+    'geo.placename': 'Mumbai',
+    'geo.position': '18.9553;72.8007',
+    ICBM: '18.9553, 72.8007',
+  },
   icons: {
     icon: '/smilecliniqueicon.png',
     shortcut: '/smilecliniqueicon.png',
@@ -77,7 +83,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/hero.png',
+        url: '/og/smile-clinique-mumbai.jpg',
         width: 1200,
         height: 630,
         alt: 'Smile Clinique – Premium Dental Care by Dr. Nidhi Mehta, Mumbai',
@@ -89,7 +95,7 @@ export const metadata: Metadata = {
     title: 'Smile Clinique | Dr. Nidhi Mehta | Premium Dentist Mumbai',
     description:
       'Experience painless, world-class dental care at Malabar Hill, Mumbai. Cosmetic dentistry, implants, aligners & more.',
-    images: ['/hero.png'],
+    images: ['/og/smile-clinique-mumbai.jpg'],
   },
   robots: {
     index: true,
@@ -110,7 +116,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`scroll-smooth ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         {/* Preload Black Chancery font for LCP optimization */}
         <link

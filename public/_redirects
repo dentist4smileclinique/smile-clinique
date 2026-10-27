@@ -1,0 +1,18 @@
+# Canonical clean URLs (Netlify / Cloudflare Pages)
+/treatments /treatments.html 200
+/treatments/ /treatments.html 200
+
+/treatments/full-mouth-rehabilitation-malabar-hill-mumbai /treatments/full-mouth-rehabilitation-malabar-hill-mumbai.html 200
+/treatments/full-mouth-rehabilitation-malabar-hill-mumbai/ /treatments/full-mouth-rehabilitation-malabar-hill-mumbai.html 200
+/treatments/smile-design-malabar-hill-mumbai /treatments/smile-design-malabar-hill-mumbai.html 200
+/treatments/smile-design-malabar-hill-mumbai/ /treatments/smile-design-malabar-hill-mumbai.html 200
+/treatments/dental-implants-malabar-hill-mumbai /treatments/dental-implants-malabar-hill-mumbai.html 200
+/treatments/dental-implants-malabar-hill-mumbai/ /treatments/dental-implants-malabar-hill-mumbai.html 200
+/treatments/clear-aligners-orthodontics-malabar-hill-mumbai /treatments/clear-aligners-orthodontics-malabar-hill-mumbai.html 200
+/treatments/clear-aligners-orthodontics-malabar-hill-mumbai/ /treatments/clear-aligners-orthodontics-malabar-hill-mumbai.html 200
+
+# Preserve old short URLs with permanent redirects
+/treatments/full-mouth-rehabilitation-mumbai /treatments/full-mouth-rehabilitation-malabar-hill-mumbai 301
+/treatments/smile-design-mumbai /treatments/smile-design-malabar-hill-mumbai 301
+/treatments/dental-implants-mumbai /treatments/dental-implants-malabar-hill-mumbai 301
+/treatments/clear-aligners-orthodontics-mumbai /treatments/clear-aligners-orthodontics-malabar-hill-mumbai 301

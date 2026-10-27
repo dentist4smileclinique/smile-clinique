@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, ReactNode } f
 import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValueEvent } from 'motion/react';
 import { ArrowUpRight, Plus, Star, ArrowRight, BookOpen, Menu, X, ArrowDown, ArrowUp, ScanLine, Sparkles, Gem, Activity, Smile, ChevronDown, MapPin, Clock } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Lenis from 'lenis';
 
 function TypewriterText({ text, className, delay = 0, isMobile = false }: { text: string, className?: string, delay?: number, isMobile?: boolean }) {
@@ -201,6 +202,13 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://smilecliniquedental.com/#website",
+      "url": "https://smilecliniquedental.com",
+      "name": "Smile Clinique",
+      "publisher": { "@id": "https://smilecliniquedental.com/#dentist" }
+    },
+    {
       "@type": "Dentist",
       "@id": "https://smilecliniquedental.com/#dentist",
       "name": "Smile Clinique Dental Care Centre",
@@ -224,6 +232,22 @@ const localBusinessSchema = {
         "latitude": 18.9553,
         "longitude": 72.8007
       },
+      "hasMap": "https://maps.app.goo.gl/9R6wR89u792Y7X7Z7",
+      "sameAs": [
+        "https://maps.app.goo.gl/9R6wR89u792Y7X7Z7"
+      ],
+      "areaServed": [
+        { "@type": "Place", "name": "Malabar Hill" },
+        { "@type": "Place", "name": "Walkeshwar" },
+        { "@type": "Place", "name": "Cumballa Hill" },
+        { "@type": "Place", "name": "Kemps Corner" },
+        { "@type": "Place", "name": "Peddar Road" },
+        { "@type": "Place", "name": "Breach Candy" },
+        { "@type": "Place", "name": "Tardeo" },
+        { "@type": "Place", "name": "Colaba" },
+        { "@type": "Place", "name": "Worli" },
+        { "@type": "AdministrativeArea", "name": "South Mumbai" }
+      ],
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -260,7 +284,8 @@ const localBusinessSchema = {
             "itemOffered": {
               "@type": "Service",
               "name": "Full Mouth Rehabilitation",
-              "description": "Comprehensive structural and aesthetic dental reconstruction for complex cases."
+              "description": "Comprehensive structural and aesthetic dental reconstruction for complex cases.",
+              "url": "https://smilecliniquedental.com/treatments/full-mouth-rehabilitation-malabar-hill-mumbai"
             }
           },
           {
@@ -268,16 +293,29 @@ const localBusinessSchema = {
             "itemOffered": {
               "@type": "Service",
               "name": "Porcelain Veneers & Smile Design",
-              "description": "Custom artisanal porcelain veneers for the ultimate aesthetic transformation."
+              "description": "Custom artisanal porcelain veneers for the ultimate aesthetic transformation.",
+              "url": "https://smilecliniquedental.com/treatments/smile-design-malabar-hill-mumbai"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dental Implants",
+              "description": "Guided implant treatment for single teeth, bridges and full-arch rehabilitation.",
+              "url": "https://smilecliniquedental.com/treatments/dental-implants-malabar-hill-mumbai"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Clear Aligners & Orthodontics",
+              "description": "Digital orthodontic planning with clear aligners, ceramic braces and fixed appliances.",
+              "url": "https://smilecliniquedental.com/treatments/clear-aligners-orthodontics-malabar-hill-mumbai"
             }
           }
         ]
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "500",
-        "bestRating": "5"
       }
     },
     {
@@ -386,6 +424,18 @@ const Grain = ({ disabled }: { disabled?: boolean }) => {
       style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' }} />
   );
 };
+
+function TreatmentCardLink({ href, label, surface }: { href: string; label: string; surface: 'dark' | 'light' }) {
+  return (
+    <Link href={href} aria-label={label} className="absolute inset-0 z-30">
+      <span className="sr-only">{label}</span>
+      <span className={`absolute right-5 top-5 md:right-7 md:top-7 flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-500 group-hover:bg-aura-accent group-hover:border-aura-accent group-hover:text-white ${surface === 'dark' ? 'border-white/20 bg-white/5 text-white/70' : 'border-black/10 bg-white/60 text-black/40'}`}>
+        <ArrowUpRight className="w-4 h-4" />
+      </span>
+    </Link>
+  );
+}
+
 
 const ArcCard = ({ index, totalCards, progress, card, onHover, onLeave, windowWidth }: {
   index: number,
@@ -834,7 +884,7 @@ export default function App() {
         {/* Center Nav Pill - Hide on tablet/mobile landscape (< 1024px) */}
         <div className={`hidden lg:flex items-center gap-8 bg-white/70 backdrop-blur-md px-8 py-3 rounded-full border border-black/[0.05] font-sans text-[13px] font-medium text-[#2d3748]/80 pointer-events-auto shadow-aura-soft transition-all duration-500 ${scrolled ? 'scale-90 opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {[
-            { label: 'Treatments', href: '#services' },
+            { label: 'Treatments', href: '/treatments' },
             { label: 'Our Clinic', href: '#space' },
             { label: 'Testimonials', href: '#testimonials' }
           ].map((item) => (
@@ -1359,6 +1409,11 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+                <TreatmentCardLink
+                  href="/treatments/full-mouth-rehabilitation-malabar-hill-mumbai"
+                  label="Read the Full Mouth Rehabilitation treatment guide"
+                  surface="dark"
+                />
               </motion.div>
 
               {/* Card 2: Smile Design */}
@@ -1376,7 +1431,11 @@ export default function App() {
                   <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-aura-black">Smile<br />Design</h3>
                   <p className="font-sans text-base text-aura-black/60 leading-relaxed mb-8">Architectural Aesthetics. Using digital smile design and minimally invasive porcelain, we create a bespoke frame that perfectly complements your facial features.</p>
                 </div>
-
+                <TreatmentCardLink
+                  href="/treatments/smile-design-malabar-hill-mumbai"
+                  label="Read the Smile Design and Porcelain Veneers treatment guide"
+                  surface="light"
+                />
               </motion.div>
 
               {/* Card 3: Implants */}
@@ -1397,7 +1456,11 @@ export default function App() {
                   <h3 className="font-sans font-bold text-[10vw] leading-none tracking-tight mb-6 text-white">Implants</h3>
                   <p className="font-sans text-base text-white/50 leading-relaxed">Permanent Foundations. High-precision implant protocols restoring the strength and natural feel of your teeth.</p>
                 </div>
-
+                <TreatmentCardLink
+                  href="/treatments/dental-implants-malabar-hill-mumbai"
+                  label="Read the Dental Implants treatment guide"
+                  surface="dark"
+                />
               </motion.div>
 
               {/* Card 4: Orthodontics */}
@@ -1415,6 +1478,11 @@ export default function App() {
                 <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden">
                   <Image src="/clear_aligners.png" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
+                <TreatmentCardLink
+                  href="/treatments/clear-aligners-orthodontics-malabar-hill-mumbai"
+                  label="Read the Clear Aligners and Orthodontics treatment guide"
+                  surface="light"
+                />
               </motion.div>
             </div>
           ) : (
@@ -1448,6 +1516,11 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+                <TreatmentCardLink
+                  href="/treatments/full-mouth-rehabilitation-malabar-hill-mumbai"
+                  label="Read the Full Mouth Rehabilitation treatment guide"
+                  surface="dark"
+                />
               </motion.div>
 
               {/* Card 2: Smile Design (Desktop) */}
@@ -1465,7 +1538,11 @@ export default function App() {
                   <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-aura-black">Smile<br />Design</h3>
                   <p className="font-sans text-sm text-aura-black/60 leading-relaxed">Architectural Aesthetics. Using digital smile design and minimally invasive porcelain, we create a bespoke frame for your face.</p>
                 </div>
-
+                <TreatmentCardLink
+                  href="/treatments/smile-design-malabar-hill-mumbai"
+                  label="Read the Smile Design and Porcelain Veneers treatment guide"
+                  surface="light"
+                />
               </motion.div>
 
               {/* Card 3: Implants (Desktop) */}
@@ -1487,7 +1564,11 @@ export default function App() {
                   <h3 className="font-sans font-bold text-4xl leading-none tracking-tight mb-4 text-white">Implants</h3>
                   <p className="font-sans text-sm text-white/50 leading-relaxed">Permanent Foundations. High-precision implant protocols restoring the strength and natural feel of your teeth.</p>
                 </div>
-
+                <TreatmentCardLink
+                  href="/treatments/dental-implants-malabar-hill-mumbai"
+                  label="Read the Dental Implants treatment guide"
+                  surface="dark"
+                />
               </motion.div>
 
               {/* Card 4: Orthodontics (Desktop) */}
@@ -1507,6 +1588,11 @@ export default function App() {
                 <div className="relative w-1/3 h-full rounded-[2rem] overflow-hidden">
                   <Image src="/clear_aligners.png" fill className="object-cover" alt="Orthodontic treatment and invisible clear aligners at Smile Clinique" />
                 </div>
+                <TreatmentCardLink
+                  href="/treatments/clear-aligners-orthodontics-malabar-hill-mumbai"
+                  label="Read the Clear Aligners and Orthodontics treatment guide"
+                  surface="light"
+                />
               </motion.div>
             </div>
           )}
@@ -1880,6 +1966,16 @@ export default function App() {
             ))}
           </motion.div>
         </div>
+
+        <div className="relative z-20 mt-16 flex justify-center px-6">
+          <Link
+            href="/treatments"
+            className="group inline-flex items-center gap-3 rounded-full border border-aura-black/10 bg-white px-7 py-4 font-display text-[9px] uppercase tracking-[0.28em] text-aura-black shadow-aura-soft transition-all duration-500 hover:border-aura-accent hover:bg-aura-accent hover:text-white"
+          >
+            Explore the treatment library
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
       </section>
 
 
@@ -2154,6 +2250,31 @@ export default function App() {
               <span className="relative z-10 font-display text-xs md:text-sm uppercase tracking-[0.4em] font-medium group-hover:scale-110 group-hover:text-aura-white transition-all duration-700">Book Now</span>
             </motion.a>
           </Magnetic>
+        </div>
+
+        <div className="relative z-10 mt-32 w-full max-w-[1400px] mx-auto">
+          <div className="flex flex-col items-center justify-between gap-6 rounded-[2rem] border border-white/25 bg-white/10 px-6 py-6 backdrop-blur-sm md:flex-row md:px-10">
+            <span className="font-display text-[9px] uppercase tracking-[0.36em] text-white/75">
+              Explore treatment guides
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              {[
+                { label: 'Full Mouth Rehabilitation', href: '/treatments/full-mouth-rehabilitation-malabar-hill-mumbai' },
+                { label: 'Smile Design', href: '/treatments/smile-design-malabar-hill-mumbai' },
+                { label: 'Dental Implants', href: '/treatments/dental-implants-malabar-hill-mumbai' },
+                { label: 'Orthodontics', href: '/treatments/clear-aligners-orthodontics-malabar-hill-mumbai' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group inline-flex items-center gap-2 font-sans text-[11px] font-medium text-white/85 transition-colors hover:text-white"
+                >
+                  {item.label}
+                  <ArrowUpRight className="w-3 h-3 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="relative z-10 mt-40 pt-12 border-t border-aura-white/20 flex flex-col md:flex-row justify-between items-center gap-10 font-display text-[10px] uppercase tracking-[0.3em] text-aura-white/70 max-w-[1400px] mx-auto">

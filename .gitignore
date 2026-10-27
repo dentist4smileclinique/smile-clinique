@@ -10,3 +10,7 @@ coverage/
 !.env.example
 *.local
 .vercel
+
+# TypeScript build artifacts
+*.tsbuildinfo
+.next_server_log.txt
