@@ -136,6 +136,9 @@ export function SiteFooter() {
             <a href={CLINIC.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
               Google Maps
             </a>
+            <Link href="/image-credits/" className="hover:text-white">
+              Image credits
+            </Link>
           </div>
         </div>
         <p className="mt-5 max-w-4xl font-sans text-[10px] leading-relaxed text-white/45">

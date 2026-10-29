@@ -19,6 +19,20 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
     ).values(),
   );
 
+  const imageLicenseUrl = `${SITE_URL}/image-credits/`;
+  const imageCopyright = `© ${CLINIC.name}`;
+  const imageCreator = {
+    "@type": "Person",
+    name: CLINIC.doctor,
+    jobTitle: "BDS, Founder",
+    worksFor: { "@id": `${SITE_URL}/#dentist` },
+  };
+  const logoCreator = {
+    "@type": "Organization",
+    name: CLINIC.name,
+    url: SITE_URL,
+  };
+
   const address = {
     "@type": "PostalAddress",
     streetAddress: CLINIC.street,
@@ -122,6 +136,12 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
           logo: {
             "@type": "ImageObject",
             url: `${SITE_URL}/smilecliniqueicon.png`,
+            creator: logoCreator,
+            creditText: CLINIC.shortName,
+            copyrightNotice: imageCopyright,
+            copyrightHolder: { "@id": `${SITE_URL}/#dentist` },
+            license: imageLicenseUrl,
+            acquireLicensePage: imageLicenseUrl,
           },
         },
         citation: treatment.evidence.sources.map((source) => source.href),
@@ -134,6 +154,12 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
           "@type": "ImageObject",
           url: `${SITE_URL}${treatment.heroImage.src}`,
           caption: treatment.heroImage.alt,
+          creator: imageCreator,
+          creditText: CLINIC.shortName,
+          copyrightNotice: imageCopyright,
+          copyrightHolder: { "@id": `${SITE_URL}/#dentist` },
+          license: imageLicenseUrl,
+          acquireLicensePage: imageLicenseUrl,
         },
         associatedMedia: mediaImages.map((image) => ({
           "@type": "ImageObject",
@@ -142,9 +168,13 @@ export function TreatmentSchema({ treatment }: { treatment: Treatment }) {
           caption: image.caption || image.alt,
           description: image.alt,
           creditText: CLINIC.shortName,
+          creator: imageCreator,
           copyrightNotice:
             treatment.evidenceCase?.consent ??
-            "Clinical imagery courtesy of Smile Clinique.",
+            imageCopyright,
+          copyrightHolder: { "@id": `${SITE_URL}/#dentist` },
+          license: imageLicenseUrl,
+          acquireLicensePage: imageLicenseUrl,
         })),
         breadcrumb: { "@id": breadcrumbId },
         significantLink: [

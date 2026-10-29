@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.95,
     },
+    {
+      url: `${baseUrl}/image-credits/`,
+      lastModified: new Date('2026-10-28'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
     ...treatmentEntries,
   ];
 }
